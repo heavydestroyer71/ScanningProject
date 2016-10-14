@@ -246,8 +246,9 @@ namespace FileManagementSystem
             var update = "update [user] set is_login=0 where [user_id]=" + FrmLogin._user_id + "";
             db.ExecuteStoreCommand(update);
             FrmLogin frmLogin = new FrmLogin();
-            frmLogin.Show();
             this.Hide();
+            frmLogin.ShowDialog();
+            
         }
 
         private void cbRegion_DropDown(object sender, EventArgs e)
