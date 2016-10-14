@@ -15,6 +15,7 @@ namespace FileManagementSystem
         [STAThread]
         static void Main()
         {
+            //prevent creating instance of a new exe
             Process[] result = Process.GetProcessesByName("FileManagementSystem");
             if (result.Length > 1)
             {
