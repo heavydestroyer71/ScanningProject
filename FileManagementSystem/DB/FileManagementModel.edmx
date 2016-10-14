@@ -1,0 +1,560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FileManagementDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="FileManagementDbModelStoreContainer">
+          <EntitySet Name="batch_info" EntityType="FileManagementDbModel.Store.batch_info" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="box_info" EntityType="FileManagementDbModel.Store.box_info" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="challan_info" EntityType="FileManagementDbModel.Store.challan_info" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="file_management_info" EntityType="FileManagementDbModel.Store.file_management_info" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="login" EntityType="FileManagementDbModel.Store.login" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="packet_info" EntityType="FileManagementDbModel.Store.packet_info" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="user" EntityType="FileManagementDbModel.Store.user" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="user_type" EntityType="FileManagementDbModel.Store.user_type" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_batch_info_box_info" Association="FileManagementDbModel.Store.FK_batch_info_box_info">
+            <End Role="box_info" EntitySet="box_info" />
+            <End Role="batch_info" EntitySet="batch_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_box_info_challan_info" Association="FileManagementDbModel.Store.FK_box_info_challan_info">
+            <End Role="challan_info" EntitySet="challan_info" />
+            <End Role="box_info" EntitySet="box_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_file_management_info_batch_info" Association="FileManagementDbModel.Store.FK_file_management_info_batch_info">
+            <End Role="batch_info" EntitySet="batch_info" />
+            <End Role="file_management_info" EntitySet="file_management_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_login_user" Association="FileManagementDbModel.Store.FK_login_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="login" EntitySet="login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_user" Association="FileManagementDbModel.Store.FK_user_user">
+            <End Role="user_type" EntitySet="user_type" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="batch_info">
+          <Key>
+            <PropertyRef Name="batch_info_id" />
+          </Key>
+          <Property Name="batch_info_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="box_info_id" Type="int" />
+          <Property Name="batch_name" Type="varchar" MaxLength="50" />
+          <Property Name="batch_limit" Type="int" />
+          <Property Name="is_complete" Type="int" />
+          <Property Name="file_qty" Type="int" />
+          <Property Name="assign_user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="box_info">
+          <Key>
+            <PropertyRef Name="box_info_id" />
+          </Key>
+          <Property Name="box_info_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="challan_id" Type="int" />
+          <Property Name="box_name" Type="varchar" MaxLength="50" />
+          <Property Name="box_limit" Type="nchar" MaxLength="10" />
+          <Property Name="is_complete" Type="int" />
+          <Property Name="region" Type="varchar" MaxLength="50" />
+          <Property Name="assign_user_id" Type="int" />
+          <Property Name="file_qty" Type="int" />
+        </EntityType>
+        <EntityType Name="challan_info">
+          <Key>
+            <PropertyRef Name="challan_id" />
+          </Key>
+          <Property Name="challan_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="challan_name" Type="varchar" MaxLength="50" />
+          <Property Name="challan_create_date" Type="datetime" />
+          <Property Name="is_completed" Type="int" />
+        </EntityType>
+        <EntityType Name="file_management_info">
+          <Key>
+            <PropertyRef Name="file_info_id" />
+          </Key>
+          <Property Name="file_info_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="challan_id" Type="int" />
+          <Property Name="box_info_id" Type="int" />
+          <Property Name="batch_info_id" Type="int" />
+          <Property Name="image_name" Type="varchar" MaxLength="50" />
+          <Property Name="image_create_date" Type="datetime" />
+          <Property Name="isqc_checked" Type="int" />
+          <Property Name="qcchecked_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="login_no" />
+          </Key>
+          <Property Name="login_no" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="login_intime" Type="datetime" />
+          <Property Name="login_outtime" Type="datetime" />
+          <Property Name="login_duration" Type="varchar" MaxLength="50" />
+          <Property Name="is_login" Type="int" />
+        </EntityType>
+        <EntityType Name="packet_info">
+          <Key>
+            <PropertyRef Name="packect_info_id" />
+          </Key>
+          <Property Name="packect_info_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Challan_name" Type="varchar" MaxLength="50" />
+          <Property Name="challan_box_no" Type="varchar" MaxLength="10" />
+          <Property Name="dealer_name" Type="varchar" MaxLength="50" />
+          <Property Name="packet_name" Type="varchar" MaxLength="100" />
+          <Property Name="packet_qty" Type="int" />
+          <Property Name="region" Type="varchar" MaxLength="20" />
+          <Property Name="packet_receive_date" Type="date" />
+          <Property Name="packet_date" Type="date" />
+          <Property Name="is_complete" Type="int" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_type_id" Type="int" />
+          <Property Name="user_name" Type="varchar" MaxLength="50" />
+          <Property Name="login_id" Type="varchar" MaxLength="25" />
+          <Property Name="login_password" Type="varchar" MaxLength="50" />
+          <Property Name="create_date" Type="date" />
+          <Property Name="is_login" Type="int" />
+        </EntityType>
+        <EntityType Name="user_type">
+          <Key>
+            <PropertyRef Name="user_type_id" />
+          </Key>
+          <Property Name="user_type_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_type_name" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_batch_info_box_info">
+          <End Role="box_info" Type="FileManagementDbModel.Store.box_info" Multiplicity="0..1" />
+          <End Role="batch_info" Type="FileManagementDbModel.Store.batch_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="box_info">
+              <PropertyRef Name="box_info_id" />
+            </Principal>
+            <Dependent Role="batch_info">
+              <PropertyRef Name="box_info_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_box_info_challan_info">
+          <End Role="challan_info" Type="FileManagementDbModel.Store.challan_info" Multiplicity="0..1" />
+          <End Role="box_info" Type="FileManagementDbModel.Store.box_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="challan_info">
+              <PropertyRef Name="challan_id" />
+            </Principal>
+            <Dependent Role="box_info">
+              <PropertyRef Name="challan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_file_management_info_batch_info">
+          <End Role="batch_info" Type="FileManagementDbModel.Store.batch_info" Multiplicity="0..1" />
+          <End Role="file_management_info" Type="FileManagementDbModel.Store.file_management_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="batch_info">
+              <PropertyRef Name="batch_info_id" />
+            </Principal>
+            <Dependent Role="file_management_info">
+              <PropertyRef Name="batch_info_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_login_user">
+          <End Role="user" Type="FileManagementDbModel.Store.user" Multiplicity="1" />
+          <End Role="login" Type="FileManagementDbModel.Store.login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="login">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_user">
+          <End Role="user_type" Type="FileManagementDbModel.Store.user_type" Multiplicity="0..1" />
+          <End Role="user" Type="FileManagementDbModel.Store.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_type">
+              <PropertyRef Name="user_type_id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'FileManagementDb.dbo.packet_upload' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="packet_upload">
+        <Property Name="Date" Type="datetime" />
+        <Property Name="Recall Date" Type="datetime" />
+        <Property Name="Challan No" Type="nvarchar" MaxLength="255" />
+        <Property Name="ZONE" Type="nvarchar" MaxLength="255" />
+        <Property Name="Dealer Name" Type="nvarchar" MaxLength="255" />
+        <Property Name="Challan Box No" Type="float" />
+        <Property Name="Batch No" Type="float" />
+        <Property Name="Qnty" Type="float" />
+      </EntityType>-->
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FileManagementDbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="FileManagementDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="batch_info" EntityType="FileManagementDbModel.batch_info" />
+          <EntitySet Name="box_info" EntityType="FileManagementDbModel.box_info" />
+          <EntitySet Name="challan_info" EntityType="FileManagementDbModel.challan_info" />
+          <EntitySet Name="file_management_info" EntityType="FileManagementDbModel.file_management_info" />
+          <EntitySet Name="logins" EntityType="FileManagementDbModel.login" />
+          <EntitySet Name="packet_info" EntityType="FileManagementDbModel.packet_info" />
+          <EntitySet Name="users" EntityType="FileManagementDbModel.user" />
+          <EntitySet Name="user_type" EntityType="FileManagementDbModel.user_type" />
+          <AssociationSet Name="FK_batch_info_box_info" Association="FileManagementDbModel.FK_batch_info_box_info">
+            <End Role="box_info" EntitySet="box_info" />
+            <End Role="batch_info" EntitySet="batch_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_file_management_info_batch_info" Association="FileManagementDbModel.FK_file_management_info_batch_info">
+            <End Role="batch_info" EntitySet="batch_info" />
+            <End Role="file_management_info" EntitySet="file_management_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_box_info_challan_info" Association="FileManagementDbModel.FK_box_info_challan_info">
+            <End Role="challan_info" EntitySet="challan_info" />
+            <End Role="box_info" EntitySet="box_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_login_user" Association="FileManagementDbModel.FK_login_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="login" EntitySet="logins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_user" Association="FileManagementDbModel.FK_user_user">
+            <End Role="user_type" EntitySet="user_type" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="batch_info">
+          <Key>
+            <PropertyRef Name="batch_info_id" />
+          </Key>
+          <Property Type="Int32" Name="batch_info_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="box_info_id" />
+          <Property Type="String" Name="batch_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="batch_limit" />
+          <Property Type="Int32" Name="is_complete" />
+          <Property Type="Int32" Name="file_qty" />
+          <Property Type="Int32" Name="assign_user_id" />
+          <NavigationProperty Name="box_info" Relationship="FileManagementDbModel.FK_batch_info_box_info" FromRole="batch_info" ToRole="box_info" />
+          <NavigationProperty Name="file_management_info" Relationship="FileManagementDbModel.FK_file_management_info_batch_info" FromRole="batch_info" ToRole="file_management_info" />
+        </EntityType>
+        <EntityType Name="box_info">
+          <Key>
+            <PropertyRef Name="box_info_id" />
+          </Key>
+          <Property Type="Int32" Name="box_info_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="challan_id" />
+          <Property Type="String" Name="box_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="box_limit" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="is_complete" />
+          <Property Type="String" Name="region" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="assign_user_id" />
+          <Property Type="Int32" Name="file_qty" />
+          <NavigationProperty Name="batch_info" Relationship="FileManagementDbModel.FK_batch_info_box_info" FromRole="box_info" ToRole="batch_info" />
+          <NavigationProperty Name="challan_info" Relationship="FileManagementDbModel.FK_box_info_challan_info" FromRole="box_info" ToRole="challan_info" />
+        </EntityType>
+        <EntityType Name="challan_info">
+          <Key>
+            <PropertyRef Name="challan_id" />
+          </Key>
+          <Property Type="Int32" Name="challan_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="challan_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="challan_create_date" />
+          <Property Type="Int32" Name="is_completed" />
+          <NavigationProperty Name="box_info" Relationship="FileManagementDbModel.FK_box_info_challan_info" FromRole="challan_info" ToRole="box_info" />
+        </EntityType>
+        <EntityType Name="file_management_info">
+          <Key>
+            <PropertyRef Name="file_info_id" />
+          </Key>
+          <Property Type="Int32" Name="file_info_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="user_id" />
+          <Property Type="Int32" Name="challan_id" />
+          <Property Type="Int32" Name="box_info_id" />
+          <Property Type="Int32" Name="batch_info_id" />
+          <Property Type="String" Name="image_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="image_create_date" />
+          <Property Type="Int32" Name="isqc_checked" />
+          <Property Type="DateTime" Name="qcchecked_date" />
+          <NavigationProperty Name="batch_info" Relationship="FileManagementDbModel.FK_file_management_info_batch_info" FromRole="file_management_info" ToRole="batch_info" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="login_no" />
+          </Key>
+          <Property Type="Int32" Name="login_no" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="DateTime" Name="login_intime" />
+          <Property Type="DateTime" Name="login_outtime" />
+          <Property Type="String" Name="login_duration" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="is_login" />
+          <NavigationProperty Name="user" Relationship="FileManagementDbModel.FK_login_user" FromRole="login" ToRole="user" />
+        </EntityType>
+        <EntityType Name="packet_info">
+          <Key>
+            <PropertyRef Name="packect_info_id" />
+          </Key>
+          <Property Type="Int32" Name="packect_info_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Challan_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="challan_box_no" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="dealer_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="packet_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="packet_qty" />
+          <Property Type="String" Name="region" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="packet_receive_date" />
+          <Property Type="DateTime" Name="packet_date" />
+          <Property Type="Int32" Name="is_complete" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Type="Int32" Name="user_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="user_type_id" />
+          <Property Type="String" Name="user_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="login_id" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="login_password" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="create_date" />
+          <Property Type="Int32" Name="is_login" />
+          <NavigationProperty Name="logins" Relationship="FileManagementDbModel.FK_login_user" FromRole="user" ToRole="login" />
+          <NavigationProperty Name="user_type" Relationship="FileManagementDbModel.FK_user_user" FromRole="user" ToRole="user_type" />
+        </EntityType>
+        <EntityType Name="user_type">
+          <Key>
+            <PropertyRef Name="user_type_id" />
+          </Key>
+          <Property Type="Int32" Name="user_type_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="user_type_name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="users" Relationship="FileManagementDbModel.FK_user_user" FromRole="user_type" ToRole="user" />
+        </EntityType>
+        <Association Name="FK_batch_info_box_info">
+          <End Type="FileManagementDbModel.box_info" Role="box_info" Multiplicity="0..1" />
+          <End Type="FileManagementDbModel.batch_info" Role="batch_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="box_info">
+              <PropertyRef Name="box_info_id" />
+            </Principal>
+            <Dependent Role="batch_info">
+              <PropertyRef Name="box_info_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_file_management_info_batch_info">
+          <End Type="FileManagementDbModel.batch_info" Role="batch_info" Multiplicity="0..1" />
+          <End Type="FileManagementDbModel.file_management_info" Role="file_management_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="batch_info">
+              <PropertyRef Name="batch_info_id" />
+            </Principal>
+            <Dependent Role="file_management_info">
+              <PropertyRef Name="batch_info_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_box_info_challan_info">
+          <End Type="FileManagementDbModel.challan_info" Role="challan_info" Multiplicity="0..1" />
+          <End Type="FileManagementDbModel.box_info" Role="box_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="challan_info">
+              <PropertyRef Name="challan_id" />
+            </Principal>
+            <Dependent Role="box_info">
+              <PropertyRef Name="challan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_login_user">
+          <End Type="FileManagementDbModel.user" Role="user" Multiplicity="1" />
+          <End Type="FileManagementDbModel.login" Role="login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="login">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_user">
+          <End Type="FileManagementDbModel.user_type" Role="user_type" Multiplicity="0..1" />
+          <End Type="FileManagementDbModel.user" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_type">
+              <PropertyRef Name="user_type_id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FileManagementDbModelStoreContainer" CdmEntityContainer="FileManagementDbEntities">
+          <EntitySetMapping Name="batch_info">
+            <EntityTypeMapping TypeName="FileManagementDbModel.batch_info">
+              <MappingFragment StoreEntitySet="batch_info">
+                <ScalarProperty Name="assign_user_id" ColumnName="assign_user_id" />
+                <ScalarProperty Name="file_qty" ColumnName="file_qty" />
+                <ScalarProperty Name="is_complete" ColumnName="is_complete" />
+                <ScalarProperty Name="batch_limit" ColumnName="batch_limit" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="box_info_id" ColumnName="box_info_id" />
+                <ScalarProperty Name="batch_info_id" ColumnName="batch_info_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="box_info">
+            <EntityTypeMapping TypeName="FileManagementDbModel.box_info">
+              <MappingFragment StoreEntitySet="box_info">
+                <ScalarProperty Name="file_qty" ColumnName="file_qty" />
+                <ScalarProperty Name="assign_user_id" ColumnName="assign_user_id" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="is_complete" ColumnName="is_complete" />
+                <ScalarProperty Name="box_limit" ColumnName="box_limit" />
+                <ScalarProperty Name="box_name" ColumnName="box_name" />
+                <ScalarProperty Name="challan_id" ColumnName="challan_id" />
+                <ScalarProperty Name="box_info_id" ColumnName="box_info_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="challan_info">
+            <EntityTypeMapping TypeName="FileManagementDbModel.challan_info">
+              <MappingFragment StoreEntitySet="challan_info">
+                <ScalarProperty Name="is_completed" ColumnName="is_completed" />
+                <ScalarProperty Name="challan_create_date" ColumnName="challan_create_date" />
+                <ScalarProperty Name="challan_name" ColumnName="challan_name" />
+                <ScalarProperty Name="challan_id" ColumnName="challan_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="file_management_info">
+            <EntityTypeMapping TypeName="FileManagementDbModel.file_management_info">
+              <MappingFragment StoreEntitySet="file_management_info">
+                <ScalarProperty Name="qcchecked_date" ColumnName="qcchecked_date" />
+                <ScalarProperty Name="isqc_checked" ColumnName="isqc_checked" />
+                <ScalarProperty Name="image_create_date" ColumnName="image_create_date" />
+                <ScalarProperty Name="image_name" ColumnName="image_name" />
+                <ScalarProperty Name="batch_info_id" ColumnName="batch_info_id" />
+                <ScalarProperty Name="box_info_id" ColumnName="box_info_id" />
+                <ScalarProperty Name="challan_id" ColumnName="challan_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="file_info_id" ColumnName="file_info_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="logins">
+            <EntityTypeMapping TypeName="FileManagementDbModel.login">
+              <MappingFragment StoreEntitySet="login">
+                <ScalarProperty Name="is_login" ColumnName="is_login" />
+                <ScalarProperty Name="login_duration" ColumnName="login_duration" />
+                <ScalarProperty Name="login_outtime" ColumnName="login_outtime" />
+                <ScalarProperty Name="login_intime" ColumnName="login_intime" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="login_no" ColumnName="login_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="packet_info">
+            <EntityTypeMapping TypeName="FileManagementDbModel.packet_info">
+              <MappingFragment StoreEntitySet="packet_info">
+                <ScalarProperty Name="is_complete" ColumnName="is_complete" />
+                <ScalarProperty Name="packet_date" ColumnName="packet_date" />
+                <ScalarProperty Name="packet_receive_date" ColumnName="packet_receive_date" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="packet_qty" ColumnName="packet_qty" />
+                <ScalarProperty Name="packet_name" ColumnName="packet_name" />
+                <ScalarProperty Name="dealer_name" ColumnName="dealer_name" />
+                <ScalarProperty Name="challan_box_no" ColumnName="challan_box_no" />
+                <ScalarProperty Name="Challan_name" ColumnName="Challan_name" />
+                <ScalarProperty Name="packect_info_id" ColumnName="packect_info_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="FileManagementDbModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="is_login" ColumnName="is_login" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="login_password" ColumnName="login_password" />
+                <ScalarProperty Name="login_id" ColumnName="login_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_type">
+            <EntityTypeMapping TypeName="FileManagementDbModel.user_type">
+              <MappingFragment StoreEntitySet="user_type">
+                <ScalarProperty Name="user_type_name" ColumnName="user_type_name" />
+                <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="FileManagementModel">
+        <EntityTypeShape EntityType="FileManagementDbModel.batch_info" Width="1.5" PointX="5.25" PointY="5.125" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="FileManagementDbModel.box_info" Width="1.5" PointX="3" PointY="5" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="FileManagementDbModel.challan_info" Width="1.5" PointX="0.75" PointY="5.5" Height="1.9802864583333353" />
+        <EntityTypeShape EntityType="FileManagementDbModel.file_management_info" Width="1.5" PointX="7.5" PointY="5" Height="2.9417936197916745" />
+        <EntityTypeShape EntityType="FileManagementDbModel.login" Width="1.5" PointX="5.25" PointY="1.125" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="FileManagementDbModel.packet_info" Width="1.5" PointX="7.75" PointY="0.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="FileManagementDbModel.user" Width="1.5" PointX="3" PointY="1" Height="2.749492187499996" />
+        <EntityTypeShape EntityType="FileManagementDbModel.user_type" Width="1.5" PointX="0.75" PointY="1.5" Height="1.5956835937500031" />
+        <AssociationConnector Association="FileManagementDbModel.FK_batch_info_box_info" >
+          <ConnectorPoint PointX="4.5" PointY="6.49974609375" />
+          <ConnectorPoint PointX="5.25" PointY="6.49974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="FileManagementDbModel.FK_file_management_info_batch_info" >
+          <ConnectorPoint PointX="6.75" PointY="6.49974609375" />
+          <ConnectorPoint PointX="7.5" PointY="6.49974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="FileManagementDbModel.FK_box_info_challan_info" >
+          <ConnectorPoint PointX="2.25" PointY="6.4901432291666676" />
+          <ConnectorPoint PointX="3" PointY="6.4901432291666676" />
+        </AssociationConnector>
+        <AssociationConnector Association="FileManagementDbModel.FK_login_user" >
+          <ConnectorPoint PointX="4.5" PointY="2.3074446614583337" />
+          <ConnectorPoint PointX="5.25" PointY="2.3074446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="FileManagementDbModel.FK_user_user" >
+          <ConnectorPoint PointX="2.25" PointY="2.2978417968750016" />
+          <ConnectorPoint PointX="3" PointY="2.2978417968750016" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
