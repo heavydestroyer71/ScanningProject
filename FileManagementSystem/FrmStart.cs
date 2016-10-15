@@ -94,7 +94,7 @@ namespace FileManagementSystem
                 _box_name = result1.box_name;
                 if (result1 != null)
                 {
-                    var query2 = "select * from batch_info where box_info_id=" + result1.box_info_id + " and is_complete=0";
+                    var query2 = "select * from batch_info where box_info_id=" + result1.box_info_id + " and is_complete=0 and is_working=0";
                     batch_info result2 = db.ExecuteStoreQuery<batch_info>(query2).FirstOrDefault();
                     _batch_name = result2.batch_name;
                     //update box_info
@@ -113,6 +113,8 @@ namespace FileManagementSystem
                     string _dynamicPath = Path.Combine(cbChallan.SelectedValue.ToString(), FrmLogin._login_name, lblBox.Text, lblBatch.Text);
                     _final_path = Path.Combine(_root_path, _dynamicPath + "\\");
                     createFolder(_final_path);
+                    var isworking = "update batch_info set is_working=1 where batch_info_id="+result2.batch_info_id+"";
+                    db.ExecuteStoreCommand(isworking);
                     SendImageToRemote();
 
 
@@ -246,9 +248,7 @@ namespace FileManagementSystem
             var update = "update [user] set is_login=0 where [user_id]=" + FrmLogin._user_id + "";
             db.ExecuteStoreCommand(update);
             FrmLogin frmLogin = new FrmLogin();
-            this.Hide();
-            frmLogin.ShowDialog();
-            
+            frmLogin.Show();
         }
 
         private void cbRegion_DropDown(object sender, EventArgs e)

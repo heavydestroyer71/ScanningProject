@@ -45,7 +45,6 @@ namespace FileCopyManagementSystem
                             FrmSupervisor frmPacket = new FrmSupervisor();
                             frmPacket.Show();
                         }
-                        this.Hide();
                     }
                     else
                     {
