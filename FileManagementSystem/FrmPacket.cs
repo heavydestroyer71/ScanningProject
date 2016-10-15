@@ -14,7 +14,7 @@ namespace FileManagementSystem
 {
     public partial class FrmPacket : Form
     {
-        FileManagementDbEntities db = new FileManagementDbEntities();
+        private FileManagementDbEntities db = new FileManagementDbEntities();
 
         public FrmPacket()
         {
@@ -164,6 +164,7 @@ namespace FileManagementSystem
                                 db.ExecuteStoreCommand(query);
                             }
                         }
+
                     }
                 }
                 catch (Exception ex)
@@ -171,7 +172,30 @@ namespace FileManagementSystem
 
                     MessageBox.Show(ex.Message);
                 }
-                load_gridview();
+
+                using (FileManagementDbEntities db = new FileManagementDbEntities())
+                {
+                    string querystr = "Select Challan_Name,Region from packet_info"
+                                                        + " where is_complete = 0"
+                                                        + " Group by Challan_Name,Region";
+                    List<challan_info_vm> challan_list = db.ExecuteStoreQuery<challan_info_vm>(querystr).ToList();
+
+                    if (challan_list.Count > 0)
+                    {
+                        foreach (var list in challan_list)
+                        {
+                            querystr = "INSERT INTO challan_info (challan_name,challan_create_date,is_completed,region)"
+                            + "values ('" + list.challan_name + "',GETDATE(),0,'" + list.region + "')";
+                            db.ExecuteStoreCommand(querystr);
+                        }
+                    }
+                    foreach (var list in challan_list)
+                    {
+                        querystr = "update packet_info set is_complete = 1 where challan_name = '"+list.challan_name+"' and region = '"+list.region+"'";
+                        db.ExecuteStoreCommand(querystr);
+                    }
+                    load_gridview(); 
+                }
             }
             else
             {

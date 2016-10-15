@@ -26,6 +26,13 @@ namespace FileManagementSystem
     {
 
     }
+
+    public class challan_info_vm
+    {
+        public int challan_id { get; set; }
+        public string challan_name { get; set; }
+        public string region { get; set; }
+    }
     public class utility
     {
         public static string convertStringtoDate(string dateString)

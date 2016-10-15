@@ -25,15 +25,33 @@ namespace FileManagementSystem
 
         private void btnProcess_Click(object sender, EventArgs e)
         {
-            var process = "exec prcDistributePackage "+cbChallan.SelectedValue+",'"+cbChallan.Text+"','" + cbRegion.SelectedValue + "'," + FrmLogin._user_id + "";
-            db.ExecuteStoreCommand(process);
-            MessageBox.Show("Box & Batch created successfully!");
+            try
+            {
+                string query = "Select * from challan_info where challan_id = " + cbChallan.SelectedValue + "";
+                challan_info_vm data = db.ExecuteStoreQuery<challan_info_vm>(query).FirstOrDefault();
+                box_info box = db.box_info.Where(s => s.challan_id == data.challan_id).FirstOrDefault();
+                if (box == null)
+                {
+                    db.prcDistributePackage(data.challan_id, data.challan_name, data.region, FrmLogin._user_id);
+                    MessageBox.Show("Box & Batch created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                }
+                else
+                {
+                    MessageBox.Show("Box already exists!","Box Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void load_challan()
         {
-            var query = "select * from challan_info where is_completed=0";
-            List<challan_info> data = db.ExecuteStoreQuery<challan_info>(query).ToList();
+            List<cbo_load_Challan_Result> data = new List<cbo_load_Challan_Result>();
+            data = db.cbo_load_Challan().ToList();
             cbChallan.DataSource = data;
             cbChallan.DisplayMember = "challan_name";
             cbChallan.ValueMember = "challan_id";

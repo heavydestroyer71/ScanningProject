@@ -21,9 +21,9 @@ using System.Xml.Serialization;
 
 [assembly: EdmRelationshipAttribute("FileManagementDbModel", "FK_batch_info_box_info", "box_info", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FileManagementSystem.DB.box_info), "batch_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FileManagementSystem.DB.batch_info), true)]
 [assembly: EdmRelationshipAttribute("FileManagementDbModel", "FK_file_management_info_batch_info", "batch_info", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FileManagementSystem.DB.batch_info), "file_management_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FileManagementSystem.DB.file_management_info), true)]
-[assembly: EdmRelationshipAttribute("FileManagementDbModel", "FK_box_info_challan_info", "challan_info", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FileManagementSystem.DB.challan_info), "box_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FileManagementSystem.DB.box_info), true)]
 [assembly: EdmRelationshipAttribute("FileManagementDbModel", "FK_login_user", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FileManagementSystem.DB.user), "login", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FileManagementSystem.DB.login), true)]
 [assembly: EdmRelationshipAttribute("FileManagementDbModel", "FK_user_user", "user_type", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FileManagementSystem.DB.user_type), "user", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FileManagementSystem.DB.user), true)]
+[assembly: EdmRelationshipAttribute("FileManagementDbModel", "FK_box_info_challan_info", "challan_info", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FileManagementSystem.DB.challan_info), "box_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FileManagementSystem.DB.box_info), true)]
 
 #endregion
 
@@ -110,22 +110,6 @@ namespace FileManagementSystem.DB
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<challan_info> challan_info
-        {
-            get
-            {
-                if ((_challan_info == null))
-                {
-                    _challan_info = base.CreateObjectSet<challan_info>("challan_info");
-                }
-                return _challan_info;
-            }
-        }
-        private ObjectSet<challan_info> _challan_info;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<file_management_info> file_management_info
         {
             get
@@ -202,6 +186,22 @@ namespace FileManagementSystem.DB
             }
         }
         private ObjectSet<user_type> _user_type;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<challan_info> challan_info
+        {
+            get
+            {
+                if ((_challan_info == null))
+                {
+                    _challan_info = base.CreateObjectSet<challan_info>("challan_info");
+                }
+                return _challan_info;
+            }
+        }
+        private ObjectSet<challan_info> _challan_info;
 
         #endregion
 
@@ -221,14 +221,6 @@ namespace FileManagementSystem.DB
         public void AddTobox_info(box_info box_info)
         {
             base.AddObject("box_info", box_info);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the challan_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTochallan_info(challan_info challan_info)
-        {
-            base.AddObject("challan_info", challan_info);
         }
     
         /// <summary>
@@ -269,6 +261,78 @@ namespace FileManagementSystem.DB
         public void AddTouser_type(user_type user_type)
         {
             base.AddObject("user_type", user_type);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the challan_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTochallan_info(challan_info challan_info)
+        {
+            base.AddObject("challan_info", challan_info);
+        }
+
+        #endregion
+
+        #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectResult<cbo_load_Challan_Result> cbo_load_Challan()
+        {
+            return base.ExecuteFunction<cbo_load_Challan_Result>("cbo_load_Challan");
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="challan_id">No Metadata Documentation available.</param>
+        /// <param name="challan_Name">No Metadata Documentation available.</param>
+        /// <param name="region">No Metadata Documentation available.</param>
+        /// <param name="assign_user_id">No Metadata Documentation available.</param>
+        public int prcDistributePackage(Nullable<global::System.Int32> challan_id, global::System.String challan_Name, global::System.String region, Nullable<global::System.Int32> assign_user_id)
+        {
+            ObjectParameter challan_idParameter;
+            if (challan_id.HasValue)
+            {
+                challan_idParameter = new ObjectParameter("Challan_id", challan_id);
+            }
+            else
+            {
+                challan_idParameter = new ObjectParameter("Challan_id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter challan_NameParameter;
+            if (challan_Name != null)
+            {
+                challan_NameParameter = new ObjectParameter("Challan_Name", challan_Name);
+            }
+            else
+            {
+                challan_NameParameter = new ObjectParameter("Challan_Name", typeof(global::System.String));
+            }
+    
+            ObjectParameter regionParameter;
+            if (region != null)
+            {
+                regionParameter = new ObjectParameter("region", region);
+            }
+            else
+            {
+                regionParameter = new ObjectParameter("region", typeof(global::System.String));
+            }
+    
+            ObjectParameter assign_user_idParameter;
+            if (assign_user_id.HasValue)
+            {
+                assign_user_idParameter = new ObjectParameter("assign_user_id", assign_user_id);
+            }
+            else
+            {
+                assign_user_idParameter = new ObjectParameter("assign_user_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("prcDistributePackage", challan_idParameter, challan_NameParameter, regionParameter, assign_user_idParameter);
         }
 
         #endregion
@@ -474,6 +538,30 @@ namespace FileManagementSystem.DB
         private Nullable<global::System.Int32> _assign_user_id;
         partial void Onassign_user_idChanging(Nullable<global::System.Int32> value);
         partial void Onassign_user_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> is_working
+        {
+            get
+            {
+                return _is_working;
+            }
+            set
+            {
+                Onis_workingChanging(value);
+                ReportPropertyChanging("is_working");
+                _is_working = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_working");
+                Onis_workingChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _is_working;
+        partial void Onis_workingChanging(Nullable<global::System.Int32> value);
+        partial void Onis_workingChanged();
 
         #endregion
 
@@ -956,6 +1044,30 @@ namespace FileManagementSystem.DB
         private Nullable<global::System.Int32> _is_completed;
         partial void Onis_completedChanging(Nullable<global::System.Int32> value);
         partial void Onis_completedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String region
+        {
+            get
+            {
+                return _region;
+            }
+            set
+            {
+                OnregionChanging(value);
+                ReportPropertyChanging("region");
+                _region = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("region");
+                OnregionChanged();
+            }
+        }
+        private global::System.String _region;
+        partial void OnregionChanging(global::System.String value);
+        partial void OnregionChanged();
 
         #endregion
 
@@ -2140,6 +2252,87 @@ namespace FileManagementSystem.DB
                 }
             }
         }
+
+        #endregion
+
+    }
+
+    #endregion
+
+    #region ComplexTypes
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="FileManagementDbModel", Name="cbo_load_Challan_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class cbo_load_Challan_Result : ComplexObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new cbo_load_Challan_Result object.
+        /// </summary>
+        /// <param name="challan_id">Initial value of the Challan_id property.</param>
+        public static cbo_load_Challan_Result Createcbo_load_Challan_Result(global::System.Int32 challan_id)
+        {
+            cbo_load_Challan_Result cbo_load_Challan_Result = new cbo_load_Challan_Result();
+            cbo_load_Challan_Result.Challan_id = challan_id;
+            return cbo_load_Challan_Result;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Challan_id
+        {
+            get
+            {
+                return _Challan_id;
+            }
+            set
+            {
+                OnChallan_idChanging(value);
+                ReportPropertyChanging("Challan_id");
+                _Challan_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Challan_id");
+                OnChallan_idChanged();
+            }
+        }
+        private global::System.Int32 _Challan_id;
+        partial void OnChallan_idChanging(global::System.Int32 value);
+        partial void OnChallan_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String challan_name
+        {
+            get
+            {
+                return _challan_name;
+            }
+            set
+            {
+                Onchallan_nameChanging(value);
+                ReportPropertyChanging("challan_name");
+                _challan_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("challan_name");
+                Onchallan_nameChanged();
+            }
+        }
+        private global::System.String _challan_name;
+        partial void Onchallan_nameChanging(global::System.String value);
+        partial void Onchallan_nameChanged();
 
         #endregion
 
