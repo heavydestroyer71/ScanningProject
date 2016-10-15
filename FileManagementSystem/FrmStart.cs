@@ -96,7 +96,10 @@ namespace FileManagementSystem
                 {
                     var query2 = "select * from batch_info where box_info_id=" + result1.box_info_id + " and is_complete=0 and is_working=0";
                     batch_info result2 = db.ExecuteStoreQuery<batch_info>(query2).FirstOrDefault();
+                    if(result2!=null)
+                    {
                     _batch_name = result2.batch_name;
+                    }
                     //update box_info
                     if (result2 == null)
                     {
