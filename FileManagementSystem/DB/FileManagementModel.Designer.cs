@@ -334,6 +334,25 @@ namespace FileManagementSystem.DB
     
             return base.ExecuteFunction("prcDistributePackage", challan_idParameter, challan_NameParameter, regionParameter, assign_user_idParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="assign_user_id">No Metadata Documentation available.</param>
+        public ObjectResult<ASSIGN_BATCH_TO_USER_Result> ASSIGN_BATCH_TO_USER(Nullable<global::System.Int32> assign_user_id)
+        {
+            ObjectParameter assign_user_idParameter;
+            if (assign_user_id.HasValue)
+            {
+                assign_user_idParameter = new ObjectParameter("assign_user_id", assign_user_id);
+            }
+            else
+            {
+                assign_user_idParameter = new ObjectParameter("assign_user_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<ASSIGN_BATCH_TO_USER_Result>("ASSIGN_BATCH_TO_USER", assign_user_idParameter);
+        }
 
         #endregion
 
@@ -562,6 +581,54 @@ namespace FileManagementSystem.DB
         private Nullable<global::System.Int32> _is_working;
         partial void Onis_workingChanging(Nullable<global::System.Int32> value);
         partial void Onis_workingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> file_scanned
+        {
+            get
+            {
+                return _file_scanned;
+            }
+            set
+            {
+                Onfile_scannedChanging(value);
+                ReportPropertyChanging("file_scanned");
+                _file_scanned = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("file_scanned");
+                Onfile_scannedChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _file_scanned;
+        partial void Onfile_scannedChanging(Nullable<global::System.Int32> value);
+        partial void Onfile_scannedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> file_counter
+        {
+            get
+            {
+                return _file_counter;
+            }
+            set
+            {
+                Onfile_counterChanging(value);
+                ReportPropertyChanging("file_counter");
+                _file_counter = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("file_counter");
+                Onfile_counterChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _file_counter;
+        partial void Onfile_counterChanging(Nullable<global::System.Int32> value);
+        partial void Onfile_counterChanged();
 
         #endregion
 
@@ -851,6 +918,54 @@ namespace FileManagementSystem.DB
         private Nullable<global::System.Int32> _file_qty;
         partial void Onfile_qtyChanging(Nullable<global::System.Int32> value);
         partial void Onfile_qtyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> working_user_id
+        {
+            get
+            {
+                return _working_user_id;
+            }
+            set
+            {
+                Onworking_user_idChanging(value);
+                ReportPropertyChanging("working_user_id");
+                _working_user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("working_user_id");
+                Onworking_user_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _working_user_id;
+        partial void Onworking_user_idChanging(Nullable<global::System.Int32> value);
+        partial void Onworking_user_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String challan_box_no
+        {
+            get
+            {
+                return _challan_box_no;
+            }
+            set
+            {
+                Onchallan_box_noChanging(value);
+                ReportPropertyChanging("challan_box_no");
+                _challan_box_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("challan_box_no");
+                Onchallan_box_noChanged();
+            }
+        }
+        private global::System.String _challan_box_no;
+        partial void Onchallan_box_noChanging(global::System.String value);
+        partial void Onchallan_box_noChanged();
 
         #endregion
 
@@ -2260,6 +2375,253 @@ namespace FileManagementSystem.DB
     #endregion
 
     #region ComplexTypes
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="FileManagementDbModel", Name="ASSIGN_BATCH_TO_USER_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class ASSIGN_BATCH_TO_USER_Result : ComplexObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ASSIGN_BATCH_TO_USER_Result object.
+        /// </summary>
+        /// <param name="exist">Initial value of the exist property.</param>
+        /// <param name="batch_info_id">Initial value of the batch_info_id property.</param>
+        public static ASSIGN_BATCH_TO_USER_Result CreateASSIGN_BATCH_TO_USER_Result(global::System.Int32 exist, global::System.Int32 batch_info_id)
+        {
+            ASSIGN_BATCH_TO_USER_Result aSSIGN_BATCH_TO_USER_Result = new ASSIGN_BATCH_TO_USER_Result();
+            aSSIGN_BATCH_TO_USER_Result.exist = exist;
+            aSSIGN_BATCH_TO_USER_Result.batch_info_id = batch_info_id;
+            return aSSIGN_BATCH_TO_USER_Result;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 exist
+        {
+            get
+            {
+                return _exist;
+            }
+            set
+            {
+                OnexistChanging(value);
+                ReportPropertyChanging("exist");
+                _exist = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("exist");
+                OnexistChanged();
+            }
+        }
+        private global::System.Int32 _exist;
+        partial void OnexistChanging(global::System.Int32 value);
+        partial void OnexistChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Box_info_id
+        {
+            get
+            {
+                return _Box_info_id;
+            }
+            set
+            {
+                OnBox_info_idChanging(value);
+                ReportPropertyChanging("Box_info_id");
+                _Box_info_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Box_info_id");
+                OnBox_info_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Box_info_id;
+        partial void OnBox_info_idChanging(Nullable<global::System.Int32> value);
+        partial void OnBox_info_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 batch_info_id
+        {
+            get
+            {
+                return _batch_info_id;
+            }
+            set
+            {
+                Onbatch_info_idChanging(value);
+                ReportPropertyChanging("batch_info_id");
+                _batch_info_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("batch_info_id");
+                Onbatch_info_idChanged();
+            }
+        }
+        private global::System.Int32 _batch_info_id;
+        partial void Onbatch_info_idChanging(global::System.Int32 value);
+        partial void Onbatch_info_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String batch_name
+        {
+            get
+            {
+                return _batch_name;
+            }
+            set
+            {
+                Onbatch_nameChanging(value);
+                ReportPropertyChanging("batch_name");
+                _batch_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("batch_name");
+                Onbatch_nameChanged();
+            }
+        }
+        private global::System.String _batch_name;
+        partial void Onbatch_nameChanging(global::System.String value);
+        partial void Onbatch_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String box_name
+        {
+            get
+            {
+                return _box_name;
+            }
+            set
+            {
+                Onbox_nameChanging(value);
+                ReportPropertyChanging("box_name");
+                _box_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("box_name");
+                Onbox_nameChanged();
+            }
+        }
+        private global::System.String _box_name;
+        partial void Onbox_nameChanging(global::System.String value);
+        partial void Onbox_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> is_complete
+        {
+            get
+            {
+                return _is_complete;
+            }
+            set
+            {
+                Onis_completeChanging(value);
+                ReportPropertyChanging("is_complete");
+                _is_complete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_complete");
+                Onis_completeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _is_complete;
+        partial void Onis_completeChanging(Nullable<global::System.Int32> value);
+        partial void Onis_completeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> file_scanned
+        {
+            get
+            {
+                return _file_scanned;
+            }
+            set
+            {
+                Onfile_scannedChanging(value);
+                ReportPropertyChanging("file_scanned");
+                _file_scanned = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("file_scanned");
+                Onfile_scannedChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _file_scanned;
+        partial void Onfile_scannedChanging(Nullable<global::System.Int32> value);
+        partial void Onfile_scannedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> file_qty
+        {
+            get
+            {
+                return _file_qty;
+            }
+            set
+            {
+                Onfile_qtyChanging(value);
+                ReportPropertyChanging("file_qty");
+                _file_qty = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("file_qty");
+                Onfile_qtyChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _file_qty;
+        partial void Onfile_qtyChanging(Nullable<global::System.Int32> value);
+        partial void Onfile_qtyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String challan_name
+        {
+            get
+            {
+                return _challan_name;
+            }
+            set
+            {
+                Onchallan_nameChanging(value);
+                ReportPropertyChanging("challan_name");
+                _challan_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("challan_name");
+                Onchallan_nameChanged();
+            }
+        }
+        private global::System.String _challan_name;
+        partial void Onchallan_nameChanging(global::System.String value);
+        partial void Onchallan_nameChanged();
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.

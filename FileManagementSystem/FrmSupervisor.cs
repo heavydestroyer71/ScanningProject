@@ -24,7 +24,9 @@ namespace FileManagementSystem
         {
             var update = "update [user] set is_login=0 where [user_id]=" + FrmLogin._user_id + "";
             db.ExecuteStoreCommand(update);
-            Application.Exit();
+            this.Hide();
+            FrmLogin login = new FrmLogin();
+            login.ShowDialog();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -35,7 +37,7 @@ namespace FileManagementSystem
         private void userEntryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmUser frmUser = new FrmUser();
-            frmUser.Show();
+            frmUser.ShowDialog();
         }
 
         private void packetEntryToolStripMenuItem_Click(object sender, EventArgs e)

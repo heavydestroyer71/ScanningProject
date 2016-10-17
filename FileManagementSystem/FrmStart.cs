@@ -18,7 +18,7 @@ namespace FileManagementSystem
 {
     public partial class FrmStart : Form
     {
-        public FileManagementDbEntities db = new FileManagementDbEntities();
+        private FileManagementDbEntities db = new FileManagementDbEntities();
         private bool _is_started = false;
         private bool _can_start = false;
         private static BackgroundWorker _backWorker = new BackgroundWorker();
@@ -251,7 +251,7 @@ namespace FileManagementSystem
             var update = "update [user] set is_login=0 where [user_id]=" + FrmLogin._user_id + "";
             db.ExecuteStoreCommand(update);
             FrmLogin frmLogin = new FrmLogin();
-            frmLogin.Show();
+            frmLogin.ShowDialog();
         }
 
         private void cbRegion_DropDown(object sender, EventArgs e)

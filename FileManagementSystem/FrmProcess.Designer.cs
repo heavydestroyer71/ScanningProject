@@ -117,6 +117,7 @@
             this.ClientSize = new System.Drawing.Size(758, 306);
             this.Controls.Add(this.pnlProcess);
             this.Name = "FrmProcess";
+            this.Load += new System.EventHandler(this.FrmProcess_Load);
             this.pnlProcess.ResumeLayout(false);
             this.pnlControl.ResumeLayout(false);
             this.ResumeLayout(false);

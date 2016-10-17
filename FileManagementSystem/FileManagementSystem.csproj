@@ -44,6 +44,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,6 +97,12 @@
     <Compile Include="FrmStart.Designer.cs">
       <DependentUpon>FrmStart.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmStartByRegan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStartByRegan.Designer.cs">
+      <DependentUpon>frmStartByRegan.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSupervisor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmStart.resx">
       <DependentUpon>FrmStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStartByRegan.resx">
+      <DependentUpon>frmStartByRegan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSupervisor.resx">
       <DependentUpon>FrmSupervisor.cs</DependentUpon>

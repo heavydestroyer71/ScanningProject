@@ -65,5 +65,10 @@ namespace FileManagementSystem
             cbRegion.DataSource = region;
             cbRegion.DisplayMember = "region";
         }
+
+        private void FrmProcess_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

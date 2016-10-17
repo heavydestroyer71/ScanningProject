@@ -24,6 +24,7 @@ namespace FileCopyManagementSystem
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
+            
             {
                 var login_info = db.users.Where(u => u.login_id == txtUserId.Text && u.login_password == txtPassword.Text).FirstOrDefault();
                 if (login_info.is_login != 1 || login_info.is_login != 0)
@@ -37,20 +38,24 @@ namespace FileCopyManagementSystem
                         db.ExecuteStoreCommand(uquery);
                         if (login_info.user_type_id==1)
                         {
-                            FrmStart frmStart = new FrmStart();
-                            frmStart.Show(); 
+                            this.Hide();
+                            //FrmStart frmStart = new FrmStart();
+                            frmStartByRegan frmStart = new frmStartByRegan();
+                            frmStart.ShowDialog();
+
                         }
                         if (login_info.user_type_id == 3)
                         {
+                            this.Hide();
                             FrmSupervisor frmPacket = new FrmSupervisor();
-                            frmPacket.Show();
+                            frmPacket.ShowDialog();
                         }
                     }
                     else
                     {
                         MessageBox.Show("Please provide correct login id & password");
                         FrmLogin frmLogin = new FrmLogin();
-                        frmLogin.Show();
+                        frmLogin.ShowDialog();
                     }
                 }
                 else
@@ -61,7 +66,6 @@ namespace FileCopyManagementSystem
             }
             catch (Exception)
             {
-                
                 MessageBox.Show("Please provide correct login id & password");
             }
         }
