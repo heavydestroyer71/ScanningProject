@@ -64,9 +64,12 @@ namespace FileCopyManagementSystem
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Please provide correct login id & password");
+                FrmLogin frm = new FrmLogin();
+                frm.ShowDialog();
+
             }
         }
 

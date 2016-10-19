@@ -32,6 +32,8 @@
             this.pnlStart = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.pnlControl = new System.Windows.Forms.Panel();
+            this.lblNotice = new System.Windows.Forms.Label();
+            this.btnStop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cbRegion = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,8 +49,6 @@
             this.lblGreeting = new System.Windows.Forms.Label();
             this.cbPacketInfo = new System.Windows.Forms.ComboBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnStop = new System.Windows.Forms.Button();
-            this.lblNotice = new System.Windows.Forms.Label();
             this.pnlStart.SuspendLayout();
             this.pnlControl.SuspendLayout();
             this.pnlBoxBatch.SuspendLayout();
@@ -95,6 +95,27 @@
             this.pnlControl.Name = "pnlControl";
             this.pnlControl.Size = new System.Drawing.Size(710, 100);
             this.pnlControl.TabIndex = 13;
+            // 
+            // lblNotice
+            // 
+            this.lblNotice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNotice.Location = new System.Drawing.Point(356, 62);
+            this.lblNotice.Name = "lblNotice";
+            this.lblNotice.Size = new System.Drawing.Size(148, 25);
+            this.lblNotice.TabIndex = 13;
+            this.lblNotice.Text = "label6";
+            this.lblNotice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNotice.Visible = false;
+            // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(202, 62);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(148, 25);
+            this.btnStop.TabIndex = 12;
+            this.btnStop.Text = "Stop Scanning";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // label1
             // 
@@ -251,27 +272,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnStop
-            // 
-            this.btnStop.Location = new System.Drawing.Point(202, 62);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(148, 25);
-            this.btnStop.TabIndex = 12;
-            this.btnStop.Text = "Stop Scanning";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // lblNotice
-            // 
-            this.lblNotice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblNotice.Location = new System.Drawing.Point(356, 62);
-            this.lblNotice.Name = "lblNotice";
-            this.lblNotice.Size = new System.Drawing.Size(148, 25);
-            this.lblNotice.TabIndex = 13;
-            this.lblNotice.Text = "label6";
-            this.lblNotice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNotice.Visible = false;
-            // 
             // FrmStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -280,7 +280,9 @@
             this.ControlBox = false;
             this.Controls.Add(this.pnlStart);
             this.Name = "FrmStart";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Scanning";
+            this.Load += new System.EventHandler(this.FrmStart_Load);
             this.pnlStart.ResumeLayout(false);
             this.pnlControl.ResumeLayout(false);
             this.pnlBoxBatch.ResumeLayout(false);

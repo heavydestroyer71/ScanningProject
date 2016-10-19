@@ -366,6 +366,11 @@ namespace FileManagementSystem
             btnStart.Enabled = true;
         }
 
+        private void FrmStart_Load(object sender, EventArgs e)
+        {
+
+        }
+
         //GetBoxBatch _box_batch = db.ExecuteStoreQuery<GetBoxBatch>("exec get_file_name '" + cbChallan.SelectedValue + "', '" + cbRegion.SelectedValue + "'").FirstOrDefault();
     }
 }

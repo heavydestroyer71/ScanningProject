@@ -32,9 +32,9 @@
             this.pnlControl = new System.Windows.Forms.Panel();
             this.btnProcess = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbRegion = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.cbChallan = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbRegion = new System.Windows.Forms.ComboBox();
             this.pnlProcess.SuspendLayout();
             this.pnlControl.SuspendLayout();
             this.SuspendLayout();
@@ -57,14 +57,15 @@
             this.pnlControl.Controls.Add(this.cbChallan);
             this.pnlControl.Location = new System.Drawing.Point(24, 103);
             this.pnlControl.Name = "pnlControl";
-            this.pnlControl.Size = new System.Drawing.Size(710, 100);
+            this.pnlControl.Size = new System.Drawing.Size(710, 66);
             this.pnlControl.TabIndex = 14;
             // 
             // btnProcess
             // 
-            this.btnProcess.Location = new System.Drawing.Point(419, 14);
+            this.btnProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProcess.Location = new System.Drawing.Point(540, 9);
             this.btnProcess.Name = "btnProcess";
-            this.btnProcess.Size = new System.Drawing.Size(148, 25);
+            this.btnProcess.Size = new System.Drawing.Size(161, 24);
             this.btnProcess.TabIndex = 12;
             this.btnProcess.Text = "&Create Box and Batch";
             this.btnProcess.UseVisualStyleBackColor = true;
@@ -74,21 +75,22 @@
             // 
             this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(48, 16);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 23);
+            this.label1.Size = new System.Drawing.Size(178, 24);
             this.label1.TabIndex = 10;
             this.label1.Text = "Select Challan and Region";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cbRegion
+            // cbChallan
             // 
-            this.cbRegion.FormattingEnabled = true;
-            this.cbRegion.Location = new System.Drawing.Point(544, 79);
-            this.cbRegion.Name = "cbRegion";
-            this.cbRegion.Size = new System.Drawing.Size(148, 21);
-            this.cbRegion.TabIndex = 3;
-            this.cbRegion.Visible = false;
+            this.cbChallan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbChallan.FormattingEnabled = true;
+            this.cbChallan.Location = new System.Drawing.Point(193, 9);
+            this.cbChallan.Name = "cbChallan";
+            this.cbChallan.Size = new System.Drawing.Size(341, 24);
+            this.cbChallan.TabIndex = 8;
             // 
             // label2
             // 
@@ -102,13 +104,14 @@
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label2.Visible = false;
             // 
-            // cbChallan
+            // cbRegion
             // 
-            this.cbChallan.FormattingEnabled = true;
-            this.cbChallan.Location = new System.Drawing.Point(202, 16);
-            this.cbChallan.Name = "cbChallan";
-            this.cbChallan.Size = new System.Drawing.Size(198, 21);
-            this.cbChallan.TabIndex = 8;
+            this.cbRegion.FormattingEnabled = true;
+            this.cbRegion.Location = new System.Drawing.Point(544, 79);
+            this.cbRegion.Name = "cbRegion";
+            this.cbRegion.Size = new System.Drawing.Size(148, 21);
+            this.cbRegion.TabIndex = 3;
+            this.cbRegion.Visible = false;
             // 
             // FrmProcess
             // 
@@ -117,6 +120,7 @@
             this.ClientSize = new System.Drawing.Size(758, 306);
             this.Controls.Add(this.pnlProcess);
             this.Name = "FrmProcess";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FrmProcess_Load);
             this.pnlProcess.ResumeLayout(false);
             this.pnlControl.ResumeLayout(false);

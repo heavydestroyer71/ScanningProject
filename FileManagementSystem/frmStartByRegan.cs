@@ -29,16 +29,6 @@ namespace FileManagementSystem
             //load_challan();
         }
 
-        private void load_challan()
-        {
-            List<cbo_load_Challan_Result> data = new List<cbo_load_Challan_Result>();
-            data = db.cbo_load_Challan().ToList();
-            cbChallan.DataSource = data;
-            cbChallan.DisplayMember = "challan_name";
-            cbChallan.ValueMember = "challan_id";
-
-        }
-
         private void LoadDefault()
         {
             lblGreeting.Text = FrmLogin._login_name;
@@ -51,7 +41,8 @@ namespace FileManagementSystem
         {
             var update = "update [user] set is_login=0 where [user_id]=" + FrmLogin._user_id + "";
             db.ExecuteStoreCommand(update);
-            this.Dispose();
+            updateLastWork();
+            this.Hide();
             FrmLogin frmLogin = new FrmLogin();
             frmLogin.ShowDialog();
 
@@ -59,6 +50,8 @@ namespace FileManagementSystem
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show(cbChallan.SelectedValue.ToString());
+            BoxBatchAssignToUser();
             if (lblBatchId.Text != "" && lblBoxId.Text != "")
             {
                 this.timer1.Enabled = true;
@@ -166,18 +159,29 @@ namespace FileManagementSystem
             }
         }
 
+        private void load_challan()
+        {
+            List<cbo_load_Challan_Result> data = new List<cbo_load_Challan_Result>();
+            data = db.cbo_load_Challan().ToList();
+            cbChallan.DataSource = data;
+            cbChallan.DisplayMember = "challan_name";
+            cbChallan.ValueMember = "challan_id";
+
+        }
+
         private void frmStartByRegan_Load(object sender, EventArgs e)
         {
             lblChallanName.Text = "";
-            BoxBatchAssignToUser();
+            //BoxBatchAssignToUser();
             pnlBoxBatch.Show();
+            load_challan();
             btnStop.Enabled = false;
         }
 
         private void BoxBatchAssignToUser()
         {
             ASSIGN_BATCH_TO_USER_Result info = new ASSIGN_BATCH_TO_USER_Result();
-            info = db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id).FirstOrDefault();
+            info = db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id,int.Parse(cbChallan.SelectedValue.ToString())).FirstOrDefault();
             if (info == null)
             {
                 MessageBox.Show("Something went wrong! Please contact your administrator.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -204,7 +208,7 @@ namespace FileManagementSystem
             }
             else if (info.exist == 1)
             {
-                ASSIGN_BATCH_TO_USER_Result result = db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id).FirstOrDefault();
+                ASSIGN_BATCH_TO_USER_Result result = db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString())).FirstOrDefault();
                 string message = "Box and batch assigned! Please start scanning";
                 MessageBox.Show(message);
 
@@ -225,21 +229,34 @@ namespace FileManagementSystem
 
         private void frmStartByRegan_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+            MessageBox.Show("Clossing");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
-                string query = "update batch_info set file_scanned = "+lblScannedCnt.Text+" where batch_info_id = "+lblBatchId.Text+"";
-                db.ExecuteStoreCommand(query);
+                updateLastWork();
                 //components.Dispose();
                 this.Hide();
                 FrmLogin login = new FrmLogin();
                 login.ShowDialog();
             }
             base.Dispose(disposing);
+        }
+
+        private void updateLastWork()
+        {
+            if (int.Parse(lblScannedCnt.Text) >0 && lblBatchId.Text != "" )
+            {
+                string query = "update batch_info set file_scanned = " + lblScannedCnt.Text + " where batch_info_id = " + lblBatchId.Text + "";
+                db.ExecuteStoreCommand(query); 
+            }
+        }
+
+        private void frmStartByRegan_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MessageBox.Show("Closed");
         }
     }
 }

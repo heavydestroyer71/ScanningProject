@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
 namespace FileManagementSystem.Properties
 {
 
@@ -25,6 +26,14 @@ namespace FileManagementSystem.Properties
             {
                 return defaultInstance;
             }
+        }
+
+        public static class GlobalData
+        {
+            public static String strConnectionUserName = "sa";
+            public static String strConnectionPassword = "1234";
+            public static String strConnectionServerName = ".";
+            public static String strConnectionDatabaseName = "FileManagementTestDB";
         }
     }
 }

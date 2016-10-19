@@ -309,6 +309,7 @@
             this.ClientSize = new System.Drawing.Size(810, 329);
             this.Controls.Add(this.pnlPacket);
             this.Name = "FrmPacket";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FrmPacket_Load);
             this.pnlPacket.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvPacketInfo)).EndInit();

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FileManagementSystem.DB;
 using FileCopyManagementSystem;
 using System.Data.OleDb;
+using System.Configuration;
 
 namespace FileManagementSystem
 {
@@ -175,25 +176,38 @@ namespace FileManagementSystem
 
                 using (FileManagementDbEntities db = new FileManagementDbEntities())
                 {
-                    string querystr = "Select Challan_Name,Region from packet_info"
+                    string querystr = "Select Challan_Name,Region,challan_box_no from packet_info"
                                                         + " where is_complete = 0"
-                                                        + " Group by Challan_Name,Region";
+                                                        + " Group by Challan_Name,Region,challan_box_no ";
                     List<challan_info_vm> challan_list = db.ExecuteStoreQuery<challan_info_vm>(querystr).ToList();
 
                     if (challan_list.Count > 0)
                     {
                         foreach (var list in challan_list)
                         {
-                            querystr = "INSERT INTO challan_info (challan_name,challan_create_date,is_completed,region)"
-                            + "values ('" + list.challan_name + "',GETDATE(),0,'" + list.region + "')";
+                            querystr = "INSERT INTO challan_info (challan_name,challan_create_date,is_completed,region,challan_box_no)"
+                            + "values ('" + list.challan_name + "',GETDATE(),0,'" + list.region + "','"+list.challan_box_no+"')";
                             db.ExecuteStoreCommand(querystr);
                         }
                     }
+
+                    querystr = "select ch.challan_id,pk.Challan_name, pk.Challan_box_no, pk.Region from packet_info pk"
+                                + " Inner join Challan_Info ch on pk.challan_name = ch.challan_name where is_complete = 0"
+                                + " group by ch.challan_id,pk.Challan_name, pk.Challan_box_no, pk.Region";
+                    List<challan_info_vm> challan = db.ExecuteStoreQuery<challan_info_vm>(querystr).ToList();
+                    foreach (var data in challan)
+                    {
+                        //querystr = "update packet_info set is_complete = 1 where challan_name = '" + list.challan_name + "' and region = '" + list.region + "'";
+                        db.prcDistributePackage(data.challan_id, data.challan_name, data.region, 0, data.challan_box_no);
+                    }
+
                     foreach (var list in challan_list)
                     {
-                        querystr = "update packet_info set is_complete = 1 where challan_name = '"+list.challan_name+"' and region = '"+list.region+"'";
+                        querystr = "update packet_info set is_complete = 1 where challan_name = '" + list.challan_name + "' and region = '" + list.region + "'";
                         db.ExecuteStoreCommand(querystr);
                     }
+
+                    MessageBox.Show("Uploaded!");
                     load_gridview(); 
                 }
             }

@@ -59,6 +59,7 @@
             this.Controls.Add(this.btnSupervisor);
             this.Controls.Add(this.btnScanner);
             this.Name = "FrmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.ResumeLayout(false);

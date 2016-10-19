@@ -32,7 +32,8 @@ namespace FileManagementSystem
                 box_info box = db.box_info.Where(s => s.challan_id == data.challan_id).FirstOrDefault();
                 if (box == null)
                 {
-                    db.prcDistributePackage(data.challan_id, data.challan_name, data.region, FrmLogin._user_id);
+                    //Change the null value
+                    db.prcDistributePackage(data.challan_id, data.challan_name, data.region, 0,data.challan_box_no);
                     MessageBox.Show("Box & Batch created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
                 }
                 else

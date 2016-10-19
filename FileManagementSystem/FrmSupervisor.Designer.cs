@@ -31,10 +31,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.userEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packetEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processBoxAndBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label6 = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
             this.lblGreeting = new System.Windows.Forms.Label();
-            this.processBoxAndBatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +63,13 @@
             this.packetEntryToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.packetEntryToolStripMenuItem.Text = "Packet Entry";
             this.packetEntryToolStripMenuItem.Click += new System.EventHandler(this.packetEntryToolStripMenuItem_Click);
+            // 
+            // processBoxAndBatchToolStripMenuItem
+            // 
+            this.processBoxAndBatchToolStripMenuItem.Name = "processBoxAndBatchToolStripMenuItem";
+            this.processBoxAndBatchToolStripMenuItem.Size = new System.Drawing.Size(137, 20);
+            this.processBoxAndBatchToolStripMenuItem.Text = "Process Box and Batch";
+            this.processBoxAndBatchToolStripMenuItem.Click += new System.EventHandler(this.processBoxAndBatchToolStripMenuItem_Click);
             // 
             // label6
             // 
@@ -99,13 +106,6 @@
             this.lblGreeting.Text = "label1";
             this.lblGreeting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // processBoxAndBatchToolStripMenuItem
-            // 
-            this.processBoxAndBatchToolStripMenuItem.Name = "processBoxAndBatchToolStripMenuItem";
-            this.processBoxAndBatchToolStripMenuItem.Size = new System.Drawing.Size(137, 20);
-            this.processBoxAndBatchToolStripMenuItem.Text = "Process Box and Batch";
-            this.processBoxAndBatchToolStripMenuItem.Click += new System.EventHandler(this.processBoxAndBatchToolStripMenuItem_Click);
-            // 
             // FrmSupervisor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,6 +118,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmSupervisor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

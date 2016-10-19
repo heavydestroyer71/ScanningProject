@@ -278,19 +278,12 @@ namespace FileManagementSystem.DB
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectResult<cbo_load_Challan_Result> cbo_load_Challan()
-        {
-            return base.ExecuteFunction<cbo_load_Challan_Result>("cbo_load_Challan");
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="challan_id">No Metadata Documentation available.</param>
         /// <param name="challan_Name">No Metadata Documentation available.</param>
         /// <param name="region">No Metadata Documentation available.</param>
         /// <param name="assign_user_id">No Metadata Documentation available.</param>
-        public int prcDistributePackage(Nullable<global::System.Int32> challan_id, global::System.String challan_Name, global::System.String region, Nullable<global::System.Int32> assign_user_id)
+        /// <param name="challan_box_no">No Metadata Documentation available.</param>
+        public int prcDistributePackage(Nullable<global::System.Int32> challan_id, global::System.String challan_Name, global::System.String region, Nullable<global::System.Int32> assign_user_id, global::System.String challan_box_no)
         {
             ObjectParameter challan_idParameter;
             if (challan_id.HasValue)
@@ -332,14 +325,33 @@ namespace FileManagementSystem.DB
                 assign_user_idParameter = new ObjectParameter("assign_user_id", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("prcDistributePackage", challan_idParameter, challan_NameParameter, regionParameter, assign_user_idParameter);
+            ObjectParameter challan_box_noParameter;
+            if (challan_box_no != null)
+            {
+                challan_box_noParameter = new ObjectParameter("challan_box_no", challan_box_no);
+            }
+            else
+            {
+                challan_box_noParameter = new ObjectParameter("challan_box_no", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("prcDistributePackage", challan_idParameter, challan_NameParameter, regionParameter, assign_user_idParameter, challan_box_noParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectResult<cbo_load_Challan_Result> cbo_load_Challan()
+        {
+            return base.ExecuteFunction<cbo_load_Challan_Result>("cbo_load_Challan");
         }
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         /// <param name="assign_user_id">No Metadata Documentation available.</param>
-        public ObjectResult<ASSIGN_BATCH_TO_USER_Result> ASSIGN_BATCH_TO_USER(Nullable<global::System.Int32> assign_user_id)
+        /// <param name="challan_id">No Metadata Documentation available.</param>
+        public ObjectResult<ASSIGN_BATCH_TO_USER_Result> ASSIGN_BATCH_TO_USER(Nullable<global::System.Int32> assign_user_id, Nullable<global::System.Int32> challan_id)
         {
             ObjectParameter assign_user_idParameter;
             if (assign_user_id.HasValue)
@@ -351,7 +363,17 @@ namespace FileManagementSystem.DB
                 assign_user_idParameter = new ObjectParameter("assign_user_id", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction<ASSIGN_BATCH_TO_USER_Result>("ASSIGN_BATCH_TO_USER", assign_user_idParameter);
+            ObjectParameter challan_idParameter;
+            if (challan_id.HasValue)
+            {
+                challan_idParameter = new ObjectParameter("challan_id", challan_id);
+            }
+            else
+            {
+                challan_idParameter = new ObjectParameter("challan_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<ASSIGN_BATCH_TO_USER_Result>("ASSIGN_BATCH_TO_USER", assign_user_idParameter, challan_idParameter);
         }
 
         #endregion
@@ -629,6 +651,30 @@ namespace FileManagementSystem.DB
         private Nullable<global::System.Int32> _file_counter;
         partial void Onfile_counterChanging(Nullable<global::System.Int32> value);
         partial void Onfile_counterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String challan_box_no
+        {
+            get
+            {
+                return _challan_box_no;
+            }
+            set
+            {
+                Onchallan_box_noChanging(value);
+                ReportPropertyChanging("challan_box_no");
+                _challan_box_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("challan_box_no");
+                Onchallan_box_noChanged();
+            }
+        }
+        private global::System.String _challan_box_no;
+        partial void Onchallan_box_noChanging(global::System.String value);
+        partial void Onchallan_box_noChanged();
 
         #endregion
 
@@ -1183,6 +1229,30 @@ namespace FileManagementSystem.DB
         private global::System.String _region;
         partial void OnregionChanging(global::System.String value);
         partial void OnregionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String challan_box_no
+        {
+            get
+            {
+                return _challan_box_no;
+            }
+            set
+            {
+                Onchallan_box_noChanging(value);
+                ReportPropertyChanging("challan_box_no");
+                _challan_box_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("challan_box_no");
+                Onchallan_box_noChanged();
+            }
+        }
+        private global::System.String _challan_box_no;
+        partial void Onchallan_box_noChanging(global::System.String value);
+        partial void Onchallan_box_noChanged();
 
         #endregion
 

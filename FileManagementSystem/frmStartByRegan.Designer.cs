@@ -84,22 +84,20 @@
             // 
             this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(31, 11);
+            this.label1.Location = new System.Drawing.Point(17, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(148, 23);
             this.label1.TabIndex = 19;
             this.label1.Text = "Select Challan and Region";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Visible = false;
             // 
             // cbChallan
             // 
             this.cbChallan.FormattingEnabled = true;
-            this.cbChallan.Location = new System.Drawing.Point(185, 13);
+            this.cbChallan.Location = new System.Drawing.Point(171, 12);
             this.cbChallan.Name = "cbChallan";
-            this.cbChallan.Size = new System.Drawing.Size(198, 21);
+            this.cbChallan.Size = new System.Drawing.Size(246, 21);
             this.cbChallan.TabIndex = 18;
-            this.cbChallan.Visible = false;
             // 
             // lblNotice
             // 
@@ -276,8 +274,10 @@
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.lblGreeting);
             this.Name = "frmStartByRegan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Start Scan";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmStartByRegan_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmStartByRegan_FormClosed);
             this.Load += new System.EventHandler(this.frmStartByRegan_Load);
             this.pnlBoxBatch.ResumeLayout(false);
             this.pnlBoxBatch.PerformLayout();
