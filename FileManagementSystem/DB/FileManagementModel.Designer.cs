@@ -1012,6 +1012,30 @@ namespace FileManagementSystem.DB
         private global::System.String _challan_box_no;
         partial void Onchallan_box_noChanging(global::System.String value);
         partial void Onchallan_box_noChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> is_working
+        {
+            get
+            {
+                return _is_working;
+            }
+            set
+            {
+                Onis_workingChanging(value);
+                ReportPropertyChanging("is_working");
+                _is_working = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_working");
+                Onis_workingChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _is_working;
+        partial void Onis_workingChanging(Nullable<global::System.Int32> value);
+        partial void Onis_workingChanged();
 
         #endregion
 
@@ -1253,6 +1277,54 @@ namespace FileManagementSystem.DB
         private global::System.String _challan_box_no;
         partial void Onchallan_box_noChanging(global::System.String value);
         partial void Onchallan_box_noChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> is_working
+        {
+            get
+            {
+                return _is_working;
+            }
+            set
+            {
+                Onis_workingChanging(value);
+                ReportPropertyChanging("is_working");
+                _is_working = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_working");
+                Onis_workingChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _is_working;
+        partial void Onis_workingChanging(Nullable<global::System.Int32> value);
+        partial void Onis_workingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> assign_user_id
+        {
+            get
+            {
+                return _assign_user_id;
+            }
+            set
+            {
+                Onassign_user_idChanging(value);
+                ReportPropertyChanging("assign_user_id");
+                _assign_user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("assign_user_id");
+                Onassign_user_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _assign_user_id;
+        partial void Onassign_user_idChanging(Nullable<global::System.Int32> value);
+        partial void Onassign_user_idChanged();
 
         #endregion
 

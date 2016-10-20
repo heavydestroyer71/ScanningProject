@@ -191,21 +191,20 @@ namespace FileManagementSystem
                         }
                     }
 
-                    querystr = "select ch.challan_id,pk.Challan_name, pk.Challan_box_no, pk.Region from packet_info pk"
-                                + " Inner join Challan_Info ch on pk.challan_name = ch.challan_name where is_complete = 0"
-                                + " group by ch.challan_id,pk.Challan_name, pk.Challan_box_no, pk.Region";
-                    List<challan_info_vm> challan = db.ExecuteStoreQuery<challan_info_vm>(querystr).ToList();
+
+                    List<challan_info> challan = db.challan_info.Where(s=>s.is_working == 0).ToList();
+
                     foreach (var data in challan)
                     {
                         //querystr = "update packet_info set is_complete = 1 where challan_name = '" + list.challan_name + "' and region = '" + list.region + "'";
                         db.prcDistributePackage(data.challan_id, data.challan_name, data.region, 0, data.challan_box_no);
                     }
 
-                    foreach (var list in challan_list)
-                    {
-                        querystr = "update packet_info set is_complete = 1 where challan_name = '" + list.challan_name + "' and region = '" + list.region + "'";
-                        db.ExecuteStoreCommand(querystr);
-                    }
+                    //foreach (var list in challan_list)
+                    //{
+                    //    querystr = "update packet_info set is_complete = 1 where challan_name = '" + list.challan_name + "' and region = '" + list.region + "'";
+                    //    db.ExecuteStoreCommand(querystr);
+                    //}
 
                     MessageBox.Show("Uploaded!");
                     load_gridview(); 
