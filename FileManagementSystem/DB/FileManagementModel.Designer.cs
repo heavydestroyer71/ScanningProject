@@ -351,7 +351,8 @@ namespace FileManagementSystem.DB
         /// </summary>
         /// <param name="assign_user_id">No Metadata Documentation available.</param>
         /// <param name="challan_id">No Metadata Documentation available.</param>
-        public ObjectResult<ASSIGN_BATCH_TO_USER_Result> ASSIGN_BATCH_TO_USER(Nullable<global::System.Int32> assign_user_id, Nullable<global::System.Int32> challan_id)
+        /// <param name="box_id">No Metadata Documentation available.</param>
+        public ObjectResult<ASSIGN_BATCH_TO_USER_Result> ASSIGN_BATCH_TO_USER(Nullable<global::System.Int32> assign_user_id, Nullable<global::System.Int32> challan_id, Nullable<global::System.Int32> box_id)
         {
             ObjectParameter assign_user_idParameter;
             if (assign_user_id.HasValue)
@@ -373,7 +374,96 @@ namespace FileManagementSystem.DB
                 challan_idParameter = new ObjectParameter("challan_id", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction<ASSIGN_BATCH_TO_USER_Result>("ASSIGN_BATCH_TO_USER", assign_user_idParameter, challan_idParameter);
+            ObjectParameter box_idParameter;
+            if (box_id.HasValue)
+            {
+                box_idParameter = new ObjectParameter("box_id", box_id);
+            }
+            else
+            {
+                box_idParameter = new ObjectParameter("box_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<ASSIGN_BATCH_TO_USER_Result>("ASSIGN_BATCH_TO_USER", assign_user_idParameter, challan_idParameter, box_idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="challan_id">No Metadata Documentation available.</param>
+        public ObjectResult<cbo_load_Box_Result> cbo_load_Box(Nullable<global::System.Int32> challan_id)
+        {
+            ObjectParameter challan_idParameter;
+            if (challan_id.HasValue)
+            {
+                challan_idParameter = new ObjectParameter("challan_id", challan_id);
+            }
+            else
+            {
+                challan_idParameter = new ObjectParameter("challan_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<cbo_load_Box_Result>("cbo_load_Box", challan_idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="assign_user_id">No Metadata Documentation available.</param>
+        /// <param name="challan_id">No Metadata Documentation available.</param>
+        /// <param name="box_id">No Metadata Documentation available.</param>
+        public ObjectResult<Existing_Box_Batch_check_Result> Existing_Box_Batch_check(Nullable<global::System.Int32> assign_user_id, Nullable<global::System.Int32> challan_id, Nullable<global::System.Int32> box_id)
+        {
+            ObjectParameter assign_user_idParameter;
+            if (assign_user_id.HasValue)
+            {
+                assign_user_idParameter = new ObjectParameter("assign_user_id", assign_user_id);
+            }
+            else
+            {
+                assign_user_idParameter = new ObjectParameter("assign_user_id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter challan_idParameter;
+            if (challan_id.HasValue)
+            {
+                challan_idParameter = new ObjectParameter("challan_id", challan_id);
+            }
+            else
+            {
+                challan_idParameter = new ObjectParameter("challan_id", typeof(global::System.Int32));
+            }
+    
+            ObjectParameter box_idParameter;
+            if (box_id.HasValue)
+            {
+                box_idParameter = new ObjectParameter("box_id", box_id);
+            }
+            else
+            {
+                box_idParameter = new ObjectParameter("box_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<Existing_Box_Batch_check_Result>("Existing_Box_Batch_check", assign_user_idParameter, challan_idParameter, box_idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="box_id">No Metadata Documentation available.</param>
+        public ObjectResult<Load_BatchList_By_Box_Result> Load_BatchList_By_Box(Nullable<global::System.Int32> box_id)
+        {
+            ObjectParameter box_idParameter;
+            if (box_id.HasValue)
+            {
+                box_idParameter = new ObjectParameter("box_id", box_id);
+            }
+            else
+            {
+                box_idParameter = new ObjectParameter("box_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<Load_BatchList_By_Box_Result>("Load_BatchList_By_Box", box_idParameter);
         }
 
         #endregion
@@ -2768,6 +2858,83 @@ namespace FileManagementSystem.DB
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="FileManagementDbModel", Name="cbo_load_Box_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class cbo_load_Box_Result : ComplexObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new cbo_load_Box_Result object.
+        /// </summary>
+        /// <param name="box_info_id">Initial value of the box_info_id property.</param>
+        public static cbo_load_Box_Result Createcbo_load_Box_Result(global::System.Int32 box_info_id)
+        {
+            cbo_load_Box_Result cbo_load_Box_Result = new cbo_load_Box_Result();
+            cbo_load_Box_Result.box_info_id = box_info_id;
+            return cbo_load_Box_Result;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 box_info_id
+        {
+            get
+            {
+                return _box_info_id;
+            }
+            set
+            {
+                Onbox_info_idChanging(value);
+                ReportPropertyChanging("box_info_id");
+                _box_info_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("box_info_id");
+                Onbox_info_idChanged();
+            }
+        }
+        private global::System.Int32 _box_info_id;
+        partial void Onbox_info_idChanging(global::System.Int32 value);
+        partial void Onbox_info_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String box_name
+        {
+            get
+            {
+                return _box_name;
+            }
+            set
+            {
+                Onbox_nameChanging(value);
+                ReportPropertyChanging("box_name");
+                _box_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("box_name");
+                Onbox_nameChanged();
+            }
+        }
+        private global::System.String _box_name;
+        partial void Onbox_nameChanging(global::System.String value);
+        partial void Onbox_nameChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmComplexTypeAttribute(NamespaceName="FileManagementDbModel", Name="cbo_load_Challan_Result")]
     [DataContractAttribute(IsReference=true)]
     [Serializable()]
@@ -2837,6 +3004,363 @@ namespace FileManagementSystem.DB
         private global::System.String _challan_name;
         partial void Onchallan_nameChanging(global::System.String value);
         partial void Onchallan_nameChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="FileManagementDbModel", Name="Existing_Box_Batch_check_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class Existing_Box_Batch_check_Result : ComplexObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Existing_Box_Batch_check_Result object.
+        /// </summary>
+        /// <param name="exist">Initial value of the exist property.</param>
+        /// <param name="batch_info_id">Initial value of the batch_info_id property.</param>
+        public static Existing_Box_Batch_check_Result CreateExisting_Box_Batch_check_Result(global::System.Int32 exist, global::System.Int32 batch_info_id)
+        {
+            Existing_Box_Batch_check_Result existing_Box_Batch_check_Result = new Existing_Box_Batch_check_Result();
+            existing_Box_Batch_check_Result.exist = exist;
+            existing_Box_Batch_check_Result.batch_info_id = batch_info_id;
+            return existing_Box_Batch_check_Result;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 exist
+        {
+            get
+            {
+                return _exist;
+            }
+            set
+            {
+                OnexistChanging(value);
+                ReportPropertyChanging("exist");
+                _exist = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("exist");
+                OnexistChanged();
+            }
+        }
+        private global::System.Int32 _exist;
+        partial void OnexistChanging(global::System.Int32 value);
+        partial void OnexistChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Box_info_id
+        {
+            get
+            {
+                return _Box_info_id;
+            }
+            set
+            {
+                OnBox_info_idChanging(value);
+                ReportPropertyChanging("Box_info_id");
+                _Box_info_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Box_info_id");
+                OnBox_info_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Box_info_id;
+        partial void OnBox_info_idChanging(Nullable<global::System.Int32> value);
+        partial void OnBox_info_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 batch_info_id
+        {
+            get
+            {
+                return _batch_info_id;
+            }
+            set
+            {
+                Onbatch_info_idChanging(value);
+                ReportPropertyChanging("batch_info_id");
+                _batch_info_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("batch_info_id");
+                Onbatch_info_idChanged();
+            }
+        }
+        private global::System.Int32 _batch_info_id;
+        partial void Onbatch_info_idChanging(global::System.Int32 value);
+        partial void Onbatch_info_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String batch_name
+        {
+            get
+            {
+                return _batch_name;
+            }
+            set
+            {
+                Onbatch_nameChanging(value);
+                ReportPropertyChanging("batch_name");
+                _batch_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("batch_name");
+                Onbatch_nameChanged();
+            }
+        }
+        private global::System.String _batch_name;
+        partial void Onbatch_nameChanging(global::System.String value);
+        partial void Onbatch_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String box_name
+        {
+            get
+            {
+                return _box_name;
+            }
+            set
+            {
+                Onbox_nameChanging(value);
+                ReportPropertyChanging("box_name");
+                _box_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("box_name");
+                Onbox_nameChanged();
+            }
+        }
+        private global::System.String _box_name;
+        partial void Onbox_nameChanging(global::System.String value);
+        partial void Onbox_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> is_complete
+        {
+            get
+            {
+                return _is_complete;
+            }
+            set
+            {
+                Onis_completeChanging(value);
+                ReportPropertyChanging("is_complete");
+                _is_complete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_complete");
+                Onis_completeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _is_complete;
+        partial void Onis_completeChanging(Nullable<global::System.Int32> value);
+        partial void Onis_completeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> file_scanned
+        {
+            get
+            {
+                return _file_scanned;
+            }
+            set
+            {
+                Onfile_scannedChanging(value);
+                ReportPropertyChanging("file_scanned");
+                _file_scanned = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("file_scanned");
+                Onfile_scannedChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _file_scanned;
+        partial void Onfile_scannedChanging(Nullable<global::System.Int32> value);
+        partial void Onfile_scannedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> file_qty
+        {
+            get
+            {
+                return _file_qty;
+            }
+            set
+            {
+                Onfile_qtyChanging(value);
+                ReportPropertyChanging("file_qty");
+                _file_qty = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("file_qty");
+                Onfile_qtyChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _file_qty;
+        partial void Onfile_qtyChanging(Nullable<global::System.Int32> value);
+        partial void Onfile_qtyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String challan_name
+        {
+            get
+            {
+                return _challan_name;
+            }
+            set
+            {
+                Onchallan_nameChanging(value);
+                ReportPropertyChanging("challan_name");
+                _challan_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("challan_name");
+                Onchallan_nameChanged();
+            }
+        }
+        private global::System.String _challan_name;
+        partial void Onchallan_nameChanging(global::System.String value);
+        partial void Onchallan_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String challan_box_no
+        {
+            get
+            {
+                return _challan_box_no;
+            }
+            set
+            {
+                Onchallan_box_noChanging(value);
+                ReportPropertyChanging("challan_box_no");
+                _challan_box_no = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("challan_box_no");
+                Onchallan_box_noChanged();
+            }
+        }
+        private global::System.String _challan_box_no;
+        partial void Onchallan_box_noChanging(global::System.String value);
+        partial void Onchallan_box_noChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="FileManagementDbModel", Name="Load_BatchList_By_Box_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class Load_BatchList_By_Box_Result : ComplexObject
+    {
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String box_name
+        {
+            get
+            {
+                return _box_name;
+            }
+            set
+            {
+                Onbox_nameChanging(value);
+                ReportPropertyChanging("box_name");
+                _box_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("box_name");
+                Onbox_nameChanged();
+            }
+        }
+        private global::System.String _box_name;
+        partial void Onbox_nameChanging(global::System.String value);
+        partial void Onbox_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String batch_name
+        {
+            get
+            {
+                return _batch_name;
+            }
+            set
+            {
+                Onbatch_nameChanging(value);
+                ReportPropertyChanging("batch_name");
+                _batch_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("batch_name");
+                Onbatch_nameChanged();
+            }
+        }
+        private global::System.String _batch_name;
+        partial void Onbatch_nameChanging(global::System.String value);
+        partial void Onbatch_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> file_qty
+        {
+            get
+            {
+                return _file_qty;
+            }
+            set
+            {
+                Onfile_qtyChanging(value);
+                ReportPropertyChanging("file_qty");
+                _file_qty = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("file_qty");
+                Onfile_qtyChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _file_qty;
+        partial void Onfile_qtyChanging(Nullable<global::System.Int32> value);
+        partial void Onfile_qtyChanged();
 
         #endregion
 

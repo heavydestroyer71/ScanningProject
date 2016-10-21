@@ -26,7 +26,7 @@ namespace FileManagementSystem
         {
             InitializeComponent();
             LoadDefault();
-            //load_challan();
+            load_challan();
         }
 
         private void LoadDefault()
@@ -51,7 +51,7 @@ namespace FileManagementSystem
         private void btnStart_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(cbChallan.SelectedValue.ToString());
-            BoxBatchAssignToUser();
+            //BoxBatchAssignToUser();
             if (lblBatchId.Text != "" && lblBoxId.Text != "")
             {
                 this.timer1.Enabled = true;
@@ -62,7 +62,8 @@ namespace FileManagementSystem
             }
             else
             {
-                MessageBox.Show("Box and batch is empty!");
+                MessageBox.Show("Please Select Box");
+                BoxBatchAssignToUser();
             }
         }
 
@@ -79,7 +80,7 @@ namespace FileManagementSystem
             string[] array = Directory.GetFiles(scan_path);
             if (array.Count() == 0 || array[0].Contains("Thumbs.db"))
             {
-                lblNotice.Text += "Waiting for Files";
+                lblNotice.Text = "Waiting for Files";
             }
             else
             {
@@ -163,40 +164,29 @@ namespace FileManagementSystem
         {
             List<cbo_load_Challan_Result> data = new List<cbo_load_Challan_Result>();
             data = db.cbo_load_Challan().ToList();
-            cbChallan.DataSource = data;
             cbChallan.DisplayMember = "challan_name";
             cbChallan.ValueMember = "challan_id";
-
+            cbChallan.DataSource = data;
         }
 
+        private void load_box(int challan_no)
+        {
+            List<cbo_load_Box_Result> data = new List<cbo_load_Box_Result>();
+            data = db.cbo_load_Box(challan_no).ToList();
+            cbBox.DataSource = data;
+            cbBox.DisplayMember = "box_name";
+            cbBox.ValueMember = "box_info_id";
+
+        }
         private void frmStartByRegan_Load(object sender, EventArgs e)
         {
-            lblChallanName.Text = "";
-            //BoxBatchAssignToUser();
-            pnlBoxBatch.Show();
-            load_challan();
-            btnStop.Enabled = false;
-        }
-
-        private void BoxBatchAssignToUser()
-        {
-            ASSIGN_BATCH_TO_USER_Result info = new ASSIGN_BATCH_TO_USER_Result();
-            info = db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id,int.Parse(cbChallan.SelectedValue.ToString())).FirstOrDefault();
-            if (info == null)
+            Existing_Box_Batch_check_Result info = new Existing_Box_Batch_check_Result();
+            info = db.Existing_Box_Batch_check(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString())).FirstOrDefault();
+            if (info != null)
             {
-                MessageBox.Show("Something went wrong! Please contact your administrator.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-
-            else if (info.exist == 0)
-            {
-                string message = "Last batch is not completed yet." + Environment.NewLine;
-                message += "Box :" + info.box_name.ToString() + Environment.NewLine;
-                message += "Batch :" + info.batch_name.ToString() + Environment.NewLine;
-                message += "File Scanned :" + info.file_scanned.ToString() + Environment.NewLine;
-                message += "Please complete the batch!";
-
-                MessageBox.Show(message, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                MessageBox.Show("You have incomplete batch");
+                cbChallan.Enabled = false;
+                cbBox.Enabled = false;
                 lblBox.Text = info.box_name;
                 lblBatch.Text = info.batch_name;
                 lblBoxId.Text = info.Box_info_id.ToString();
@@ -205,26 +195,81 @@ namespace FileManagementSystem
                 lblFileQty.Text = info.file_qty.ToString();
                 lblChallanName.Text = info.challan_name.ToString();
 
-            }
-            else if (info.exist == 1)
-            {
-                ASSIGN_BATCH_TO_USER_Result result = db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString())).FirstOrDefault();
-                string message = "Box and batch assigned! Please start scanning";
-                MessageBox.Show(message);
+                List<Load_BatchList_By_Box_Result> batch_list = new List<Load_BatchList_By_Box_Result>();
+                batch_list = db.Load_BatchList_By_Box(info.Box_info_id).ToList();
+                grdBatchList.DataSource = batch_list;
+                grdBatchList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
-                lblBox.Text = result.box_name;
-                lblBatch.Text = result.batch_name;
-                lblBoxId.Text = info.Box_info_id.ToString();
-                lblBatchId.Text = info.batch_info_id.ToString();
-                lblScannedCnt.Text = result.file_scanned.ToString();
-                lblFileQty.Text = info.file_qty.ToString();
-                lblChallanName.Text = info.challan_name.ToString();
 
+                var packet = db.packet_info.Where(s => s.Challan_name == info.challan_name).Select(c => new { c.Challan_name,c.challan_box_no,c.packet_qty}).ToList();
+                grdPacketList.DataSource = packet;
+                grdPacketList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
-            else
+            //BoxBatchAssignToUser();
+            pnlBoxBatch.Show();
+            //load_challan();
+            btnStop.Enabled = false;
+        }
+
+        private void BoxBatchAssignToUser()
+        {
+            //check box exist or not
+            Existing_Box_Batch_check_Result exist_box_info = new Existing_Box_Batch_check_Result();
+            exist_box_info = db.Existing_Box_Batch_check(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString())).FirstOrDefault();
+            if (exist_box_info == null)
             {
                 MessageBox.Show("Something went wrong! Please contact your administrator.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+
+            //if box not exist assign new box
+
+
+            //// else what?
+            //ASSIGN_BATCH_TO_USER_Result info = new ASSIGN_BATCH_TO_USER_Result();
+            //info = db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString())).FirstOrDefault();
+            //if (info == null)
+            //{
+            //    MessageBox.Show("Something went wrong! Please contact your administrator.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //}
+
+            //else if (info.exist == 0)
+            //{
+            //    string message = "Last batch is not completed yet." + Environment.NewLine;
+            //    message += "Box :" + info.box_name.ToString() + Environment.NewLine;
+            //    message += "Batch :" + info.batch_name.ToString() + Environment.NewLine;
+            //    message += "File Scanned :" + info.file_scanned.ToString() + Environment.NewLine;
+            //    message += "Please complete the batch!";
+
+            //    MessageBox.Show(message, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            //    lblBox.Text = info.box_name;
+            //    lblBatch.Text = info.batch_name;
+            //    lblBoxId.Text = info.Box_info_id.ToString();
+            //    lblBatchId.Text = info.batch_info_id.ToString();
+            //    lblScannedCnt.Text = info.file_scanned.ToString();
+            //    lblFileQty.Text = info.file_qty.ToString();
+            //    lblChallanName.Text = info.challan_name.ToString();
+
+            //}
+            //else if (info.exist == 1)
+            //{
+            //    //ASSIGN_BATCH_TO_USER_Result result = db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString())).FirstOrDefault();
+            //    string message = "Box and batch assigned! Please start scanning";
+            //    MessageBox.Show(message);
+
+            //    lblBox.Text = info.box_name;
+            //    lblBatch.Text = info.batch_name;
+            //    lblBoxId.Text = info.Box_info_id.ToString();
+            //    lblBatchId.Text = info.batch_info_id.ToString();
+            //    lblScannedCnt.Text = info.file_scanned.ToString();
+            //    lblFileQty.Text = info.file_qty.ToString();
+            //    lblChallanName.Text = info.challan_name.ToString();
+
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Something went wrong! Please contact your administrator.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //}
         }
 
         private void frmStartByRegan_FormClosing(object sender, FormClosingEventArgs e)
@@ -257,6 +302,15 @@ namespace FileManagementSystem
         private void frmStartByRegan_FormClosed(object sender, FormClosedEventArgs e)
         {
             MessageBox.Show("Closed");
+        }
+
+        private void cbChallan_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var val = cbChallan.SelectedValue;
+            if (val != null)
+            {
+                load_box(Convert.ToInt32(cbChallan.SelectedValue));
+            }
         }
     }
 }
