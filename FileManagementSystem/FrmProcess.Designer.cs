@@ -55,7 +55,7 @@
             this.pnlControl.Controls.Add(this.btnProcess);
             this.pnlControl.Controls.Add(this.label1);
             this.pnlControl.Controls.Add(this.cbChallan);
-            this.pnlControl.Location = new System.Drawing.Point(24, 103);
+            this.pnlControl.Location = new System.Drawing.Point(27, 38);
             this.pnlControl.Name = "pnlControl";
             this.pnlControl.Size = new System.Drawing.Size(710, 66);
             this.pnlControl.TabIndex = 14;
@@ -96,7 +96,7 @@
             // 
             this.label2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(390, 77);
+            this.label2.Location = new System.Drawing.Point(435, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(148, 23);
             this.label2.TabIndex = 11;
@@ -107,7 +107,7 @@
             // cbRegion
             // 
             this.cbRegion.FormattingEnabled = true;
-            this.cbRegion.Location = new System.Drawing.Point(544, 79);
+            this.cbRegion.Location = new System.Drawing.Point(589, 11);
             this.cbRegion.Name = "cbRegion";
             this.cbRegion.Size = new System.Drawing.Size(148, 21);
             this.cbRegion.TabIndex = 3;

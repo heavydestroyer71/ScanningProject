@@ -16,6 +16,7 @@ namespace FileCopyManagementSystem
         FileManagementDbEntities db = new FileManagementDbEntities();
         public static string _login_name;
         public static int _user_id;
+        public static int _user_type_id;
         public FrmLogin()
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace FileCopyManagementSystem
                     {
                         _login_name = login_info.login_id;
                         _user_id = login_info.user_id;
+                        _user_type_id = login_info.user_type_id;
                         insert_login_info(login_info.user_id);
                         var uquery = "update [user] set is_login=1 where [user_id]=" + _user_id + "";
                         db.ExecuteStoreCommand(uquery);

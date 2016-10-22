@@ -59,10 +59,18 @@ namespace FileManagementSystem
                 lblNotice.Text = "Service is running...";
                 btnStart.Enabled = false;
                 btnStop.Enabled = true;
+                //if (FrmLogin._user_type_id != 1)
+                //{
+                //    grdPacketList.Show();
+                //    label8.Show();
+                //}
+                grdPacketList.Show();
+                label8.Show();
+                grdBatchList.Show();
+                label7.Show();
             }
             else
             {
-                MessageBox.Show("Please Select Box");
                 BoxBatchAssignToUser();
             }
         }
@@ -85,7 +93,7 @@ namespace FileManagementSystem
             else
             {
                 lblNotice.Text = "Service is running...";
-                using (TransactionScope tran = new TransactionScope() )
+                using (TransactionScope tran = new TransactionScope())
                 {
                     try
                     {
@@ -122,8 +130,10 @@ namespace FileManagementSystem
                         string URL = ConfigurationManager.AppSettings["url_path"];
 
                         SendDataToService(bImage, un, cn, bn, batn, URL, file_name);
-                        File.Delete(array[0]);
+                        
                         lblScannedCnt.Text = (scannd + 1).ToString();
+                        updateLastWork();
+                        File.Delete(array[0]);
                         tran.Complete();
                     }
 
@@ -144,7 +154,7 @@ namespace FileManagementSystem
                     finally
                     {
                         timer1.Enabled = true;
-                    } 
+                    }
                 }
             }
         }
@@ -195,20 +205,55 @@ namespace FileManagementSystem
                 lblFileQty.Text = info.file_qty.ToString();
                 lblChallanName.Text = info.challan_name.ToString();
 
-                List<Load_BatchList_By_Box_Result> batch_list = new List<Load_BatchList_By_Box_Result>();
-                batch_list = db.Load_BatchList_By_Box(info.Box_info_id).ToList();
-                grdBatchList.DataSource = batch_list;
-                grdBatchList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-
-                var packet = db.packet_info.Where(s => s.Challan_name == info.challan_name).Select(c => new { c.Challan_name,c.challan_box_no,c.packet_qty}).ToList();
-                grdPacketList.DataSource = packet;
-                grdPacketList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                LoadPacketAndBatchGrid(info);
+            }
+            else
+            {
+                //db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString())).FirstOrDefault();
             }
             //BoxBatchAssignToUser();
             pnlBoxBatch.Show();
             //load_challan();
             btnStop.Enabled = false;
+            grdBatchList.Hide();
+            grdPacketList.Hide();
+            label8.Hide();
+            label7.Hide();
+        }
+
+        private void LoadPacketAndBatchGrid(Existing_Box_Batch_check_Result info)
+        {
+            //Existing_Box_Batch_check_Result info = new Existing_Box_Batch_check_Result();
+            //info = db.Existing_Box_Batch_check(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString())).FirstOrDefault();
+
+            List<Load_BatchList_By_Box_Result> batch_list = new List<Load_BatchList_By_Box_Result>();
+            batch_list = db.Load_BatchList_By_Box(info.Box_info_id).ToList();
+            grdBatchList.DataSource = batch_list;
+            grdBatchList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            grdBatchList.Show();
+
+            if (FrmLogin._user_type_id != 1)
+            {
+                var packet = db.packet_info.Where(s => s.Challan_name == info.challan_name).Select(c => new { c.Challan_name, c.challan_box_no, c.packet_qty }).ToList();
+                grdPacketList.DataSource = packet;
+                grdPacketList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                grdPacketList.Show();
+            }
+        }
+
+        private void LoadPacketAndBatchGrid()
+        {
+            Existing_Box_Batch_check_Result info = new Existing_Box_Batch_check_Result();
+            info = db.Existing_Box_Batch_check(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString())).FirstOrDefault();
+            List<Load_BatchList_By_Box_Result> batch_list = new List<Load_BatchList_By_Box_Result>();
+            batch_list = db.Load_BatchList_By_Box(info.Box_info_id).ToList();
+            grdBatchList.DataSource = batch_list;
+            grdBatchList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+
+            var packet = db.packet_info.Where(s => s.Challan_name == info.challan_name).Select(c => new { c.Challan_name, c.challan_box_no, c.packet_qty }).ToList();
+            grdPacketList.DataSource = packet;
+            grdPacketList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
         private void BoxBatchAssignToUser()
@@ -216,13 +261,26 @@ namespace FileManagementSystem
             //check box exist or not
             Existing_Box_Batch_check_Result exist_box_info = new Existing_Box_Batch_check_Result();
             exist_box_info = db.Existing_Box_Batch_check(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString())).FirstOrDefault();
-            if (exist_box_info == null)
+            if (exist_box_info != null)
             {
-                MessageBox.Show("Something went wrong! Please contact your administrator.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("You have incomplete batch", "Information", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                FillControlWithData(exist_box_info);
+
+                LoadPacketAndBatchGrid(exist_box_info);
+
             }
 
             //if box not exist assign new box
+            else
+            {
+                db.ASSIGN_BATCH_TO_USER(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString()));
 
+
+                exist_box_info = db.Existing_Box_Batch_check(FrmLogin._user_id, int.Parse(cbChallan.SelectedValue.ToString()), int.Parse(cbBox.SelectedValue.ToString())).FirstOrDefault();
+                FillControlWithData(exist_box_info);
+                MessageBox.Show("Box and Batch assigned successfully!");
+                LoadPacketAndBatchGrid(exist_box_info);
+            }
 
             //// else what?
             //ASSIGN_BATCH_TO_USER_Result info = new ASSIGN_BATCH_TO_USER_Result();
@@ -272,6 +330,19 @@ namespace FileManagementSystem
             //}
         }
 
+        private void FillControlWithData(Existing_Box_Batch_check_Result exist_box_info)
+        {
+            cbChallan.Enabled = false;
+            cbBox.Enabled = false;
+            lblBox.Text = exist_box_info.box_name;
+            lblBatch.Text = exist_box_info.batch_name;
+            lblBoxId.Text = exist_box_info.Box_info_id.ToString();
+            lblBatchId.Text = exist_box_info.batch_info_id.ToString();
+            lblScannedCnt.Text = exist_box_info.file_scanned.ToString();
+            lblFileQty.Text = exist_box_info.file_qty.ToString();
+            lblChallanName.Text = exist_box_info.challan_name.ToString();
+        }
+
         private void frmStartByRegan_FormClosing(object sender, FormClosingEventArgs e)
         {
             MessageBox.Show("Clossing");
@@ -292,10 +363,10 @@ namespace FileManagementSystem
 
         private void updateLastWork()
         {
-            if (int.Parse(lblScannedCnt.Text) >0 && lblBatchId.Text != "" )
+            if (int.Parse(lblScannedCnt.Text) > 0 && lblBatchId.Text != "")
             {
                 string query = "update batch_info set file_scanned = " + lblScannedCnt.Text + " where batch_info_id = " + lblBatchId.Text + "";
-                db.ExecuteStoreCommand(query); 
+                db.ExecuteStoreCommand(query);
             }
         }
 
