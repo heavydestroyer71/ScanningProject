@@ -71,5 +71,17 @@ namespace FileManagementSystem
         {
 
         }
+
+        private void btnAutoBoxBatch_Click(object sender, EventArgs e)
+        {
+            List<challan_info> challan = db.challan_info.Where(s => s.is_working != 1).ToList();
+
+            foreach (var data in challan)
+            {
+                //querystr = "update packet_info set is_complete = 1 where challan_name = '" + list.challan_name + "' and region = '" + list.region + "'";
+                db.prcDistributePackage(data.challan_id, data.challan_name, data.region, 0, data.challan_box_no);
+            }
+
+        }
     }
 }

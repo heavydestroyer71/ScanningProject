@@ -48,6 +48,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.grdPacketList = new System.Windows.Forms.DataGridView();
+            this.btnForceComplete = new System.Windows.Forms.Button();
+            this.lblChallanId = new System.Windows.Forms.Label();
             this.pnlBoxBatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdBatchList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdPacketList)).BeginInit();
@@ -116,16 +118,16 @@
             this.lblNotice.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblNotice.Location = new System.Drawing.Point(438, 94);
             this.lblNotice.Name = "lblNotice";
-            this.lblNotice.Size = new System.Drawing.Size(287, 25);
+            this.lblNotice.Size = new System.Drawing.Size(228, 25);
             this.lblNotice.TabIndex = 22;
             this.lblNotice.Text = "Service Stopped...";
             this.lblNotice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(284, 94);
+            this.btnStop.Location = new System.Drawing.Point(235, 94);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(148, 25);
+            this.btnStop.Size = new System.Drawing.Size(197, 25);
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "Stop Scanning";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -133,9 +135,9 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(130, 94);
+            this.btnStart.Location = new System.Drawing.Point(35, 94);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(148, 25);
+            this.btnStart.Size = new System.Drawing.Size(194, 25);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "&Start Scanning";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -158,9 +160,9 @@
             this.pnlBoxBatch.Controls.Add(this.label4);
             this.pnlBoxBatch.Controls.Add(this.lblBox);
             this.pnlBoxBatch.Controls.Add(this.label3);
-            this.pnlBoxBatch.Location = new System.Drawing.Point(17, 122);
+            this.pnlBoxBatch.Location = new System.Drawing.Point(35, 122);
             this.pnlBoxBatch.Name = "pnlBoxBatch";
-            this.pnlBoxBatch.Size = new System.Drawing.Size(710, 83);
+            this.pnlBoxBatch.Size = new System.Drawing.Size(710, 74);
             this.pnlBoxBatch.TabIndex = 23;
             this.pnlBoxBatch.Visible = false;
             // 
@@ -286,15 +288,15 @@
             this.cbBox.FormattingEnabled = true;
             this.cbBox.Location = new System.Drawing.Point(546, 67);
             this.cbBox.Name = "cbBox";
-            this.cbBox.Size = new System.Drawing.Size(179, 21);
+            this.cbBox.Size = new System.Drawing.Size(222, 21);
             this.cbBox.TabIndex = 26;
             // 
             // grdBatchList
             // 
             this.grdBatchList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdBatchList.Location = new System.Drawing.Point(378, 226);
+            this.grdBatchList.Location = new System.Drawing.Point(372, 226);
             this.grdBatchList.Name = "grdBatchList";
-            this.grdBatchList.Size = new System.Drawing.Size(344, 314);
+            this.grdBatchList.Size = new System.Drawing.Size(403, 314);
             this.grdBatchList.TabIndex = 27;
             // 
             // label7
@@ -324,17 +326,40 @@
             // grdPacketList
             // 
             this.grdPacketList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdPacketList.Location = new System.Drawing.Point(12, 226);
+            this.grdPacketList.Location = new System.Drawing.Point(16, 226);
             this.grdPacketList.Name = "grdPacketList";
             this.grdPacketList.Size = new System.Drawing.Size(350, 314);
             this.grdPacketList.TabIndex = 30;
+            // 
+            // btnForceComplete
+            // 
+            this.btnForceComplete.Location = new System.Drawing.Point(672, 94);
+            this.btnForceComplete.Name = "btnForceComplete";
+            this.btnForceComplete.Size = new System.Drawing.Size(96, 25);
+            this.btnForceComplete.TabIndex = 31;
+            this.btnForceComplete.Text = "Complete Box";
+            this.btnForceComplete.UseVisualStyleBackColor = true;
+            this.btnForceComplete.Visible = false;
+            this.btnForceComplete.Click += new System.EventHandler(this.btnForceComplete_Click);
+            // 
+            // lblChallanId
+            // 
+            this.lblChallanId.AutoSize = true;
+            this.lblChallanId.Location = new System.Drawing.Point(44, 203);
+            this.lblChallanId.Name = "lblChallanId";
+            this.lblChallanId.Size = new System.Drawing.Size(35, 13);
+            this.lblChallanId.TabIndex = 32;
+            this.lblChallanId.Text = "label9";
+            this.lblChallanId.Visible = false;
             // 
             // frmStartByRegan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(739, 572);
+            this.ClientSize = new System.Drawing.Size(787, 572);
             this.ControlBox = false;
+            this.Controls.Add(this.lblChallanId);
+            this.Controls.Add(this.btnForceComplete);
             this.Controls.Add(this.grdPacketList);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -361,6 +386,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdBatchList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdPacketList)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -392,5 +418,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView grdPacketList;
+        private System.Windows.Forms.Button btnForceComplete;
+        private System.Windows.Forms.Label lblChallanId;
     }
 }

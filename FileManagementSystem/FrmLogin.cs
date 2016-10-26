@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FileManagementSystem.DB;
 using FileManagementSystem;
+using System.Diagnostics;
 
 namespace FileCopyManagementSystem
 {
@@ -97,6 +98,14 @@ namespace FileCopyManagementSystem
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Application.Exit();
+            //Process[] result = Process.GetProcessesByName("FileManagementSystem");
+            //if (result.Length > 1)
+            //{
+            //    foreach (var process in result)
+            //    {
+            //        process.Kill();
+            //    }
+            //}
         }
     }
 }

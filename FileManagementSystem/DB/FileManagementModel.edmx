@@ -12,15 +12,26 @@
           <EntitySet Name="file_management_info" EntityType="FileManagementDbModel.Store.file_management_info" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="login" EntityType="FileManagementDbModel.Store.login" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="packet_info" EntityType="FileManagementDbModel.Store.packet_info" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblSoftwareVer" EntityType="FileManagementDbModel.Store.tblSoftwareVer" store:Type="Tables" store:Schema="dbo" store:Name="tblSoftwareVer">
+            <DefiningQuery>SELECT 
+      [tblSoftwareVer].[Id] AS [Id], 
+      [tblSoftwareVer].[ReleaseDate] AS [ReleaseDate], 
+      [tblSoftwareVer].[Version] AS [Version]
+      FROM [dbo].[tblSoftwareVer] AS [tblSoftwareVer]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="user" EntityType="FileManagementDbModel.Store.user" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="user_type" EntityType="FileManagementDbModel.Store.user_type" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_batch_info_box_info" Association="FileManagementDbModel.Store.FK_batch_info_box_info">
+          <AssociationSet Name="FK_batch_info_challan_info" Association="FileManagementDbModel.Store.FK_batch_info_challan_info">
             <End Role="box_info" EntitySet="box_info" />
             <End Role="batch_info" EntitySet="batch_info" />
           </AssociationSet>
           <AssociationSet Name="FK_box_info_challan_info" Association="FileManagementDbModel.Store.FK_box_info_challan_info">
             <End Role="challan_info" EntitySet="challan_info" />
             <End Role="box_info" EntitySet="box_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_challan_info_box_info" Association="FileManagementDbModel.Store.FK_challan_info_box_info">
+            <End Role="challan_info" EntitySet="challan_info" />
+            <End Role="challan_info1" EntitySet="challan_info" />
           </AssociationSet>
           <AssociationSet Name="FK_file_management_info_batch_info" Association="FileManagementDbModel.Store.FK_file_management_info_batch_info">
             <End Role="batch_info" EntitySet="batch_info" />
@@ -48,9 +59,9 @@
           <Property Name="assign_user_id" Type="int" />
           <Property Name="is_working" Type="int" />
           <Property Name="file_scanned" Type="int" />
-          <Property Name="file_counter" Type="int" />
           <Property Name="challan_box_no" Type="nvarchar" MaxLength="50" />
           <Property Name="batch_complete_date" Type="date" />
+          <Property Name="file_counter" Type="int" />
         </EntityType>
         <EntityType Name="box_info">
           <Key>
@@ -66,6 +77,7 @@
           <Property Name="file_qty" Type="int" />
           <Property Name="working_user_id" Type="int" />
           <Property Name="challan_box_no" Type="varchar" MaxLength="100" />
+          <Property Name="complete_date" Type="date" />
           <Property Name="is_working" Type="int" />
         </EntityType>
         <EntityType Name="challan_info">
@@ -73,9 +85,10 @@
             <PropertyRef Name="challan_id" />
           </Key>
           <Property Name="challan_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="challan_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="challan_name" Type="varchar" MaxLength="50" />
           <Property Name="challan_create_date" Type="datetime" />
           <Property Name="is_completed" Type="int" />
+          <Property Name="complete_date" Type="date" />
           <Property Name="region" Type="nvarchar" MaxLength="50" />
           <Property Name="challan_box_no" Type="nvarchar" MaxLength="50" />
           <Property Name="is_working" Type="int" />
@@ -90,7 +103,7 @@
           <Property Name="challan_id" Type="int" />
           <Property Name="box_info_id" Type="int" />
           <Property Name="batch_info_id" Type="int" />
-          <Property Name="image_name" Type="varchar" MaxLength="50" />
+          <Property Name="image_name" Type="varchar" MaxLength="500" />
           <Property Name="image_create_date" Type="datetime" />
           <Property Name="isqc_checked" Type="int" />
           <Property Name="qcchecked_date" Type="datetime" />
@@ -121,12 +134,23 @@
           <Property Name="packet_date" Type="date" />
           <Property Name="is_complete" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'FileManagementTestDB.dbo.tblSoftwareVer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="tblSoftwareVer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReleaseDate" Type="date" />
+          <Property Name="Version" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
           <Property Name="user_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="user_type_id" Type="int" Nullable="false" />
+          <Property Name="user_type_id" Type="int" />
           <Property Name="user_name" Type="varchar" MaxLength="50" />
           <Property Name="login_id" Type="varchar" MaxLength="25" />
           <Property Name="login_password" Type="varchar" MaxLength="50" />
@@ -140,7 +164,7 @@
           <Property Name="user_type_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="user_type_name" Type="varchar" MaxLength="255" />
         </EntityType>
-        <Association Name="FK_batch_info_box_info">
+        <Association Name="FK_batch_info_challan_info">
           <End Role="box_info" Type="FileManagementDbModel.Store.box_info" Multiplicity="0..1" />
           <End Role="batch_info" Type="FileManagementDbModel.Store.batch_info" Multiplicity="*" />
           <ReferentialConstraint>
@@ -160,6 +184,18 @@
               <PropertyRef Name="challan_id" />
             </Principal>
             <Dependent Role="box_info">
+              <PropertyRef Name="challan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_challan_info_box_info">
+          <End Role="challan_info" Type="FileManagementDbModel.Store.challan_info" Multiplicity="1" />
+          <End Role="challan_info1" Type="FileManagementDbModel.Store.challan_info" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="challan_info">
+              <PropertyRef Name="challan_id" />
+            </Principal>
+            <Dependent Role="challan_info1">
               <PropertyRef Name="challan_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -189,7 +225,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_user">
-          <End Role="user_type" Type="FileManagementDbModel.Store.user_type" Multiplicity="1" />
+          <End Role="user_type" Type="FileManagementDbModel.Store.user_type" Multiplicity="0..1" />
           <End Role="user" Type="FileManagementDbModel.Store.user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="user_type">
@@ -205,14 +241,16 @@
           <Parameter Name="challan_id" Type="int" Mode="In" />
           <Parameter Name="box_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="Batch_Box_Challan_ForceComplete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="batch_info_id" Type="int" Mode="In" />
+          <Parameter Name="box_info_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="cbo_load_Box" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="challan_id" Type="int" Mode="In" />
         </Function>
         <Function Name="cbo_load_Challan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Existing_Box_Batch_check" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="assign_user_id" Type="int" Mode="In" />
-          <Parameter Name="challan_id" Type="int" Mode="In" />
-          <Parameter Name="box_id" Type="int" Mode="In" />
         </Function>
         <Function Name="get_file_management_info" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="challan_id" Type="int" Mode="In" />
@@ -221,6 +259,13 @@
         <Function Name="get_file_name" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="challan_name" Type="varchar" Mode="In" />
           <Parameter Name="region" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="get_userwise_box_batch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="challan_id" Type="int" Mode="In" />
+          <Parameter Name="region" Type="varchar" Mode="In" />
+          <Parameter Name="challan_box_no" Type="varchar" Mode="In" />
+          <Parameter Name="box_no" Type="varchar" Mode="In" />
+          <Parameter Name="working_user_id" Type="int" Mode="In" />
         </Function>
         <Function Name="Load_BatchList_By_Box" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="box_id" Type="int" Mode="In" />
@@ -231,6 +276,9 @@
           <Parameter Name="region" Type="varchar" Mode="In" />
           <Parameter Name="assign_user_id" Type="int" Mode="In" />
           <Parameter Name="challan_box_no" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="user_wise_report_daily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="working_user_id" Type="int" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -259,21 +307,8 @@
             <Parameter Name="challan_box_no" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="cbo_load_Challan" ReturnType="Collection(FileManagementDbModel.cbo_load_Challan_Result)" />
-          <EntitySet Name="challan_info" EntityType="FileManagementDbModel.challan_info" />
-          <AssociationSet Name="FK_box_info_challan_info" Association="FileManagementDbModel.FK_box_info_challan_info">
-            <End Role="challan_info" EntitySet="challan_info" />
-            <End Role="box_info" EntitySet="box_info" />
-          </AssociationSet>
           <FunctionImport Name="cbo_load_Box" ReturnType="Collection(FileManagementDbModel.cbo_load_Box_Result)">
           <Parameter Name="challan_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Existing_Box_Batch_check" ReturnType="Collection(FileManagementDbModel.Existing_Box_Batch_check_Result)">
-            <Parameter Name="assign_user_id" Mode="In" Type="Int32" />
-            <Parameter Name="challan_id" Mode="In" Type="Int32" />
-            <Parameter Name="box_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Load_BatchList_By_Box" ReturnType="Collection(FileManagementDbModel.Load_BatchList_By_Box_Result)">
-          <Parameter Name="box_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ASSIGN_BATCH_TO_USER">
             <Parameter Name="assign_user_id" Mode="In" Type="Int32" />
@@ -288,6 +323,36 @@
           <AssociationSet Name="FK_user_user" Association="FileManagementDbModel.FK_user_user">
             <End Role="user_type" EntitySet="user_type" />
             <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <FunctionImport Name="Load_BatchList_By_Box" ReturnType="Collection(FileManagementDbModel.Load_BatchList_By_Box_Result)">
+          <Parameter Name="box_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="challan_info" EntityType="FileManagementDbModel.challan_info" />
+          <AssociationSet Name="FK_box_info_challan_info" Association="FileManagementDbModel.FK_box_info_challan_info">
+            <End Role="challan_info" EntitySet="challan_info" />
+            <End Role="box_info" EntitySet="box_info" />
+          </AssociationSet>
+          <FunctionImport Name="Batch_Box_Challan_ForceComplete">
+            <Parameter Name="batch_info_id" Mode="In" Type="Int32" />
+            <Parameter Name="box_info_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Existing_Box_Batch_check" ReturnType="Collection(FileManagementDbModel.Existing_Box_Batch_check_Result)">
+          <Parameter Name="assign_user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_userwise_box_batch" ReturnType="Collection(FileManagementDbModel.get_userwise_box_batch_Result)">
+            <Parameter Name="challan_id" Mode="In" Type="Int32" />
+            <Parameter Name="region" Mode="In" Type="String" />
+            <Parameter Name="challan_box_no" Mode="In" Type="String" />
+            <Parameter Name="box_no" Mode="In" Type="String" />
+            <Parameter Name="working_user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="user_wise_report_daily" ReturnType="Collection(FileManagementDbModel.user_wise_report_daily_Result)">
+          <Parameter Name="working_user_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblSoftwareVers" EntityType="FileManagementDbModel.tblSoftwareVer" />
+          <AssociationSet Name="FK_challan_info_box_info" Association="FileManagementDbModel.FK_challan_info_box_info">
+            <End Role="challan_info" EntitySet="challan_info" />
+            <End Role="challan_info1" EntitySet="challan_info" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="batch_info">
@@ -325,6 +390,7 @@
           <Property Type="Int32" Name="working_user_id" />
           <Property Type="String" Name="challan_box_no" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="is_working" />
+          <Property Type="DateTime" Name="complete_date" />
           <NavigationProperty Name="challan_info" Relationship="FileManagementDbModel.FK_box_info_challan_info" FromRole="box_info" ToRole="challan_info" />
         </EntityType>
         <EntityType Name="file_management_info">
@@ -405,52 +471,9 @@
           <Property Type="Int32" Name="Challan_id" Nullable="false" />
           <Property Type="String" Name="challan_name" Nullable="true" MaxLength="154" />
         </ComplexType>
-        <EntityType Name="challan_info">
-          <Key>
-            <PropertyRef Name="challan_id" />
-          </Key>
-          <Property Type="Int32" Name="challan_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="challan_name" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="challan_create_date" />
-          <Property Type="Int32" Name="is_completed" />
-          <Property Type="String" Name="region" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="challan_box_no" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="is_working" />
-          <Property Type="Int32" Name="assign_user_id" />
-          <NavigationProperty Name="box_info" Relationship="FileManagementDbModel.FK_box_info_challan_info" FromRole="challan_info" ToRole="box_info" />
-        </EntityType>
-        <Association Name="FK_box_info_challan_info">
-          <End Type="FileManagementDbModel.challan_info" Role="challan_info" Multiplicity="0..1" />
-          <End Type="FileManagementDbModel.box_info" Role="box_info" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="challan_info">
-              <PropertyRef Name="challan_id" />
-            </Principal>
-            <Dependent Role="box_info">
-              <PropertyRef Name="challan_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="cbo_load_Box_Result">
           <Property Type="Int32" Name="box_info_id" Nullable="false" />
           <Property Type="String" Name="box_name" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="Existing_Box_Batch_check_Result">
-          <Property Type="Int32" Name="exist" Nullable="false" />
-          <Property Type="Int32" Name="Box_info_id" Nullable="true" />
-          <Property Type="Int32" Name="batch_info_id" Nullable="false" />
-          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="box_name" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="is_complete" Nullable="true" />
-          <Property Type="Int32" Name="file_scanned" Nullable="true" />
-          <Property Type="Int32" Name="file_qty" Nullable="true" />
-          <Property Type="String" Name="challan_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="challan_box_no" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="Load_BatchList_By_Box_Result">
-          <Property Type="String" Name="box_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="file_qty" Nullable="true" />
         </ComplexType>
         <EntityType Name="user">
           <Key>
@@ -490,6 +513,98 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="Load_BatchList_By_Box_Result">
+          <Property Type="String" Name="box_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="file_qty" Nullable="true" />
+          <Property Type="Int32" Name="file_scanned" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="challan_info">
+          <Key>
+            <PropertyRef Name="challan_id" />
+          </Key>
+          <Property Type="Int32" Name="challan_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="challan_name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="challan_create_date" />
+          <Property Type="Int32" Name="is_completed" />
+          <Property Type="String" Name="region" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="challan_box_no" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="is_working" />
+          <Property Type="Int32" Name="assign_user_id" />
+          <Property Type="DateTime" Name="complete_date" />
+          <NavigationProperty Name="box_info" Relationship="FileManagementDbModel.FK_box_info_challan_info" FromRole="challan_info" ToRole="box_info" />
+          <NavigationProperty Name="challan_info1" Relationship="FileManagementDbModel.FK_challan_info_box_info" FromRole="challan_info" ToRole="challan_info1" />
+          <NavigationProperty Name="challan_info2" Relationship="FileManagementDbModel.FK_challan_info_box_info" FromRole="challan_info1" ToRole="challan_info" />
+        </EntityType>
+        <Association Name="FK_box_info_challan_info">
+          <End Type="FileManagementDbModel.challan_info" Role="challan_info" Multiplicity="0..1" />
+          <End Type="FileManagementDbModel.box_info" Role="box_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="challan_info">
+              <PropertyRef Name="challan_id" />
+            </Principal>
+            <Dependent Role="box_info">
+              <PropertyRef Name="challan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Existing_Box_Batch_check_Result">
+          <Property Type="Int32" Name="exist" Nullable="false" />
+          <Property Type="Int32" Name="Box_info_id" Nullable="true" />
+          <Property Type="Int32" Name="batch_info_id" Nullable="false" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="box_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="is_complete" Nullable="true" />
+          <Property Type="Int32" Name="file_scanned" Nullable="true" />
+          <Property Type="Int32" Name="file_qty" Nullable="true" />
+          <Property Type="String" Name="challan_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="challan_box_no" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="challan_id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_userwise_box_batch_Result">
+          <Property Type="Int32" Name="challan_id" Nullable="false" />
+          <Property Type="String" Name="challan_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="box_info_id" Nullable="false" />
+          <Property Type="String" Name="box_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="working_user_id" Nullable="true" />
+          <Property Type="Int32" Name="is_complete_box" Nullable="true" />
+          <Property Type="String" Name="challan_box_no" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="batch_info_id" Nullable="false" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="is_complete_batch" Nullable="true" />
+          <Property Type="Int32" Name="file_qty" Nullable="true" />
+          <Property Type="Int32" Name="file_counter" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="user_wise_report_daily_Result">
+          <Property Type="Int32" Name="challan_id" Nullable="false" />
+          <Property Type="String" Name="challan_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="box_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="working_user_id" Nullable="true" />
+          <Property Type="String" Name="challan_box_no" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="is_complete_batch" Nullable="true" />
+          <Property Type="Int32" Name="file_counter" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="tblSoftwareVer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="ReleaseDate" />
+          <Property Type="String" Name="Version" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_challan_info_box_info">
+          <End Type="FileManagementDbModel.challan_info" Role="challan_info" Multiplicity="1" />
+          <End Type="FileManagementDbModel.challan_info" Role="challan_info1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="challan_info">
+              <PropertyRef Name="challan_id" />
+            </Principal>
+            <Dependent Role="challan_info1">
+              <PropertyRef Name="challan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -517,6 +632,7 @@
           <EntitySetMapping Name="box_info">
             <EntityTypeMapping TypeName="FileManagementDbModel.box_info">
               <MappingFragment StoreEntitySet="box_info">
+                <ScalarProperty Name="complete_date" ColumnName="complete_date" />
                 <ScalarProperty Name="is_working" ColumnName="is_working" />
                 <ScalarProperty Name="challan_box_no" ColumnName="challan_box_no" />
                 <ScalarProperty Name="working_user_id" ColumnName="working_user_id" />
@@ -591,50 +707,11 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="challan_info">
-            <EntityTypeMapping TypeName="FileManagementDbModel.challan_info">
-              <MappingFragment StoreEntitySet="challan_info">
-                <ScalarProperty Name="assign_user_id" ColumnName="assign_user_id" />
-                <ScalarProperty Name="is_working" ColumnName="is_working" />
-                <ScalarProperty Name="challan_box_no" ColumnName="challan_box_no" />
-                <ScalarProperty Name="region" ColumnName="region" />
-                <ScalarProperty Name="is_completed" ColumnName="is_completed" />
-                <ScalarProperty Name="challan_create_date" ColumnName="challan_create_date" />
-                <ScalarProperty Name="challan_name" ColumnName="challan_name" />
-                <ScalarProperty Name="challan_id" ColumnName="challan_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="cbo_load_Box" FunctionName="FileManagementDbModel.Store.cbo_load_Box">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FileManagementDbModel.cbo_load_Box_Result">
                 <ScalarProperty Name="box_info_id" ColumnName="box_info_id" />
                 <ScalarProperty Name="box_name" ColumnName="box_name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Existing_Box_Batch_check" FunctionName="FileManagementDbModel.Store.Existing_Box_Batch_check">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FileManagementDbModel.Existing_Box_Batch_check_Result">
-                <ScalarProperty Name="exist" ColumnName="exist" />
-                <ScalarProperty Name="Box_info_id" ColumnName="Box_info_id" />
-                <ScalarProperty Name="batch_info_id" ColumnName="batch_info_id" />
-                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
-                <ScalarProperty Name="box_name" ColumnName="box_name" />
-                <ScalarProperty Name="is_complete" ColumnName="is_complete" />
-                <ScalarProperty Name="file_scanned" ColumnName="file_scanned" />
-                <ScalarProperty Name="file_qty" ColumnName="file_qty" />
-                <ScalarProperty Name="challan_name" ColumnName="challan_name" />
-                <ScalarProperty Name="challan_box_no" ColumnName="challan_box_no" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Load_BatchList_By_Box" FunctionName="FileManagementDbModel.Store.Load_BatchList_By_Box">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FileManagementDbModel.Load_BatchList_By_Box_Result">
-                <ScalarProperty Name="box_name" ColumnName="box_name" />
-                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
-                <ScalarProperty Name="file_qty" ColumnName="file_qty" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -649,6 +726,90 @@
                 <ScalarProperty Name="user_name" ColumnName="user_name" />
                 <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Load_BatchList_By_Box" FunctionName="FileManagementDbModel.Store.Load_BatchList_By_Box">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementDbModel.Load_BatchList_By_Box_Result">
+                <ScalarProperty Name="box_name" ColumnName="box_name" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="file_qty" ColumnName="file_qty" />
+                <ScalarProperty Name="file_scanned" ColumnName="file_scanned" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="challan_info">
+            <EntityTypeMapping TypeName="FileManagementDbModel.challan_info">
+              <MappingFragment StoreEntitySet="challan_info">
+                <ScalarProperty Name="complete_date" ColumnName="complete_date" />
+                <ScalarProperty Name="assign_user_id" ColumnName="assign_user_id" />
+                <ScalarProperty Name="is_working" ColumnName="is_working" />
+                <ScalarProperty Name="challan_box_no" ColumnName="challan_box_no" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="is_completed" ColumnName="is_completed" />
+                <ScalarProperty Name="challan_create_date" ColumnName="challan_create_date" />
+                <ScalarProperty Name="challan_name" ColumnName="challan_name" />
+                <ScalarProperty Name="challan_id" ColumnName="challan_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Batch_Box_Challan_ForceComplete" FunctionName="FileManagementDbModel.Store.Batch_Box_Challan_ForceComplete" />
+          <FunctionImportMapping FunctionImportName="Existing_Box_Batch_check" FunctionName="FileManagementDbModel.Store.Existing_Box_Batch_check">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementDbModel.Existing_Box_Batch_check_Result">
+                <ScalarProperty Name="exist" ColumnName="exist" />
+                <ScalarProperty Name="Box_info_id" ColumnName="Box_info_id" />
+                <ScalarProperty Name="batch_info_id" ColumnName="batch_info_id" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="box_name" ColumnName="box_name" />
+                <ScalarProperty Name="is_complete" ColumnName="is_complete" />
+                <ScalarProperty Name="file_scanned" ColumnName="file_scanned" />
+                <ScalarProperty Name="file_qty" ColumnName="file_qty" />
+                <ScalarProperty Name="challan_name" ColumnName="challan_name" />
+                <ScalarProperty Name="challan_box_no" ColumnName="challan_box_no" />
+                <ScalarProperty Name="challan_id" ColumnName="challan_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_userwise_box_batch" FunctionName="FileManagementDbModel.Store.get_userwise_box_batch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementDbModel.get_userwise_box_batch_Result">
+                <ScalarProperty Name="challan_id" ColumnName="challan_id" />
+                <ScalarProperty Name="challan_name" ColumnName="challan_name" />
+                <ScalarProperty Name="box_info_id" ColumnName="box_info_id" />
+                <ScalarProperty Name="box_name" ColumnName="box_name" />
+                <ScalarProperty Name="working_user_id" ColumnName="working_user_id" />
+                <ScalarProperty Name="is_complete_box" ColumnName="is_complete_box" />
+                <ScalarProperty Name="challan_box_no" ColumnName="challan_box_no" />
+                <ScalarProperty Name="batch_info_id" ColumnName="batch_info_id" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="is_complete_batch" ColumnName="is_complete_batch" />
+                <ScalarProperty Name="file_qty" ColumnName="file_qty" />
+                <ScalarProperty Name="file_counter" ColumnName="file_counter" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="user_wise_report_daily" FunctionName="FileManagementDbModel.Store.user_wise_report_daily">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementDbModel.user_wise_report_daily_Result">
+                <ScalarProperty Name="challan_id" ColumnName="challan_id" />
+                <ScalarProperty Name="challan_name" ColumnName="challan_name" />
+                <ScalarProperty Name="box_name" ColumnName="box_name" />
+                <ScalarProperty Name="working_user_id" ColumnName="working_user_id" />
+                <ScalarProperty Name="challan_box_no" ColumnName="challan_box_no" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="is_complete_batch" ColumnName="is_complete_batch" />
+                <ScalarProperty Name="file_counter" ColumnName="file_counter" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblSoftwareVers">
+            <EntityTypeMapping TypeName="FileManagementDbModel.tblSoftwareVer">
+              <MappingFragment StoreEntitySet="tblSoftwareVer">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -680,17 +841,12 @@
         <EntityTypeShape EntityType="FileManagementDbModel.packet_info" Width="1.5" PointX="7.75" PointY="0.75" Height="2.9417936197916674" />
         <EntityTypeShape EntityType="FileManagementDbModel.user_type" Width="1.5" PointX="0.75" PointY="1.5" Height="1.5956835937500031" />
         <AssociationConnector Association="FileManagementDbModel.FK_batch_info_box_info" >
-          <ConnectorPoint PointX="4.5" PointY="6.7593489583333328" />
-          <ConnectorPoint PointX="5.25" PointY="6.7593489583333328" />
+          <ConnectorPoint PointX="4.5" PointY="6.8554996744791667" />
+          <ConnectorPoint PointX="5.25" PointY="6.8554996744791667" />
         </AssociationConnector>
         <AssociationConnector Association="FileManagementDbModel.FK_file_management_info_batch_info" >
           <ConnectorPoint PointX="6.75" PointY="6.4708968098958337" />
           <ConnectorPoint PointX="7.5" PointY="6.4708968098958337" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="FileManagementDbModel.challan_info" Width="1.5" PointX="0.75" PointY="5.375" Height="2.7494921874999987" />
-        <AssociationConnector Association="FileManagementDbModel.FK_box_info_challan_info" >
-          <ConnectorPoint PointX="2.25" PointY="6.74974609375" />
-          <ConnectorPoint PointX="3" PointY="6.74974609375" />
         </AssociationConnector>
         <EntityTypeShape EntityType="FileManagementDbModel.user" Width="1.5" PointX="3" PointY="0.875" Height="2.7494921874999996" />
         <AssociationConnector Association="FileManagementDbModel.FK_login_user" >
@@ -700,6 +856,18 @@
         <AssociationConnector Association="FileManagementDbModel.FK_user_user" >
           <ConnectorPoint PointX="2.25" PointY="2.297841796875" />
           <ConnectorPoint PointX="3" PointY="2.297841796875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="FileManagementDbModel.challan_info" Width="1.5" PointX="0.75" PointY="5.375" Height="2.9417936197916665" />
+        <AssociationConnector Association="FileManagementDbModel.FK_box_info_challan_info" >
+          <ConnectorPoint PointX="2.25" PointY="7.0381982421875" />
+          <ConnectorPoint PointX="3" PointY="7.0381982421875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="FileManagementDbModel.tblSoftwareVer" Width="1.5" PointX="7.375" PointY="8.75" Height="1.5956835937499996" />
+        <AssociationConnector Association="FileManagementDbModel.FK_challan_info_box_info" >
+          <ConnectorPoint PointX="1.2819230769230767" PointY="8.701396484375" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="8.951396484375" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="8.951396484375" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="8.701396484375" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

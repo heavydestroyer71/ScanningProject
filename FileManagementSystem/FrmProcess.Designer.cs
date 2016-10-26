@@ -35,12 +35,14 @@
             this.cbChallan = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbRegion = new System.Windows.Forms.ComboBox();
+            this.btnAutoBoxBatch = new System.Windows.Forms.Button();
             this.pnlProcess.SuspendLayout();
             this.pnlControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlProcess
             // 
+            this.pnlProcess.Controls.Add(this.btnAutoBoxBatch);
             this.pnlProcess.Controls.Add(this.pnlControl);
             this.pnlProcess.Controls.Add(this.label2);
             this.pnlProcess.Controls.Add(this.cbRegion);
@@ -113,6 +115,16 @@
             this.cbRegion.TabIndex = 3;
             this.cbRegion.Visible = false;
             // 
+            // btnAutoBoxBatch
+            // 
+            this.btnAutoBoxBatch.Location = new System.Drawing.Point(36, 131);
+            this.btnAutoBoxBatch.Name = "btnAutoBoxBatch";
+            this.btnAutoBoxBatch.Size = new System.Drawing.Size(75, 23);
+            this.btnAutoBoxBatch.TabIndex = 15;
+            this.btnAutoBoxBatch.Text = "button1";
+            this.btnAutoBoxBatch.UseVisualStyleBackColor = true;
+            this.btnAutoBoxBatch.Click += new System.EventHandler(this.btnAutoBoxBatch_Click);
+            // 
             // FrmProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,5 +149,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbChallan;
         private System.Windows.Forms.Button btnProcess;
+        private System.Windows.Forms.Button btnAutoBoxBatch;
     }
 }

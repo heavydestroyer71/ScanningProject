@@ -31,6 +31,7 @@
             this.pnlPacket = new System.Windows.Forms.Panel();
             this.gvPacketInfo = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnUpload = new System.Windows.Forms.Button();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtExcelPath = new System.Windows.Forms.TextBox();
@@ -79,6 +80,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btnUpload);
             this.groupBox1.Controls.Add(this.btnBrowse);
             this.groupBox1.Controls.Add(this.txtExcelPath);
@@ -107,6 +109,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Packet Info";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(283, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnUpload
             // 
@@ -346,5 +359,6 @@
         private System.Windows.Forms.TextBox txtExcelPath;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.OpenFileDialog selectExcelDialog;
+        private System.Windows.Forms.Button button1;
     }
 }

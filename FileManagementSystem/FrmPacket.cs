@@ -178,21 +178,21 @@ namespace FileManagementSystem
                 {
                     string querystr = "Select Challan_Name,Region,challan_box_no from packet_info"
                                                         + " where is_complete = 0"
-                                                        + " Group by Challan_Name,Region,challan_box_no ";
+                                                        + " Group by Challan_Name,Region,challan_box_no order by challan_name,challan_box_no";
                     List<challan_info_vm> challan_list = db.ExecuteStoreQuery<challan_info_vm>(querystr).ToList();
 
                     if (challan_list.Count > 0)
                     {
                         foreach (var list in challan_list)
                         {
-                            querystr = "INSERT INTO challan_info (challan_name,challan_create_date,is_completed,region,challan_box_no)"
-                            + "values ('" + list.challan_name + "',GETDATE(),0,'" + list.region + "','"+list.challan_box_no+"')";
+                            querystr = "INSERT INTO challan_info (challan_name,challan_create_date,is_completed,region,challan_box_no,is_working)"
+                            + "values ('" + list.challan_name + "',GETDATE(),0,'" + list.region + "','"+list.challan_box_no+"',0)";
                             db.ExecuteStoreCommand(querystr);
                         }
                     }
 
 
-                    List<challan_info> challan = db.challan_info.Where(s=>s.is_working == 0).ToList();
+                    List<challan_info> challan = db.challan_info.Where(s=>s.is_working != 1).ToList();
 
                     foreach (var data in challan)
                     {
@@ -219,6 +219,45 @@ namespace FileManagementSystem
         private void FrmPacket_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (FileManagementDbEntities db = new FileManagementDbEntities())
+            {
+                string querystr = "Select Challan_Name,Region,challan_box_no from packet_info"
+                                                    //+ " where is_complete = 1"
+                                                    + " Group by Challan_Name,Region,challan_box_no order by challan_name,challan_box_no";
+                List<challan_info_vm> challan_list = db.ExecuteStoreQuery<challan_info_vm>(querystr).ToList();
+
+                if (challan_list.Count > 0)
+                {
+                    foreach (var list in challan_list)
+                    {
+                        querystr = "INSERT INTO challan_info (challan_name,challan_create_date,is_completed,region,challan_box_no)"
+                        + "values ('" + list.challan_name + "',GETDATE(),0,'" + list.region + "','" + list.challan_box_no + "')";
+                        db.ExecuteStoreCommand(querystr);
+                    }
+                }
+
+
+                //List<challan_info> challan = db.challan_info.Where(s => s.is_working == 0).ToList();
+
+                //foreach (var data in challan)
+                //{
+                //    //querystr = "update packet_info set is_complete = 1 where challan_name = '" + list.challan_name + "' and region = '" + list.region + "'";
+                //    db.prcDistributePackage(data.challan_id, data.challan_name, data.region, 0, data.challan_box_no);
+                //}
+
+                //foreach (var list in challan_list)
+                //{
+                //    querystr = "update packet_info set is_complete = 1 where challan_name = '" + list.challan_name + "' and region = '" + list.region + "'";
+                //    db.ExecuteStoreCommand(querystr);
+                //}
+
+                MessageBox.Show("Uploaded!");
+                //load_gridview();
+            }
         }
 
 

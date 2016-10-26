@@ -160,6 +160,7 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="bin\Debug\FileManagementSystem.exe.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\FileManagementSystem.DB.FileManagementDbEntities.datasource" />
     <None Include="Properties\Settings.settings">
@@ -172,7 +173,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="bin\Debug\FileManagementSystem.exe" />
+    <Content Include="bin\Debug\FileManagementSystem.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
