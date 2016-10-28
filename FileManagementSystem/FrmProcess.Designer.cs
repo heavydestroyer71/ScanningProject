@@ -29,19 +29,25 @@
         private void InitializeComponent()
         {
             this.pnlProcess = new System.Windows.Forms.Panel();
+            this.btnAutoBoxBatch = new System.Windows.Forms.Button();
             this.pnlControl = new System.Windows.Forms.Panel();
             this.btnProcess = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cbChallan = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbRegion = new System.Windows.Forms.ComboBox();
-            this.btnAutoBoxBatch = new System.Windows.Forms.Button();
+            this.grpResetChallanBox = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboResetChallanBox = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnlProcess.SuspendLayout();
             this.pnlControl.SuspendLayout();
+            this.grpResetChallanBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlProcess
             // 
+            this.pnlProcess.Controls.Add(this.grpResetChallanBox);
             this.pnlProcess.Controls.Add(this.btnAutoBoxBatch);
             this.pnlProcess.Controls.Add(this.pnlControl);
             this.pnlProcess.Controls.Add(this.label2);
@@ -51,6 +57,18 @@
             this.pnlProcess.Name = "pnlProcess";
             this.pnlProcess.Size = new System.Drawing.Size(758, 306);
             this.pnlProcess.TabIndex = 0;
+            // 
+            // btnAutoBoxBatch
+            // 
+            this.btnAutoBoxBatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAutoBoxBatch.Location = new System.Drawing.Point(27, 231);
+            this.btnAutoBoxBatch.Name = "btnAutoBoxBatch";
+            this.btnAutoBoxBatch.Size = new System.Drawing.Size(161, 24);
+            this.btnAutoBoxBatch.TabIndex = 15;
+            this.btnAutoBoxBatch.Text = "Auto batch Box create";
+            this.btnAutoBoxBatch.UseVisualStyleBackColor = true;
+            this.btnAutoBoxBatch.Visible = false;
+            this.btnAutoBoxBatch.Click += new System.EventHandler(this.btnAutoBoxBatch_Click);
             // 
             // pnlControl
             // 
@@ -115,15 +133,49 @@
             this.cbRegion.TabIndex = 3;
             this.cbRegion.Visible = false;
             // 
-            // btnAutoBoxBatch
+            // grpResetChallanBox
             // 
-            this.btnAutoBoxBatch.Location = new System.Drawing.Point(36, 131);
-            this.btnAutoBoxBatch.Name = "btnAutoBoxBatch";
-            this.btnAutoBoxBatch.Size = new System.Drawing.Size(75, 23);
-            this.btnAutoBoxBatch.TabIndex = 15;
-            this.btnAutoBoxBatch.Text = "button1";
-            this.btnAutoBoxBatch.UseVisualStyleBackColor = true;
-            this.btnAutoBoxBatch.Click += new System.EventHandler(this.btnAutoBoxBatch_Click);
+            this.grpResetChallanBox.Controls.Add(this.button1);
+            this.grpResetChallanBox.Controls.Add(this.cboResetChallanBox);
+            this.grpResetChallanBox.Controls.Add(this.label3);
+            this.grpResetChallanBox.Location = new System.Drawing.Point(27, 110);
+            this.grpResetChallanBox.Name = "grpResetChallanBox";
+            this.grpResetChallanBox.Size = new System.Drawing.Size(710, 100);
+            this.grpResetChallanBox.TabIndex = 16;
+            this.grpResetChallanBox.TabStop = false;
+            this.grpResetChallanBox.Text = "Reset Challan Box";
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(9, 38);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(178, 24);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Select Challan and Region";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cboResetChallanBox
+            // 
+            this.cboResetChallanBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboResetChallanBox.FormattingEnabled = true;
+            this.cboResetChallanBox.Location = new System.Drawing.Point(193, 38);
+            this.cboResetChallanBox.Name = "cboResetChallanBox";
+            this.cboResetChallanBox.Size = new System.Drawing.Size(341, 24);
+            this.cboResetChallanBox.TabIndex = 12;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(540, 38);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(161, 24);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "&Reset Challan Box";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FrmProcess
             // 
@@ -136,6 +188,7 @@
             this.Load += new System.EventHandler(this.FrmProcess_Load);
             this.pnlProcess.ResumeLayout(false);
             this.pnlControl.ResumeLayout(false);
+            this.grpResetChallanBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -150,5 +203,9 @@
         private System.Windows.Forms.ComboBox cbChallan;
         private System.Windows.Forms.Button btnProcess;
         private System.Windows.Forms.Button btnAutoBoxBatch;
+        private System.Windows.Forms.GroupBox grpResetChallanBox;
+        private System.Windows.Forms.ComboBox cboResetChallanBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }

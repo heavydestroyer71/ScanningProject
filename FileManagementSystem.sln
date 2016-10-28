@@ -26,6 +26,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PublishApplication", "Publi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizerSvc", "OrganizerSvc\OrganizerSvc.csproj", "{D1D524C0-7C00-4B24-934D-F05EE2B83875}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scannerapplication", "Scannerapplication\Scannerapplication.csproj", "{01C00F8F-07F6-40E9-82CB-9B0C58992639}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,16 @@ Global
 		{D1D524C0-7C00-4B24-934D-F05EE2B83875}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D1D524C0-7C00-4B24-934D-F05EE2B83875}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D1D524C0-7C00-4B24-934D-F05EE2B83875}.Release|x86.ActiveCfg = Release|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{01C00F8F-07F6-40E9-82CB-9B0C58992639}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

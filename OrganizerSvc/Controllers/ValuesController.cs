@@ -14,9 +14,8 @@ namespace OrganizerSvc.Controllers
 {
     public class ValuesController : ApiController
     {
-
         [HttpPost]
-        public string AddApp(SendContent dataString)
+        public void AddApp(SendContent dataString)
         {
             string path = ConfigurationManager.AppSettings["copyPath"].ToString();
             path = Path.Combine(path, dataString.challan_no, dataString.userName, dataString.box_no, dataString.batch_no);
@@ -27,19 +26,37 @@ namespace OrganizerSvc.Controllers
 
             using (Image image = Image.FromStream(new MemoryStream(dataString.image)))
             {
-                bool file = File.Exists(Path.Combine(path, dataString.fileName));
-                if (file)
-                {
-                    return "Exist!";
-                }
-                else
-                {
-                    image.Save(Path.Combine(path, dataString.fileName), ImageFormat.Jpeg);  // Or Png
-                    return "Success";
-                }
+                image.Save(Path.Combine(path, dataString.fileName), ImageFormat.Jpeg);  // Or Png
             }
             //return "Success";
         }
+
+        //duplicate check at server
+        //[HttpPost]
+        //public string AddApp(SendContent dataString)
+        //{
+        //    string path = ConfigurationManager.AppSettings["copyPath"].ToString();
+        //    path = Path.Combine(path, dataString.challan_no, dataString.userName, dataString.box_no, dataString.batch_no);
+        //    bool exists = System.IO.Directory.Exists(path);
+
+        //    if (!exists)
+        //        System.IO.Directory.CreateDirectory(path);
+
+        //    using (Image image = Image.FromStream(new MemoryStream(dataString.image)))
+        //    {
+        //        bool file = File.Exists(Path.Combine(path, dataString.fileName));
+        //        if (file)
+        //        {
+        //            return "Exist!";
+        //        }
+        //        else
+        //        {
+        //            image.Save(Path.Combine(path, dataString.fileName), ImageFormat.Jpeg);  // Or Png
+        //            return "Success";
+        //        }
+        //    }
+        //    //return "Success";
+        //}
 
         // GET api/values
         public string Get(string userName)

@@ -25,9 +25,11 @@ namespace FileManagementSystem
         HashSet<string> _allowedExtensions;
         public frmStartByRegan()
         {
+
             InitializeComponent();
             LoadDefault();
             load_challan();
+            fromTimer = false;
         }
 
         private void LoadDefault()
@@ -80,6 +82,7 @@ namespace FileManagementSystem
                     label8.Show();
                     grdBatchList.Show();
                     label7.Show();
+                    enable_timer = true;
                 }
                 else
                 {
@@ -136,12 +139,12 @@ namespace FileManagementSystem
                         #region update counter
                         //When batch is complete
 
-                        int scannd = int.Parse(lblScannedCnt.Text);
+                        int scannd = int.Parse(lblScannedCnt.Text) +1;
                         int qty = int.Parse(lblFileQty.Text) * 2;
                         if (scannd == qty)
                         {
                             timer1.Enabled = false;
-                            string query = "update batch_info set is_complete = 1,batch_complete_date=GETDATE(), file_scanned = " + (int.Parse(lblScannedCnt.Text)) + " where batch_info_id = " + lblBatchId.Text + "";
+                            string query = "update batch_info set is_complete = 1,batch_complete_date=GETDATE(), file_scanned = file_qty * 2 where batch_info_id = " + lblBatchId.Text + "";
                             db.ExecuteStoreCommand(query);
                             MessageBox.Show("Batch is complete!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             LoadPacketAndBatchGrid();
@@ -155,13 +158,16 @@ namespace FileManagementSystem
                                 db.ExecuteStoreCommand(query);
                                 MessageBox.Show("Box Completed!");
                                 //if All box complete update the challan_box info
-                                query = "select * from box_info where box_info_id = " + box_id + " and is_complete = 0";
+                                //batch_info batch_info = db.batch_info.Where(a => a.box_info_id == box_id).FirstOrDefault();
+                                query = "select * from box_info where challan_id = " + int.Parse(lblChallanId.Text) + " and is_complete = 0";
                                 //List<box_info> box = db.box_info.Where(s => s.challan_box_no == lblChallanName.Text & s.is_complete == 0).ToList();
                                 List<box_info> box = db.ExecuteStoreQuery<box_info>(query).ToList();
                                 if (box.Count == 0)
                                 {
                                     // process to complete batch after checking  the batch and box completion
-                                   // MessageBox.Show("Challan box Completed");
+                                    query = "update challan_info set is_completed = 1,complete_date = GETDATE() where challan_id = " + int.Parse(lblChallanId.Text) + "";
+                                    db.ExecuteStoreCommand(query);
+                                   MessageBox.Show("Challan box Completed");
                                 }
                                 else
                                 {
@@ -191,6 +197,7 @@ namespace FileManagementSystem
                         //Transfer file to server
                         if (enable_timer == true)
                         {
+                            #region collecting record set
                             byte[] bImage = System.IO.File.ReadAllBytes(files[0].FullName);
                             string un = FrmLogin._login_name;
                             string cn = lblChallanName.Text;
@@ -200,11 +207,18 @@ namespace FileManagementSystem
                             //string URL = @"http://27.147.149.195:1010/api/values/AddApp?userName=asde&challan_no=RVF-001&box_no=DHK-RVF-PRE-001&batch_no=DHK-RVF-PRE-001_01&image=bImage";
 
                             string URL = ConfigurationManager.AppSettings["url_path"];
-
+                            #endregion
                             //save to local Start
+                            #region save to local Start
+                            /*
                             string f_name = Path.GetFileName(files[0].Name);
                             try
                             {
+                                bool exists = System.IO.Directory.Exists(Path.Combine(_final_path, cn, un, bn, batn) + file_name);
+                                if (!exists)
+                                {
+                                    System.IO.Directory.CreateDirectory(Path.Combine(_final_path, cn, un, bn, batn) + file_name);
+                                }
                                 files[0].MoveTo(Path.Combine(_final_path, cn, un, bn, batn) + file_name);
                             }
 
@@ -212,18 +226,28 @@ namespace FileManagementSystem
                             {
                                 disableTimer();
                                 MessageBox.Show("Image name can not duplicate!");
-
+                                return;
                             }
                             ////save to local End
-                            string result = SendDataToService(bImage, un, cn, bn, batn, URL, file_name);
+                             */
+                            #endregion
 
+                            #region send file to server
+                            //string result = SendDataToService(bImage, un, cn, bn, batn, URL, file_name);
+
+                            SendDataToService(bImage, un, cn, bn, batn, URL, file_name);
+                            #endregion
+
+                            #region user's work record save
                             string query = "INSERT INTO file_management_info"
                                 + "([user_id],[challan_id],[box_info_id],[batch_info_id],[image_name],[image_create_date])"
                                 + "VALUES ("+FrmLogin._user_id+","+int.Parse(lblChallanId.Text)+","+int.Parse(lblBoxId.Text)+","+int.Parse(lblBatchId.Text)+",'"+file_name+"',GETDATE())";
                             db.ExecuteStoreCommand(query);
 
-                            //lblScannedCnt.Text = (scannd + 1).ToString();
+                            lblScannedCnt.Text = (scannd).ToString();
                             updateLastWork();
+
+                            #endregion
                             File.Delete(files[0].FullName);
                         }
                         #endregion
@@ -293,6 +317,21 @@ namespace FileManagementSystem
             btnStop.Enabled = false;
         }
         private static bool fromTimer = false;
+        private static void SendDataToService(byte[] bImage, string un, string cn, string bn, string batn, string URL, string file_name)
+        {
+            var vm = new { userName = un, challan_no = cn, box_no = bn, batch_no = batn, image = bImage, fileName = file_name };
+            string response = null;
+            using (var client = new WebClient())
+            {
+
+                var dataString = JsonConvert.SerializeObject(vm);
+                client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                response = client.UploadString(new Uri(URL), "POST", dataString);
+
+            }
+            //return response;
+        }
+        /*
         private static string SendDataToService(byte[] bImage, string un, string cn, string bn, string batn, string URL, string file_name)
         {
             var vm = new { userName = un, challan_no = cn, box_no = bn, batch_no = batn, image = bImage, fileName = file_name };
@@ -307,7 +346,7 @@ namespace FileManagementSystem
             }
             return response;
         }
-
+        */
         private void load_challan()
         {
             List<cbo_load_Challan_Result> data = new List<cbo_load_Challan_Result>();

@@ -20,7 +20,7 @@ namespace FileManagementSystem
             InitializeComponent();
             load_challan();
             load_region();
-            
+            load_challan_reset();
         }
 
         private void btnProcess_Click(object sender, EventArgs e)
@@ -58,6 +58,17 @@ namespace FileManagementSystem
             cbChallan.ValueMember = "challan_id";
 
         }
+
+        private void load_challan_reset()
+        {
+            List<cbo_load_Challan_reset_Result> data = new List<cbo_load_Challan_reset_Result>();
+            data = db.cbo_load_Challan_reset().ToList();
+            cboResetChallanBox.DataSource = data;
+            cboResetChallanBox.DisplayMember = "challan_name";
+            cboResetChallanBox.ValueMember = "challan_id";
+
+        }
+
         private void load_region()
         {
             var query = "select distinct(region) from packet_info";
@@ -82,6 +93,19 @@ namespace FileManagementSystem
                 db.prcDistributePackage(data.challan_id, data.challan_name, data.region, 0, data.challan_box_no);
             }
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to reset this challan box?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                //MessageBox.Show(cboResetChallanBox.SelectedValue.ToString());
+                db.ResetChallanBoxBatch(int.Parse(cboResetChallanBox.SelectedValue.ToString()));
+                load_challan();
+                load_challan_reset();
+                MessageBox.Show("Challan box reset successfully!");
+            }
         }
     }
 }

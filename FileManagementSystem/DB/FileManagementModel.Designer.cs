@@ -580,6 +580,33 @@ namespace FileManagementSystem.DB
     
             return base.ExecuteFunction<user_wise_report_daily_Result>("user_wise_report_daily", working_user_idParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectResult<cbo_load_Challan_reset_Result> cbo_load_Challan_reset()
+        {
+            return base.ExecuteFunction<cbo_load_Challan_reset_Result>("cbo_load_Challan_reset");
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="challan_id">No Metadata Documentation available.</param>
+        public int ResetChallanBoxBatch(Nullable<global::System.Int32> challan_id)
+        {
+            ObjectParameter challan_idParameter;
+            if (challan_id.HasValue)
+            {
+                challan_idParameter = new ObjectParameter("challan_id", challan_id);
+            }
+            else
+            {
+                challan_idParameter = new ObjectParameter("challan_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("ResetChallanBoxBatch", challan_idParameter);
+        }
 
         #endregion
 
@@ -904,6 +931,54 @@ namespace FileManagementSystem.DB
         private Nullable<global::System.DateTime> _batch_complete_date;
         partial void Onbatch_complete_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onbatch_complete_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String last_action
+        {
+            get
+            {
+                return _last_action;
+            }
+            set
+            {
+                Onlast_actionChanging(value);
+                ReportPropertyChanging("last_action");
+                _last_action = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("last_action");
+                Onlast_actionChanged();
+            }
+        }
+        private global::System.String _last_action;
+        partial void Onlast_actionChanging(global::System.String value);
+        partial void Onlast_actionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                Onuser_idChanging(value);
+                ReportPropertyChanging("user_id");
+                _user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_id");
+                Onuser_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _user_id;
+        partial void Onuser_idChanging(Nullable<global::System.Int32> value);
+        partial void Onuser_idChanged();
 
         #endregion
 
@@ -1289,6 +1364,54 @@ namespace FileManagementSystem.DB
         private Nullable<global::System.DateTime> _complete_date;
         partial void Oncomplete_dateChanging(Nullable<global::System.DateTime> value);
         partial void Oncomplete_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String last_action
+        {
+            get
+            {
+                return _last_action;
+            }
+            set
+            {
+                Onlast_actionChanging(value);
+                ReportPropertyChanging("last_action");
+                _last_action = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("last_action");
+                Onlast_actionChanged();
+            }
+        }
+        private global::System.String _last_action;
+        partial void Onlast_actionChanging(global::System.String value);
+        partial void Onlast_actionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                Onuser_idChanging(value);
+                ReportPropertyChanging("user_id");
+                _user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_id");
+                Onuser_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _user_id;
+        partial void Onuser_idChanging(Nullable<global::System.Int32> value);
+        partial void Onuser_idChanged();
 
         #endregion
 
@@ -1602,6 +1725,54 @@ namespace FileManagementSystem.DB
         private Nullable<global::System.DateTime> _complete_date;
         partial void Oncomplete_dateChanging(Nullable<global::System.DateTime> value);
         partial void Oncomplete_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String last_action
+        {
+            get
+            {
+                return _last_action;
+            }
+            set
+            {
+                Onlast_actionChanging(value);
+                ReportPropertyChanging("last_action");
+                _last_action = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("last_action");
+                Onlast_actionChanged();
+            }
+        }
+        private global::System.String _last_action;
+        partial void Onlast_actionChanging(global::System.String value);
+        partial void Onlast_actionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                Onuser_idChanging(value);
+                ReportPropertyChanging("user_id");
+                _user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_id");
+                Onuser_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _user_id;
+        partial void Onuser_idChanging(Nullable<global::System.Int32> value);
+        partial void Onuser_idChanged();
 
         #endregion
 
@@ -3050,6 +3221,83 @@ namespace FileManagementSystem.DB
         private global::System.String _box_name;
         partial void Onbox_nameChanging(global::System.String value);
         partial void Onbox_nameChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="FileManagementDbModel", Name="cbo_load_Challan_reset_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class cbo_load_Challan_reset_Result : ComplexObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new cbo_load_Challan_reset_Result object.
+        /// </summary>
+        /// <param name="challan_id">Initial value of the Challan_id property.</param>
+        public static cbo_load_Challan_reset_Result Createcbo_load_Challan_reset_Result(global::System.Int32 challan_id)
+        {
+            cbo_load_Challan_reset_Result cbo_load_Challan_reset_Result = new cbo_load_Challan_reset_Result();
+            cbo_load_Challan_reset_Result.Challan_id = challan_id;
+            return cbo_load_Challan_reset_Result;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Challan_id
+        {
+            get
+            {
+                return _Challan_id;
+            }
+            set
+            {
+                OnChallan_idChanging(value);
+                ReportPropertyChanging("Challan_id");
+                _Challan_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Challan_id");
+                OnChallan_idChanged();
+            }
+        }
+        private global::System.Int32 _Challan_id;
+        partial void OnChallan_idChanging(global::System.Int32 value);
+        partial void OnChallan_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String challan_name
+        {
+            get
+            {
+                return _challan_name;
+            }
+            set
+            {
+                Onchallan_nameChanging(value);
+                ReportPropertyChanging("challan_name");
+                _challan_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("challan_name");
+                Onchallan_nameChanged();
+            }
+        }
+        private global::System.String _challan_name;
+        partial void Onchallan_nameChanging(global::System.String value);
+        partial void Onchallan_nameChanged();
 
         #endregion
 
