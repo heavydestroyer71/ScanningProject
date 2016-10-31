@@ -32,6 +32,8 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlBoxBatch = new System.Windows.Forms.Panel();
+            this.lblChallanBoxName = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.lblFileQty = new System.Windows.Forms.Label();
             this.lblBatchId = new System.Windows.Forms.Label();
             this.lblChallanName = new System.Windows.Forms.Label();
@@ -50,6 +52,7 @@
             this.grdPacketList = new System.Windows.Forms.DataGridView();
             this.btnForceComplete = new System.Windows.Forms.Button();
             this.lblChallanId = new System.Windows.Forms.Label();
+            this.btnTest = new System.Windows.Forms.Button();
             this.pnlBoxBatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdBatchList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdPacketList)).BeginInit();
@@ -72,7 +75,7 @@
             this.btnLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogout.Location = new System.Drawing.Point(652, 9);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(73, 25);
+            this.btnLogout.Size = new System.Drawing.Size(116, 25);
             this.btnLogout.TabIndex = 2;
             this.btnLogout.Text = "Log Out";
             this.btnLogout.UseVisualStyleBackColor = true;
@@ -94,7 +97,7 @@
             // 
             this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(16, 65);
+            this.label1.Location = new System.Drawing.Point(16, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(148, 23);
             this.label1.TabIndex = 19;
@@ -104,7 +107,7 @@
             // cbChallan
             // 
             this.cbChallan.FormattingEnabled = true;
-            this.cbChallan.Location = new System.Drawing.Point(170, 67);
+            this.cbChallan.Location = new System.Drawing.Point(170, 46);
             this.cbChallan.Name = "cbChallan";
             this.cbChallan.Size = new System.Drawing.Size(246, 21);
             this.cbChallan.TabIndex = 18;
@@ -116,16 +119,16 @@
             this.lblNotice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNotice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNotice.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblNotice.Location = new System.Drawing.Point(438, 94);
+            this.lblNotice.Location = new System.Drawing.Point(423, 73);
             this.lblNotice.Name = "lblNotice";
-            this.lblNotice.Size = new System.Drawing.Size(228, 25);
+            this.lblNotice.Size = new System.Drawing.Size(345, 25);
             this.lblNotice.TabIndex = 22;
             this.lblNotice.Text = "Service Stopped...";
             this.lblNotice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(235, 94);
+            this.btnStop.Location = new System.Drawing.Point(218, 73);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(197, 25);
             this.btnStop.TabIndex = 1;
@@ -135,7 +138,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(35, 94);
+            this.btnStart.Location = new System.Drawing.Point(16, 73);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(194, 25);
             this.btnStart.TabIndex = 0;
@@ -150,6 +153,8 @@
             // 
             // pnlBoxBatch
             // 
+            this.pnlBoxBatch.Controls.Add(this.lblChallanBoxName);
+            this.pnlBoxBatch.Controls.Add(this.label9);
             this.pnlBoxBatch.Controls.Add(this.lblFileQty);
             this.pnlBoxBatch.Controls.Add(this.lblBatchId);
             this.pnlBoxBatch.Controls.Add(this.lblChallanName);
@@ -160,16 +165,39 @@
             this.pnlBoxBatch.Controls.Add(this.label4);
             this.pnlBoxBatch.Controls.Add(this.lblBox);
             this.pnlBoxBatch.Controls.Add(this.label3);
-            this.pnlBoxBatch.Location = new System.Drawing.Point(35, 122);
+            this.pnlBoxBatch.Location = new System.Drawing.Point(2, 101);
             this.pnlBoxBatch.Name = "pnlBoxBatch";
-            this.pnlBoxBatch.Size = new System.Drawing.Size(710, 74);
+            this.pnlBoxBatch.Size = new System.Drawing.Size(781, 109);
             this.pnlBoxBatch.TabIndex = 23;
             this.pnlBoxBatch.Visible = false;
+            // 
+            // lblChallanBoxName
+            // 
+            this.lblChallanBoxName.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblChallanBoxName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblChallanBoxName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChallanBoxName.Location = new System.Drawing.Point(375, 0);
+            this.lblChallanBoxName.Name = "lblChallanBoxName";
+            this.lblChallanBoxName.Size = new System.Drawing.Size(271, 44);
+            this.lblChallanBoxName.TabIndex = 26;
+            this.lblChallanBoxName.Text = "CHALLAN BOX";
+            this.lblChallanBoxName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(140, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(229, 44);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "CHALLAN BOX";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblFileQty
             // 
             this.lblFileQty.AutoSize = true;
-            this.lblFileQty.Location = new System.Drawing.Point(608, 58);
+            this.lblFileQty.Location = new System.Drawing.Point(608, 97);
             this.lblFileQty.Name = "lblFileQty";
             this.lblFileQty.Size = new System.Drawing.Size(0, 13);
             this.lblFileQty.TabIndex = 7;
@@ -178,7 +206,7 @@
             // lblBatchId
             // 
             this.lblBatchId.AutoSize = true;
-            this.lblBatchId.Location = new System.Drawing.Point(305, 58);
+            this.lblBatchId.Location = new System.Drawing.Point(305, 97);
             this.lblBatchId.Name = "lblBatchId";
             this.lblBatchId.Size = new System.Drawing.Size(0, 13);
             this.lblBatchId.TabIndex = 6;
@@ -187,7 +215,7 @@
             // lblChallanName
             // 
             this.lblChallanName.AutoSize = true;
-            this.lblChallanName.Location = new System.Drawing.Point(6, 58);
+            this.lblChallanName.Location = new System.Drawing.Point(6, 97);
             this.lblChallanName.Name = "lblChallanName";
             this.lblChallanName.Size = new System.Drawing.Size(35, 13);
             this.lblChallanName.TabIndex = 24;
@@ -197,7 +225,7 @@
             // lblBoxId
             // 
             this.lblBoxId.AutoSize = true;
-            this.lblBoxId.Location = new System.Drawing.Point(58, 58);
+            this.lblBoxId.Location = new System.Drawing.Point(58, 97);
             this.lblBoxId.Name = "lblBoxId";
             this.lblBoxId.Size = new System.Drawing.Size(0, 13);
             this.lblBoxId.TabIndex = 6;
@@ -208,7 +236,7 @@
             this.lblScannedCnt.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblScannedCnt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblScannedCnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblScannedCnt.Location = new System.Drawing.Point(614, 10);
+            this.lblScannedCnt.Location = new System.Drawing.Point(681, 49);
             this.lblScannedCnt.Name = "lblScannedCnt";
             this.lblScannedCnt.Size = new System.Drawing.Size(85, 44);
             this.lblScannedCnt.TabIndex = 5;
@@ -219,7 +247,7 @@
             // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(521, 10);
+            this.label2.Location = new System.Drawing.Point(587, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 44);
             this.label2.TabIndex = 4;
@@ -231,7 +259,7 @@
             this.lblBatch.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblBatch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblBatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBatch.Location = new System.Drawing.Point(311, 10);
+            this.lblBatch.Location = new System.Drawing.Point(375, 49);
             this.lblBatch.Name = "lblBatch";
             this.lblBatch.Size = new System.Drawing.Size(204, 44);
             this.lblBatch.TabIndex = 3;
@@ -242,9 +270,9 @@
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(244, 10);
+            this.label4.Location = new System.Drawing.Point(307, 49);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 44);
+            this.label4.Size = new System.Drawing.Size(62, 44);
             this.label4.TabIndex = 2;
             this.label4.Text = "BATCH";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -254,9 +282,9 @@
             this.lblBox.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBox.Location = new System.Drawing.Point(61, 10);
+            this.lblBox.Location = new System.Drawing.Point(68, 49);
             this.lblBox.Name = "lblBox";
-            this.lblBox.Size = new System.Drawing.Size(177, 44);
+            this.lblBox.Size = new System.Drawing.Size(233, 44);
             this.lblBox.TabIndex = 0;
             this.lblBox.Text = "BOX";
             this.lblBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -265,9 +293,9 @@
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 10);
+            this.label3.Location = new System.Drawing.Point(14, 49);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 44);
+            this.label3.Size = new System.Drawing.Size(48, 44);
             this.label3.TabIndex = 0;
             this.label3.Text = "BOX";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -276,7 +304,7 @@
             // 
             this.label6.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Location = new System.Drawing.Point(423, 65);
+            this.label6.Location = new System.Drawing.Point(423, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(117, 23);
             this.label6.TabIndex = 25;
@@ -286,7 +314,7 @@
             // cbBox
             // 
             this.cbBox.FormattingEnabled = true;
-            this.cbBox.Location = new System.Drawing.Point(546, 67);
+            this.cbBox.Location = new System.Drawing.Point(546, 46);
             this.cbBox.Name = "cbBox";
             this.cbBox.Size = new System.Drawing.Size(222, 21);
             this.cbBox.TabIndex = 26;
@@ -294,7 +322,7 @@
             // grdBatchList
             // 
             this.grdBatchList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdBatchList.Location = new System.Drawing.Point(372, 226);
+            this.grdBatchList.Location = new System.Drawing.Point(372, 246);
             this.grdBatchList.Name = "grdBatchList";
             this.grdBatchList.Size = new System.Drawing.Size(403, 314);
             this.grdBatchList.TabIndex = 27;
@@ -304,7 +332,7 @@
             this.label7.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(481, 192);
+            this.label7.Location = new System.Drawing.Point(494, 213);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(163, 31);
             this.label7.TabIndex = 28;
@@ -316,7 +344,7 @@
             this.label8.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(110, 192);
+            this.label8.Location = new System.Drawing.Point(114, 213);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(163, 31);
             this.label8.TabIndex = 29;
@@ -326,14 +354,14 @@
             // grdPacketList
             // 
             this.grdPacketList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdPacketList.Location = new System.Drawing.Point(16, 226);
+            this.grdPacketList.Location = new System.Drawing.Point(16, 246);
             this.grdPacketList.Name = "grdPacketList";
             this.grdPacketList.Size = new System.Drawing.Size(350, 314);
             this.grdPacketList.TabIndex = 30;
             // 
             // btnForceComplete
             // 
-            this.btnForceComplete.Location = new System.Drawing.Point(672, 94);
+            this.btnForceComplete.Location = new System.Drawing.Point(319, 9);
             this.btnForceComplete.Name = "btnForceComplete";
             this.btnForceComplete.Size = new System.Drawing.Size(96, 25);
             this.btnForceComplete.TabIndex = 31;
@@ -345,12 +373,23 @@
             // lblChallanId
             // 
             this.lblChallanId.AutoSize = true;
-            this.lblChallanId.Location = new System.Drawing.Point(44, 203);
+            this.lblChallanId.Location = new System.Drawing.Point(41, 213);
             this.lblChallanId.Name = "lblChallanId";
             this.lblChallanId.Size = new System.Drawing.Size(35, 13);
             this.lblChallanId.TabIndex = 32;
             this.lblChallanId.Text = "label9";
             this.lblChallanId.Visible = false;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(238, 9);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(75, 23);
+            this.btnTest.TabIndex = 33;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Visible = false;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // frmStartByRegan
             // 
@@ -358,6 +397,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(787, 572);
             this.ControlBox = false;
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.lblChallanId);
             this.Controls.Add(this.btnForceComplete);
             this.Controls.Add(this.grdPacketList);
@@ -420,5 +460,8 @@
         private System.Windows.Forms.DataGridView grdPacketList;
         private System.Windows.Forms.Button btnForceComplete;
         private System.Windows.Forms.Label lblChallanId;
+        private System.Windows.Forms.Label lblChallanBoxName;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnTest;
     }
 }

@@ -176,6 +176,7 @@
   <ItemGroup>
     <Content Include="bin\Debug\FileManagementSystem.exe" />
     <Content Include="bin\Debug\FileManagementSystem.pdb" />
+    <Content Include="scanning_service.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />

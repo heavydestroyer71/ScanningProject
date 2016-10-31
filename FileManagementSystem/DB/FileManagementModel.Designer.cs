@@ -584,16 +584,9 @@ namespace FileManagementSystem.DB
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectResult<cbo_load_Challan_reset_Result> cbo_load_Challan_reset()
-        {
-            return base.ExecuteFunction<cbo_load_Challan_reset_Result>("cbo_load_Challan_reset");
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         /// <param name="challan_id">No Metadata Documentation available.</param>
-        public int ResetChallanBoxBatch(Nullable<global::System.Int32> challan_id)
+        /// <param name="box_id">No Metadata Documentation available.</param>
+        public int ResetChallanBoxBatch(Nullable<global::System.Int32> challan_id, Nullable<global::System.Int32> box_id)
         {
             ObjectParameter challan_idParameter;
             if (challan_id.HasValue)
@@ -605,7 +598,44 @@ namespace FileManagementSystem.DB
                 challan_idParameter = new ObjectParameter("challan_id", typeof(global::System.Int32));
             }
     
-            return base.ExecuteFunction("ResetChallanBoxBatch", challan_idParameter);
+            ObjectParameter box_idParameter;
+            if (box_id.HasValue)
+            {
+                box_idParameter = new ObjectParameter("box_id", box_id);
+            }
+            else
+            {
+                box_idParameter = new ObjectParameter("box_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("ResetChallanBoxBatch", challan_idParameter, box_idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="challan_id">No Metadata Documentation available.</param>
+        public ObjectResult<cbo_load_Box_Reset_Result> cbo_load_Box_Reset(Nullable<global::System.Int32> challan_id)
+        {
+            ObjectParameter challan_idParameter;
+            if (challan_id.HasValue)
+            {
+                challan_idParameter = new ObjectParameter("challan_id", challan_id);
+            }
+            else
+            {
+                challan_idParameter = new ObjectParameter("challan_id", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<cbo_load_Box_Reset_Result>("cbo_load_Box_Reset", challan_idParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectResult<cbo_load_Challan_reset_Result> cbo_load_Challan_reset()
+        {
+            return base.ExecuteFunction<cbo_load_Challan_reset_Result>("cbo_load_Challan_reset");
         }
 
         #endregion
@@ -3148,6 +3178,83 @@ namespace FileManagementSystem.DB
     #endregion
 
     #region ComplexTypes
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmComplexTypeAttribute(NamespaceName="FileManagementDbModel", Name="cbo_load_Box_Reset_Result")]
+    [DataContractAttribute(IsReference=true)]
+    [Serializable()]
+    public partial class cbo_load_Box_Reset_Result : ComplexObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new cbo_load_Box_Reset_Result object.
+        /// </summary>
+        /// <param name="box_info_id">Initial value of the box_info_id property.</param>
+        public static cbo_load_Box_Reset_Result Createcbo_load_Box_Reset_Result(global::System.Int32 box_info_id)
+        {
+            cbo_load_Box_Reset_Result cbo_load_Box_Reset_Result = new cbo_load_Box_Reset_Result();
+            cbo_load_Box_Reset_Result.box_info_id = box_info_id;
+            return cbo_load_Box_Reset_Result;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 box_info_id
+        {
+            get
+            {
+                return _box_info_id;
+            }
+            set
+            {
+                Onbox_info_idChanging(value);
+                ReportPropertyChanging("box_info_id");
+                _box_info_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("box_info_id");
+                Onbox_info_idChanged();
+            }
+        }
+        private global::System.Int32 _box_info_id;
+        partial void Onbox_info_idChanging(global::System.Int32 value);
+        partial void Onbox_info_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String box_name
+        {
+            get
+            {
+                return _box_name;
+            }
+            set
+            {
+                Onbox_nameChanging(value);
+                ReportPropertyChanging("box_name");
+                _box_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("box_name");
+                Onbox_nameChanged();
+            }
+        }
+        private global::System.String _box_name;
+        partial void Onbox_nameChanging(global::System.String value);
+        partial void Onbox_nameChanged();
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.

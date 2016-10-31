@@ -18,9 +18,7 @@ namespace FileManagementSystem
         public FrmProcess()
         {
             InitializeComponent();
-            load_challan();
-            load_region();
-            load_challan_reset();
+            
         }
 
         private void btnProcess_Click(object sender, EventArgs e)
@@ -65,7 +63,7 @@ namespace FileManagementSystem
             data = db.cbo_load_Challan_reset().ToList();
             cboResetChallanBox.DataSource = data;
             cboResetChallanBox.DisplayMember = "challan_name";
-            cboResetChallanBox.ValueMember = "challan_id";
+            cboResetChallanBox.ValueMember = "Challan_id";
 
         }
 
@@ -78,9 +76,21 @@ namespace FileManagementSystem
             cbRegion.DisplayMember = "region";
         }
 
+        private void load_box(int challan_no)
+        {
+            List<cbo_load_Box_Reset_Result> data = new List<cbo_load_Box_Reset_Result>();
+            data = db.cbo_load_Box_Reset(challan_no).ToList();
+            cbBox.DataSource = data;
+            cbBox.DisplayMember = "box_name";
+            cbBox.ValueMember = "box_info_id";
+
+        }
+
         private void FrmProcess_Load(object sender, EventArgs e)
         {
-
+            load_challan();
+            load_region();
+            load_challan_reset();
         }
 
         private void btnAutoBoxBatch_Click(object sender, EventArgs e)
@@ -101,10 +111,22 @@ namespace FileManagementSystem
             if (result == DialogResult.Yes)
             {
                 //MessageBox.Show(cboResetChallanBox.SelectedValue.ToString());
-                db.ResetChallanBoxBatch(int.Parse(cboResetChallanBox.SelectedValue.ToString()));
+                db.ResetChallanBoxBatch(int.Parse(cboResetChallanBox.SelectedValue.ToString()),int.Parse(cbBox.SelectedValue.ToString()));
                 load_challan();
                 load_challan_reset();
                 MessageBox.Show("Challan box reset successfully!");
+            }
+        }
+
+        private void cboResetChallanBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show(cboResetChallanBox.SelectedValue.ToString());
+            //var val = cboResetChallanBox.SelectedValue;
+            int number;
+            bool result = Int32.TryParse(cboResetChallanBox.SelectedValue.ToString(), out number);
+            if (result)
+            {
+                load_box(int.Parse(cboResetChallanBox.SelectedValue.ToString()));
             }
         }
     }

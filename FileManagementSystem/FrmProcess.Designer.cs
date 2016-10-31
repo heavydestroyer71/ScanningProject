@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.pnlProcess = new System.Windows.Forms.Panel();
+            this.grpResetChallanBox = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.cboResetChallanBox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnAutoBoxBatch = new System.Windows.Forms.Button();
             this.pnlControl = new System.Windows.Forms.Panel();
             this.btnProcess = new System.Windows.Forms.Button();
@@ -36,13 +40,11 @@
             this.cbChallan = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbRegion = new System.Windows.Forms.ComboBox();
-            this.grpResetChallanBox = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cboResetChallanBox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cbBox = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.pnlProcess.SuspendLayout();
-            this.pnlControl.SuspendLayout();
             this.grpResetChallanBox.SuspendLayout();
+            this.pnlControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlProcess
@@ -57,6 +59,53 @@
             this.pnlProcess.Name = "pnlProcess";
             this.pnlProcess.Size = new System.Drawing.Size(758, 306);
             this.pnlProcess.TabIndex = 0;
+            // 
+            // grpResetChallanBox
+            // 
+            this.grpResetChallanBox.Controls.Add(this.cbBox);
+            this.grpResetChallanBox.Controls.Add(this.label6);
+            this.grpResetChallanBox.Controls.Add(this.button1);
+            this.grpResetChallanBox.Controls.Add(this.cboResetChallanBox);
+            this.grpResetChallanBox.Controls.Add(this.label3);
+            this.grpResetChallanBox.Location = new System.Drawing.Point(27, 110);
+            this.grpResetChallanBox.Name = "grpResetChallanBox";
+            this.grpResetChallanBox.Size = new System.Drawing.Size(710, 100);
+            this.grpResetChallanBox.TabIndex = 16;
+            this.grpResetChallanBox.TabStop = false;
+            this.grpResetChallanBox.Text = "Reset Challan Box";
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(540, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(161, 54);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "&Reset Challan Box";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // cboResetChallanBox
+            // 
+            this.cboResetChallanBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboResetChallanBox.FormattingEnabled = true;
+            this.cboResetChallanBox.Location = new System.Drawing.Point(193, 28);
+            this.cboResetChallanBox.Name = "cboResetChallanBox";
+            this.cboResetChallanBox.Size = new System.Drawing.Size(341, 24);
+            this.cboResetChallanBox.TabIndex = 12;
+            this.cboResetChallanBox.SelectedValueChanged += new System.EventHandler(this.cboResetChallanBox_SelectedValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(9, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(178, 24);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Select Challan and Region";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAutoBoxBatch
             // 
@@ -133,49 +182,26 @@
             this.cbRegion.TabIndex = 3;
             this.cbRegion.Visible = false;
             // 
-            // grpResetChallanBox
+            // cbBox
             // 
-            this.grpResetChallanBox.Controls.Add(this.button1);
-            this.grpResetChallanBox.Controls.Add(this.cboResetChallanBox);
-            this.grpResetChallanBox.Controls.Add(this.label3);
-            this.grpResetChallanBox.Location = new System.Drawing.Point(27, 110);
-            this.grpResetChallanBox.Name = "grpResetChallanBox";
-            this.grpResetChallanBox.Size = new System.Drawing.Size(710, 100);
-            this.grpResetChallanBox.TabIndex = 16;
-            this.grpResetChallanBox.TabStop = false;
-            this.grpResetChallanBox.Text = "Reset Challan Box";
+            this.cbBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbBox.FormattingEnabled = true;
+            this.cbBox.Location = new System.Drawing.Point(193, 58);
+            this.cbBox.Name = "cbBox";
+            this.cbBox.Size = new System.Drawing.Size(341, 24);
+            this.cbBox.TabIndex = 28;
             // 
-            // label3
+            // label6
             // 
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 38);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(178, 24);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Select Challan and Region";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cboResetChallanBox
-            // 
-            this.cboResetChallanBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboResetChallanBox.FormattingEnabled = true;
-            this.cboResetChallanBox.Location = new System.Drawing.Point(193, 38);
-            this.cboResetChallanBox.Name = "cboResetChallanBox";
-            this.cboResetChallanBox.Size = new System.Drawing.Size(341, 24);
-            this.cboResetChallanBox.TabIndex = 12;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(540, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(161, 24);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "&Reset Challan Box";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.label6.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(9, 56);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(178, 23);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "Select Box";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FrmProcess
             // 
@@ -187,8 +213,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FrmProcess_Load);
             this.pnlProcess.ResumeLayout(false);
-            this.pnlControl.ResumeLayout(false);
             this.grpResetChallanBox.ResumeLayout(false);
+            this.pnlControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -207,5 +233,7 @@
         private System.Windows.Forms.ComboBox cboResetChallanBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox cbBox;
+        private System.Windows.Forms.Label label6;
     }
 }

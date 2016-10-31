@@ -1,0 +1,911 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ImageDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ImageDbModelStoreContainer">
+          <EntitySet Name="challan_info" EntityType="ImageDbModel.Store.challan_info" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClientInfo" EntityType="ImageDbModel.Store.ClientInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GEN_USER_TYPES" EntityType="ImageDbModel.Store.GEN_USER_TYPES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="genQcReason" EntityType="ImageDbModel.Store.genQcReason" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="imageMergesInfo" EntityType="ImageDbModel.Store.imageMergesInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="mergeImageDetails" EntityType="ImageDbModel.Store.mergeImageDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Scanning" EntityType="ImageDbModel.Store.Scanning" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SEC_USERS" EntityType="ImageDbModel.Store.SEC_USERS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SET_CLIENT_DEPARTMENTS" EntityType="ImageDbModel.Store.SET_CLIENT_DEPARTMENTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SET_CLIENTS" EntityType="ImageDbModel.Store.SET_CLIENTS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblSoftwareVer" EntityType="ImageDbModel.Store.tblSoftwareVer" store:Type="Tables" store:Schema="dbo" store:Name="tblSoftwareVer">
+            <DefiningQuery>SELECT 
+      [tblSoftwareVer].[Id] AS [Id], 
+      [tblSoftwareVer].[ReleaseDate] AS [ReleaseDate], 
+      [tblSoftwareVer].[Version] AS [Version]
+      FROM [dbo].[tblSoftwareVer] AS [tblSoftwareVer]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_mergeImageDetails_mergeImageDetails" Association="ImageDbModel.Store.FK_mergeImageDetails_mergeImageDetails">
+            <End Role="SEC_USERS" EntitySet="SEC_USERS" />
+            <End Role="mergeImageDetails" EntitySet="mergeImageDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEC_USERS_GEN_USER_TYPES" Association="ImageDbModel.Store.FK_SEC_USERS_GEN_USER_TYPES">
+            <End Role="GEN_USER_TYPES" EntitySet="GEN_USER_TYPES" />
+            <End Role="SEC_USERS" EntitySet="SEC_USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEC_USERS_SEC_CLIENT_DEPT" Association="ImageDbModel.Store.FK_SEC_USERS_SEC_CLIENT_DEPT">
+            <End Role="SET_CLIENT_DEPARTMENTS" EntitySet="SET_CLIENT_DEPARTMENTS" />
+            <End Role="SEC_USERS" EntitySet="SEC_USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEC_USERS_SET_CLIENTS" Association="ImageDbModel.Store.FK_SEC_USERS_SET_CLIENTS">
+            <End Role="SET_CLIENTS" EntitySet="SET_CLIENTS" />
+            <End Role="SEC_USERS" EntitySet="SEC_USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS" Association="ImageDbModel.Store.FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS">
+            <End Role="SET_CLIENTS" EntitySet="SET_CLIENTS" />
+            <End Role="SET_CLIENT_DEPARTMENTS" EntitySet="SET_CLIENT_DEPARTMENTS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="challan_info">
+          <Key>
+            <PropertyRef Name="challanId" />
+          </Key>
+          <Property Name="challanId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="challan_name" Type="varchar" MaxLength="255" />
+          <Property Name="challan_receive_date" Type="date" />
+          <Property Name="challan_qty" Type="int" />
+        </EntityType>
+        <EntityType Name="ClientInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MSIDN" Type="varchar" MaxLength="20" />
+          <Property Name="Name" Type="varchar" MaxLength="150" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="QC" Type="int" />
+        </EntityType>
+        <EntityType Name="GEN_USER_TYPES">
+          <Key>
+            <PropertyRef Name="USER_TYPE_NO" />
+          </Key>
+          <Property Name="USER_TYPE_NO" Type="smallint" Nullable="false" />
+          <Property Name="USER_TYPE" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="USER_TYPE_DESC" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="genQcReason">
+          <Key>
+            <PropertyRef Name="qcReasonId" />
+          </Key>
+          <Property Name="qcReasonId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="reasonName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="imageMergesInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MSISDN" Type="float" />
+          <Property Name="Box" Type="nvarchar" MaxLength="255" />
+          <Property Name="Batch" Type="nvarchar" MaxLength="255" />
+          <Property Name="CenterName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Agent" Type="nvarchar" MaxLength="255" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="Region" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsComplete" Type="bit" />
+          <Property Name="challan" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mergeImageDetails">
+          <Key>
+            <PropertyRef Name="mergeDetailsId" />
+          </Key>
+          <Property Name="mergeDetailsId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="USER_NO" Type="int" />
+          <Property Name="box" Type="varchar" MaxLength="100" />
+          <Property Name="batch" Type="varchar" MaxLength="100" />
+          <Property Name="msisdn" Type="varchar" MaxLength="15" />
+          <Property Name="source_file_name" Type="varchar" MaxLength="50" />
+          <Property Name="source_path" Type="varchar" MaxLength="255" />
+          <Property Name="sim_number" Type="varchar" MaxLength="50" />
+          <Property Name="create_date" Type="date" />
+        </EntityType>
+        <EntityType Name="Scanning">
+          <Key>
+            <PropertyRef Name="SlNo" />
+          </Key>
+          <Property Name="SlNo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="11" />
+          <Property Name="IsRegScanned" Type="int" />
+          <Property Name="IsNIDScanned" Type="int" />
+          <Property Name="IsMerge" Type="int" />
+        </EntityType>
+        <EntityType Name="SEC_USERS">
+          <Key>
+            <PropertyRef Name="USER_NO" />
+          </Key>
+          <Property Name="USER_NO" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="USER_TYPE_NO" Type="smallint" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="MID_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="LAST_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="LOGIN_ID" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="PASS_SALT" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="LOGIN_PASSWORD" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="IS_ACTIVE" Type="bit" />
+          <Property Name="ACTIVE_FROM" Type="datetime" />
+          <Property Name="ACTIVE_TO" Type="datetime" />
+          <Property Name="IS_LOCKED" Type="bit" />
+          <Property Name="LOCK_REASON" Type="varchar" MaxLength="100" />
+          <Property Name="LOCK_IP_ADDR" Type="varchar" MaxLength="100" />
+          <Property Name="LOCK_TIME" Type="datetime" />
+          <Property Name="CLIENT_NO" Type="smallint" />
+          <Property Name="CAN_VIEW_DATA" Type="bit" />
+          <Property Name="CAN_VIEW_IMAGE" Type="bit" />
+          <Property Name="CAN_DO_REQUEST" Type="bit" />
+          <Property Name="CREATE_USER_NO" Type="int" />
+          <Property Name="CREATE_LOGON_NO" Type="bigint" />
+          <Property Name="CREATE_TIME" Type="datetime" />
+          <Property Name="UPDATE_USER_NO" Type="int" />
+          <Property Name="UPDATE_LOGON_NO" Type="bigint" />
+          <Property Name="UPDATE_TIME" Type="datetime" />
+          <Property Name="DEPT_NO" Type="smallint" />
+        </EntityType>
+        <EntityType Name="SET_CLIENT_DEPARTMENTS">
+          <Key>
+            <PropertyRef Name="DEPT_NO" />
+          </Key>
+          <Property Name="DEPT_NO" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CLIENT_NO" Type="smallint" Nullable="false" />
+          <Property Name="DEPT_NAME" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="DEPT_ADDR" Type="varchar" MaxLength="500" />
+          <Property Name="DEPT_CONTACT" Type="varchar" MaxLength="500" />
+          <Property Name="DEPT_EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="DELIVERY_LOCATION" Type="varchar" MaxLength="500" />
+          <Property Name="CONTACT_PERSON" Type="varchar" MaxLength="100" />
+          <Property Name="CONTACT_ADDR" Type="varchar" MaxLength="500" />
+          <Property Name="DESIGNATION" Type="varchar" MaxLength="100" />
+          <Property Name="ATTENTION" Type="varchar" MaxLength="100" />
+          <Property Name="IS_NEW_TRANSMIT" Type="bit" />
+          <Property Name="IS_AUTO_ID" Type="bit" />
+          <Property Name="NEXT_ID" Type="int" />
+          <Property Name="ID_LENGHT" Type="tinyint" />
+          <Property Name="ID_PREFIX" Type="varchar" MaxLength="10" />
+          <Property Name="CREATE_USER_NO" Type="int" />
+          <Property Name="CREATE_LOGON_NO" Type="bigint" />
+          <Property Name="CREATE_TIME" Type="datetime" />
+          <Property Name="UPDATE_USER_NO" Type="int" />
+          <Property Name="UPDATE_LOGON_NO" Type="bigint" />
+          <Property Name="UPDATE_TIME" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SET_CLIENTS">
+          <Key>
+            <PropertyRef Name="CLIENT_NO" />
+          </Key>
+          <Property Name="CLIENT_NO" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CLIENT_NAME" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="CLIENT_ALIAS" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CLIENT_ADDR" Type="varchar" MaxLength="500" />
+          <Property Name="CLIENT_CONTACT" Type="varchar" MaxLength="500" />
+          <Property Name="CONTACT_PERSON" Type="varchar" MaxLength="100" />
+          <Property Name="CONTACT_ADDR" Type="varchar" MaxLength="500" />
+          <Property Name="DESIGNATION" Type="varchar" MaxLength="100" />
+          <Property Name="ATTENTION" Type="varchar" MaxLength="100" />
+          <Property Name="EMAIL_ADDR" Type="varchar" MaxLength="100" />
+          <Property Name="IS_ACIVE" Type="bit" />
+          <Property Name="CREATE_USER_NO" Type="int" />
+          <Property Name="CREATE_LOGON_NO" Type="bigint" />
+          <Property Name="CREATE_TIME" Type="datetime" />
+          <Property Name="UPDATE_USER_NO" Type="int" />
+          <Property Name="UPDATE_LOGON_NO" Type="bigint" />
+          <Property Name="UPDATE_TIME" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'ImageDb_test.dbo.tblSoftwareVer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="tblSoftwareVer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReleaseDate" Type="date" />
+          <Property Name="Version" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_mergeImageDetails_mergeImageDetails">
+          <End Role="SEC_USERS" Type="ImageDbModel.Store.SEC_USERS" Multiplicity="0..1" />
+          <End Role="mergeImageDetails" Type="ImageDbModel.Store.mergeImageDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEC_USERS">
+              <PropertyRef Name="USER_NO" />
+            </Principal>
+            <Dependent Role="mergeImageDetails">
+              <PropertyRef Name="USER_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEC_USERS_GEN_USER_TYPES">
+          <End Role="GEN_USER_TYPES" Type="ImageDbModel.Store.GEN_USER_TYPES" Multiplicity="1" />
+          <End Role="SEC_USERS" Type="ImageDbModel.Store.SEC_USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GEN_USER_TYPES">
+              <PropertyRef Name="USER_TYPE_NO" />
+            </Principal>
+            <Dependent Role="SEC_USERS">
+              <PropertyRef Name="USER_TYPE_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEC_USERS_SEC_CLIENT_DEPT">
+          <End Role="SET_CLIENT_DEPARTMENTS" Type="ImageDbModel.Store.SET_CLIENT_DEPARTMENTS" Multiplicity="0..1" />
+          <End Role="SEC_USERS" Type="ImageDbModel.Store.SEC_USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SET_CLIENT_DEPARTMENTS">
+              <PropertyRef Name="DEPT_NO" />
+            </Principal>
+            <Dependent Role="SEC_USERS">
+              <PropertyRef Name="DEPT_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEC_USERS_SET_CLIENTS">
+          <End Role="SET_CLIENTS" Type="ImageDbModel.Store.SET_CLIENTS" Multiplicity="0..1" />
+          <End Role="SEC_USERS" Type="ImageDbModel.Store.SEC_USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SET_CLIENTS">
+              <PropertyRef Name="CLIENT_NO" />
+            </Principal>
+            <Dependent Role="SEC_USERS">
+              <PropertyRef Name="CLIENT_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS">
+          <End Role="SET_CLIENTS" Type="ImageDbModel.Store.SET_CLIENTS" Multiplicity="1" />
+          <End Role="SET_CLIENT_DEPARTMENTS" Type="ImageDbModel.Store.SET_CLIENT_DEPARTMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SET_CLIENTS">
+              <PropertyRef Name="CLIENT_NO" />
+            </Principal>
+            <Dependent Role="SET_CLIENT_DEPARTMENTS">
+              <PropertyRef Name="CLIENT_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="details_report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_ClientInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="get_ImageName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_mobileNo_NID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_mobileNo_RegScanned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_sec_users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LoginId" Type="varchar" Mode="In" />
+          <Parameter Name="LoginPassword" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="insert_vetting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tokenid" Type="int" Mode="In" />
+          <Parameter Name="msisdn" Type="int" Mode="In" />
+          <Parameter Name="nid" Type="int" Mode="In" />
+          <Parameter Name="box" Type="varchar" Mode="In" />
+          <Parameter Name="batch" Type="varchar" Mode="In" />
+          <Parameter Name="scan_by" Type="varchar" Mode="In" />
+          <Parameter Name="region" Type="varchar" Mode="In" />
+          <Parameter Name="simtype" Type="varchar" Mode="In" />
+          <Parameter Name="isactive" Type="varchar" Mode="In" />
+          <Parameter Name="remarks" Type="varchar" Mode="In" />
+          <Parameter Name="dob" Type="date" Mode="In" />
+          <Parameter Name="idtype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MergeReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IsComplete" Type="bit" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ImageDbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ImageDbEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="get_mobileNo_RegScanned" ReturnType="Collection(ImageDbModel.get_mobileNo_RegScanned_Result)" />
+          <FunctionImport Name="get_mobileNo_NID" ReturnType="Collection(ImageDbModel.get_mobileNo_NID_Result)" />
+          <FunctionImport Name="get_ImageName" ReturnType="Collection(ImageDbModel.get_ImageName_Result)" />
+          <FunctionImport Name="get_sec_users" ReturnType="Collection(ImageDbModel.get_sec_users_Result)">
+            <Parameter Name="LoginId" Mode="In" Type="String" />
+            <Parameter Name="LoginPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="get_ClientInfo" ReturnType="Collection(ImageDbModel.get_ClientInfo_Result)">
+          <Parameter Name="NID" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="challan_info" EntityType="ImageDbModel.challan_info" />
+          <EntitySet Name="ClientInfoes" EntityType="ImageDbModel.ClientInfo" />
+          <EntitySet Name="GEN_USER_TYPES" EntityType="ImageDbModel.GEN_USER_TYPES" />
+          <EntitySet Name="genQcReasons" EntityType="ImageDbModel.genQcReason" />
+          <EntitySet Name="imageMergesInfoes" EntityType="ImageDbModel.imageMergesInfo" />
+          <EntitySet Name="Scannings" EntityType="ImageDbModel.Scanning" />
+          <EntitySet Name="SEC_USERS" EntityType="ImageDbModel.SEC_USERS" />
+          <EntitySet Name="SET_CLIENT_DEPARTMENTS" EntityType="ImageDbModel.SET_CLIENT_DEPARTMENTS" />
+          <EntitySet Name="SET_CLIENTS" EntityType="ImageDbModel.SET_CLIENTS" />
+          <AssociationSet Name="FK_SEC_USERS_GEN_USER_TYPES" Association="ImageDbModel.FK_SEC_USERS_GEN_USER_TYPES">
+            <End Role="GEN_USER_TYPES" EntitySet="GEN_USER_TYPES" />
+            <End Role="SEC_USERS" EntitySet="SEC_USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEC_USERS_SEC_CLIENT_DEPT" Association="ImageDbModel.FK_SEC_USERS_SEC_CLIENT_DEPT">
+            <End Role="SET_CLIENT_DEPARTMENTS" EntitySet="SET_CLIENT_DEPARTMENTS" />
+            <End Role="SEC_USERS" EntitySet="SEC_USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEC_USERS_SET_CLIENTS" Association="ImageDbModel.FK_SEC_USERS_SET_CLIENTS">
+            <End Role="SET_CLIENTS" EntitySet="SET_CLIENTS" />
+            <End Role="SEC_USERS" EntitySet="SEC_USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS" Association="ImageDbModel.FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS">
+            <End Role="SET_CLIENTS" EntitySet="SET_CLIENTS" />
+            <End Role="SET_CLIENT_DEPARTMENTS" EntitySet="SET_CLIENT_DEPARTMENTS" />
+          </AssociationSet>
+          <EntitySet Name="tblSoftwareVers" EntityType="ImageDbModel.tblSoftwareVer" />
+          <EntitySet Name="mergeImageDetails" EntityType="ImageDbModel.mergeImageDetail" />
+          <AssociationSet Name="FK_mergeImageDetails_mergeImageDetails" Association="ImageDbModel.FK_mergeImageDetails_mergeImageDetails">
+            <End Role="SEC_USERS" EntitySet="SEC_USERS" />
+            <End Role="mergeImageDetail" EntitySet="mergeImageDetails" />
+          </AssociationSet>
+          <FunctionImport Name="details_report" ReturnType="Collection(ImageDbModel.details_report_Result)" />
+          </EntityContainer>
+        <ComplexType Name="get_mobileNo_RegScanned_Result">
+          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="11" />
+        </ComplexType>
+        <ComplexType Name="get_mobileNo_NID_Result">
+          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="11" />
+        </ComplexType>
+        <ComplexType Name="get_ImageName_Result">
+          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="11" />
+        </ComplexType>
+        <ComplexType Name="get_sec_users_Result">
+          <Property Type="String" Name="LOGIN_ID" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="LOGIN_PASSWORD" Nullable="false" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="get_ClientInfo_Result">
+          <Property Type="String" Name="TOKENID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MSISDN" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SIMNUMBER" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PDFFILEPATH" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DOB" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IDTYPE" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="challan_info">
+          <Key>
+            <PropertyRef Name="challanId" />
+          </Key>
+          <Property Type="Int32" Name="challanId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="challan_name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="challan_receive_date" />
+          <Property Type="Int32" Name="challan_qty" />
+        </EntityType>
+        <EntityType Name="ClientInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="MSIDN" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DOB" />
+          <Property Type="Int32" Name="QC" />
+        </EntityType>
+        <EntityType Name="GEN_USER_TYPES">
+          <Key>
+            <PropertyRef Name="USER_TYPE_NO" />
+          </Key>
+          <Property Type="Int16" Name="USER_TYPE_NO" Nullable="false" />
+          <Property Type="String" Name="USER_TYPE" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="USER_TYPE_DESC" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SEC_USERS" Relationship="ImageDbModel.FK_SEC_USERS_GEN_USER_TYPES" FromRole="GEN_USER_TYPES" ToRole="SEC_USERS" />
+        </EntityType>
+        <EntityType Name="genQcReason">
+          <Key>
+            <PropertyRef Name="qcReasonId" />
+          </Key>
+          <Property Type="Int32" Name="qcReasonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="reasonName" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="imageMergesInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Double" Name="MSISDN" />
+          <Property Type="String" Name="Box" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Batch" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CenterName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Agent" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="EntryDate" />
+          <Property Type="String" Name="Region" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsComplete" />
+          <Property Type="String" Name="challan" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Scanning">
+          <Key>
+            <PropertyRef Name="SlNo" />
+          </Key>
+          <Property Type="Int32" Name="SlNo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="MobileNo" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IsRegScanned" />
+          <Property Type="Int32" Name="IsNIDScanned" />
+          <Property Type="Int32" Name="IsMerge" />
+        </EntityType>
+        <EntityType Name="SEC_USERS">
+          <Key>
+            <PropertyRef Name="USER_NO" />
+          </Key>
+          <Property Type="Int32" Name="USER_NO" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="USER_TYPE_NO" Nullable="false" />
+          <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MID_NAME" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LAST_NAME" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOGIN_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PASS_SALT" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LOGIN_PASSWORD" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IS_ACTIVE" />
+          <Property Type="DateTime" Name="ACTIVE_FROM" />
+          <Property Type="DateTime" Name="ACTIVE_TO" />
+          <Property Type="Boolean" Name="IS_LOCKED" />
+          <Property Type="String" Name="LOCK_REASON" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LOCK_IP_ADDR" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LOCK_TIME" />
+          <Property Type="Int16" Name="CLIENT_NO" />
+          <Property Type="Boolean" Name="CAN_VIEW_DATA" />
+          <Property Type="Boolean" Name="CAN_VIEW_IMAGE" />
+          <Property Type="Boolean" Name="CAN_DO_REQUEST" />
+          <Property Type="Int32" Name="CREATE_USER_NO" />
+          <Property Type="Int64" Name="CREATE_LOGON_NO" />
+          <Property Type="DateTime" Name="CREATE_TIME" />
+          <Property Type="Int32" Name="UPDATE_USER_NO" />
+          <Property Type="Int64" Name="UPDATE_LOGON_NO" />
+          <Property Type="DateTime" Name="UPDATE_TIME" />
+          <Property Type="Int16" Name="DEPT_NO" />
+          <NavigationProperty Name="GEN_USER_TYPES" Relationship="ImageDbModel.FK_SEC_USERS_GEN_USER_TYPES" FromRole="SEC_USERS" ToRole="GEN_USER_TYPES" />
+          <NavigationProperty Name="SET_CLIENT_DEPARTMENTS" Relationship="ImageDbModel.FK_SEC_USERS_SEC_CLIENT_DEPT" FromRole="SEC_USERS" ToRole="SET_CLIENT_DEPARTMENTS" />
+          <NavigationProperty Name="SET_CLIENTS" Relationship="ImageDbModel.FK_SEC_USERS_SET_CLIENTS" FromRole="SEC_USERS" ToRole="SET_CLIENTS" />
+          <NavigationProperty Name="mergeImageDetails" Relationship="ImageDbModel.FK_mergeImageDetails_mergeImageDetails" FromRole="SEC_USERS" ToRole="mergeImageDetail" />
+        </EntityType>
+        <EntityType Name="SET_CLIENT_DEPARTMENTS">
+          <Key>
+            <PropertyRef Name="DEPT_NO" />
+          </Key>
+          <Property Type="Int16" Name="DEPT_NO" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="CLIENT_NO" Nullable="false" />
+          <Property Type="String" Name="DEPT_NAME" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DEPT_ADDR" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DEPT_CONTACT" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DEPT_EMAIL" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DELIVERY_LOCATION" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CONTACT_PERSON" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CONTACT_ADDR" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESIGNATION" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ATTENTION" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IS_NEW_TRANSMIT" />
+          <Property Type="Boolean" Name="IS_AUTO_ID" />
+          <Property Type="Int32" Name="NEXT_ID" />
+          <Property Type="Byte" Name="ID_LENGHT" />
+          <Property Type="String" Name="ID_PREFIX" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CREATE_USER_NO" />
+          <Property Type="Int64" Name="CREATE_LOGON_NO" />
+          <Property Type="DateTime" Name="CREATE_TIME" />
+          <Property Type="Int32" Name="UPDATE_USER_NO" />
+          <Property Type="Int64" Name="UPDATE_LOGON_NO" />
+          <Property Type="DateTime" Name="UPDATE_TIME" />
+          <NavigationProperty Name="SEC_USERS" Relationship="ImageDbModel.FK_SEC_USERS_SEC_CLIENT_DEPT" FromRole="SET_CLIENT_DEPARTMENTS" ToRole="SEC_USERS" />
+          <NavigationProperty Name="SET_CLIENTS" Relationship="ImageDbModel.FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS" FromRole="SET_CLIENT_DEPARTMENTS" ToRole="SET_CLIENTS" />
+        </EntityType>
+        <EntityType Name="SET_CLIENTS">
+          <Key>
+            <PropertyRef Name="CLIENT_NO" />
+          </Key>
+          <Property Type="Int16" Name="CLIENT_NO" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="CLIENT_NAME" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CLIENT_ALIAS" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CLIENT_ADDR" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CLIENT_CONTACT" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CONTACT_PERSON" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CONTACT_ADDR" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DESIGNATION" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ATTENTION" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EMAIL_ADDR" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IS_ACIVE" />
+          <Property Type="Int32" Name="CREATE_USER_NO" />
+          <Property Type="Int64" Name="CREATE_LOGON_NO" />
+          <Property Type="DateTime" Name="CREATE_TIME" />
+          <Property Type="Int32" Name="UPDATE_USER_NO" />
+          <Property Type="Int64" Name="UPDATE_LOGON_NO" />
+          <Property Type="DateTime" Name="UPDATE_TIME" />
+          <NavigationProperty Name="SEC_USERS" Relationship="ImageDbModel.FK_SEC_USERS_SET_CLIENTS" FromRole="SET_CLIENTS" ToRole="SEC_USERS" />
+          <NavigationProperty Name="SET_CLIENT_DEPARTMENTS" Relationship="ImageDbModel.FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS" FromRole="SET_CLIENTS" ToRole="SET_CLIENT_DEPARTMENTS" />
+        </EntityType>
+        <Association Name="FK_SEC_USERS_GEN_USER_TYPES">
+          <End Type="ImageDbModel.GEN_USER_TYPES" Role="GEN_USER_TYPES" Multiplicity="1" />
+          <End Type="ImageDbModel.SEC_USERS" Role="SEC_USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GEN_USER_TYPES">
+              <PropertyRef Name="USER_TYPE_NO" />
+            </Principal>
+            <Dependent Role="SEC_USERS">
+              <PropertyRef Name="USER_TYPE_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEC_USERS_SEC_CLIENT_DEPT">
+          <End Type="ImageDbModel.SET_CLIENT_DEPARTMENTS" Role="SET_CLIENT_DEPARTMENTS" Multiplicity="0..1" />
+          <End Type="ImageDbModel.SEC_USERS" Role="SEC_USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SET_CLIENT_DEPARTMENTS">
+              <PropertyRef Name="DEPT_NO" />
+            </Principal>
+            <Dependent Role="SEC_USERS">
+              <PropertyRef Name="DEPT_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEC_USERS_SET_CLIENTS">
+          <End Type="ImageDbModel.SET_CLIENTS" Role="SET_CLIENTS" Multiplicity="0..1" />
+          <End Type="ImageDbModel.SEC_USERS" Role="SEC_USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SET_CLIENTS">
+              <PropertyRef Name="CLIENT_NO" />
+            </Principal>
+            <Dependent Role="SEC_USERS">
+              <PropertyRef Name="CLIENT_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS">
+          <End Type="ImageDbModel.SET_CLIENTS" Role="SET_CLIENTS" Multiplicity="1" />
+          <End Type="ImageDbModel.SET_CLIENT_DEPARTMENTS" Role="SET_CLIENT_DEPARTMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SET_CLIENTS">
+              <PropertyRef Name="CLIENT_NO" />
+            </Principal>
+            <Dependent Role="SET_CLIENT_DEPARTMENTS">
+              <PropertyRef Name="CLIENT_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblSoftwareVer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="ReleaseDate" />
+          <Property Type="String" Name="Version" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="mergeImageDetail">
+          <Key>
+            <PropertyRef Name="mergeDetailsId" />
+          </Key>
+          <Property Type="Int32" Name="mergeDetailsId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="USER_NO" />
+          <Property Type="String" Name="box" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="batch" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="msisdn" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="source_file_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="source_path" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="sim_number" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SEC_USERS" Relationship="ImageDbModel.FK_mergeImageDetails_mergeImageDetails" FromRole="mergeImageDetail" ToRole="SEC_USERS" />
+          <Property Type="DateTime" Name="create_date" />
+        </EntityType>
+        <Association Name="FK_mergeImageDetails_mergeImageDetails">
+          <End Type="ImageDbModel.SEC_USERS" Role="SEC_USERS" Multiplicity="0..1" />
+          <End Type="ImageDbModel.mergeImageDetail" Role="mergeImageDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEC_USERS">
+              <PropertyRef Name="USER_NO" />
+            </Principal>
+            <Dependent Role="mergeImageDetail">
+              <PropertyRef Name="USER_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="details_report_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="source_path" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="source_file_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sim_number" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="msisdn" Nullable="true" />
+          <Property Type="String" Name="agent" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="box" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="batch" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="challan_receive_date" Nullable="true" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="challan" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="LOGIN_ID" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ImageDbModelStoreContainer" CdmEntityContainer="ImageDbEntities">
+          <FunctionImportMapping FunctionImportName="get_mobileNo_RegScanned" FunctionName="ImageDbModel.Store.get_mobileNo_RegScanned">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ImageDbModel.get_mobileNo_RegScanned_Result">
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_mobileNo_NID" FunctionName="ImageDbModel.Store.get_mobileNo_NID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ImageDbModel.get_mobileNo_NID_Result">
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_ImageName" FunctionName="ImageDbModel.Store.get_ImageName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ImageDbModel.get_ImageName_Result">
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_sec_users" FunctionName="ImageDbModel.Store.get_sec_users">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ImageDbModel.get_sec_users_Result">
+                <ScalarProperty Name="LOGIN_ID" ColumnName="LOGIN_ID" />
+                <ScalarProperty Name="LOGIN_PASSWORD" ColumnName="LOGIN_PASSWORD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_ClientInfo" FunctionName="ImageDbModel.Store.get_ClientInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ImageDbModel.get_ClientInfo_Result">
+                <ScalarProperty Name="TOKENID" ColumnName="TOKENID" />
+                <ScalarProperty Name="MSISDN" ColumnName="MSISDN" />
+                <ScalarProperty Name="SIMNUMBER" ColumnName="SIMNUMBER" />
+                <ScalarProperty Name="PDFFILEPATH" ColumnName="PDFFILEPATH" />
+                <ScalarProperty Name="NID" ColumnName="NID" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="IDTYPE" ColumnName="IDTYPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="challan_info">
+            <EntityTypeMapping TypeName="ImageDbModel.challan_info">
+              <MappingFragment StoreEntitySet="challan_info">
+                <ScalarProperty Name="challan_qty" ColumnName="challan_qty" />
+                <ScalarProperty Name="challan_receive_date" ColumnName="challan_receive_date" />
+                <ScalarProperty Name="challan_name" ColumnName="challan_name" />
+                <ScalarProperty Name="challanId" ColumnName="challanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientInfoes">
+            <EntityTypeMapping TypeName="ImageDbModel.ClientInfo">
+              <MappingFragment StoreEntitySet="ClientInfo">
+                <ScalarProperty Name="QC" ColumnName="QC" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MSIDN" ColumnName="MSIDN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GEN_USER_TYPES">
+            <EntityTypeMapping TypeName="ImageDbModel.GEN_USER_TYPES">
+              <MappingFragment StoreEntitySet="GEN_USER_TYPES">
+                <ScalarProperty Name="USER_TYPE_DESC" ColumnName="USER_TYPE_DESC" />
+                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
+                <ScalarProperty Name="USER_TYPE_NO" ColumnName="USER_TYPE_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genQcReasons">
+            <EntityTypeMapping TypeName="ImageDbModel.genQcReason">
+              <MappingFragment StoreEntitySet="genQcReason">
+                <ScalarProperty Name="reasonName" ColumnName="reasonName" />
+                <ScalarProperty Name="qcReasonId" ColumnName="qcReasonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="imageMergesInfoes">
+            <EntityTypeMapping TypeName="ImageDbModel.imageMergesInfo">
+              <MappingFragment StoreEntitySet="imageMergesInfo">
+                <ScalarProperty Name="challan" ColumnName="challan" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Agent" ColumnName="Agent" />
+                <ScalarProperty Name="CenterName" ColumnName="CenterName" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="Box" ColumnName="Box" />
+                <ScalarProperty Name="MSISDN" ColumnName="MSISDN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scannings">
+            <EntityTypeMapping TypeName="ImageDbModel.Scanning">
+              <MappingFragment StoreEntitySet="Scanning">
+                <ScalarProperty Name="IsMerge" ColumnName="IsMerge" />
+                <ScalarProperty Name="IsNIDScanned" ColumnName="IsNIDScanned" />
+                <ScalarProperty Name="IsRegScanned" ColumnName="IsRegScanned" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="SlNo" ColumnName="SlNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEC_USERS">
+            <EntityTypeMapping TypeName="ImageDbModel.SEC_USERS">
+              <MappingFragment StoreEntitySet="SEC_USERS">
+                <ScalarProperty Name="DEPT_NO" ColumnName="DEPT_NO" />
+                <ScalarProperty Name="UPDATE_TIME" ColumnName="UPDATE_TIME" />
+                <ScalarProperty Name="UPDATE_LOGON_NO" ColumnName="UPDATE_LOGON_NO" />
+                <ScalarProperty Name="UPDATE_USER_NO" ColumnName="UPDATE_USER_NO" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_LOGON_NO" ColumnName="CREATE_LOGON_NO" />
+                <ScalarProperty Name="CREATE_USER_NO" ColumnName="CREATE_USER_NO" />
+                <ScalarProperty Name="CAN_DO_REQUEST" ColumnName="CAN_DO_REQUEST" />
+                <ScalarProperty Name="CAN_VIEW_IMAGE" ColumnName="CAN_VIEW_IMAGE" />
+                <ScalarProperty Name="CAN_VIEW_DATA" ColumnName="CAN_VIEW_DATA" />
+                <ScalarProperty Name="CLIENT_NO" ColumnName="CLIENT_NO" />
+                <ScalarProperty Name="LOCK_TIME" ColumnName="LOCK_TIME" />
+                <ScalarProperty Name="LOCK_IP_ADDR" ColumnName="LOCK_IP_ADDR" />
+                <ScalarProperty Name="LOCK_REASON" ColumnName="LOCK_REASON" />
+                <ScalarProperty Name="IS_LOCKED" ColumnName="IS_LOCKED" />
+                <ScalarProperty Name="ACTIVE_TO" ColumnName="ACTIVE_TO" />
+                <ScalarProperty Name="ACTIVE_FROM" ColumnName="ACTIVE_FROM" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="LOGIN_PASSWORD" ColumnName="LOGIN_PASSWORD" />
+                <ScalarProperty Name="PASS_SALT" ColumnName="PASS_SALT" />
+                <ScalarProperty Name="LOGIN_ID" ColumnName="LOGIN_ID" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="MID_NAME" ColumnName="MID_NAME" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="USER_TYPE_NO" ColumnName="USER_TYPE_NO" />
+                <ScalarProperty Name="USER_NO" ColumnName="USER_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SET_CLIENT_DEPARTMENTS">
+            <EntityTypeMapping TypeName="ImageDbModel.SET_CLIENT_DEPARTMENTS">
+              <MappingFragment StoreEntitySet="SET_CLIENT_DEPARTMENTS">
+                <ScalarProperty Name="UPDATE_TIME" ColumnName="UPDATE_TIME" />
+                <ScalarProperty Name="UPDATE_LOGON_NO" ColumnName="UPDATE_LOGON_NO" />
+                <ScalarProperty Name="UPDATE_USER_NO" ColumnName="UPDATE_USER_NO" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_LOGON_NO" ColumnName="CREATE_LOGON_NO" />
+                <ScalarProperty Name="CREATE_USER_NO" ColumnName="CREATE_USER_NO" />
+                <ScalarProperty Name="ID_PREFIX" ColumnName="ID_PREFIX" />
+                <ScalarProperty Name="ID_LENGHT" ColumnName="ID_LENGHT" />
+                <ScalarProperty Name="NEXT_ID" ColumnName="NEXT_ID" />
+                <ScalarProperty Name="IS_AUTO_ID" ColumnName="IS_AUTO_ID" />
+                <ScalarProperty Name="IS_NEW_TRANSMIT" ColumnName="IS_NEW_TRANSMIT" />
+                <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
+                <ScalarProperty Name="DESIGNATION" ColumnName="DESIGNATION" />
+                <ScalarProperty Name="CONTACT_ADDR" ColumnName="CONTACT_ADDR" />
+                <ScalarProperty Name="CONTACT_PERSON" ColumnName="CONTACT_PERSON" />
+                <ScalarProperty Name="DELIVERY_LOCATION" ColumnName="DELIVERY_LOCATION" />
+                <ScalarProperty Name="DEPT_EMAIL" ColumnName="DEPT_EMAIL" />
+                <ScalarProperty Name="DEPT_CONTACT" ColumnName="DEPT_CONTACT" />
+                <ScalarProperty Name="DEPT_ADDR" ColumnName="DEPT_ADDR" />
+                <ScalarProperty Name="DEPT_NAME" ColumnName="DEPT_NAME" />
+                <ScalarProperty Name="CLIENT_NO" ColumnName="CLIENT_NO" />
+                <ScalarProperty Name="DEPT_NO" ColumnName="DEPT_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SET_CLIENTS">
+            <EntityTypeMapping TypeName="ImageDbModel.SET_CLIENTS">
+              <MappingFragment StoreEntitySet="SET_CLIENTS">
+                <ScalarProperty Name="UPDATE_TIME" ColumnName="UPDATE_TIME" />
+                <ScalarProperty Name="UPDATE_LOGON_NO" ColumnName="UPDATE_LOGON_NO" />
+                <ScalarProperty Name="UPDATE_USER_NO" ColumnName="UPDATE_USER_NO" />
+                <ScalarProperty Name="CREATE_TIME" ColumnName="CREATE_TIME" />
+                <ScalarProperty Name="CREATE_LOGON_NO" ColumnName="CREATE_LOGON_NO" />
+                <ScalarProperty Name="CREATE_USER_NO" ColumnName="CREATE_USER_NO" />
+                <ScalarProperty Name="IS_ACIVE" ColumnName="IS_ACIVE" />
+                <ScalarProperty Name="EMAIL_ADDR" ColumnName="EMAIL_ADDR" />
+                <ScalarProperty Name="ATTENTION" ColumnName="ATTENTION" />
+                <ScalarProperty Name="DESIGNATION" ColumnName="DESIGNATION" />
+                <ScalarProperty Name="CONTACT_ADDR" ColumnName="CONTACT_ADDR" />
+                <ScalarProperty Name="CONTACT_PERSON" ColumnName="CONTACT_PERSON" />
+                <ScalarProperty Name="CLIENT_CONTACT" ColumnName="CLIENT_CONTACT" />
+                <ScalarProperty Name="CLIENT_ADDR" ColumnName="CLIENT_ADDR" />
+                <ScalarProperty Name="CLIENT_ALIAS" ColumnName="CLIENT_ALIAS" />
+                <ScalarProperty Name="CLIENT_NAME" ColumnName="CLIENT_NAME" />
+                <ScalarProperty Name="CLIENT_NO" ColumnName="CLIENT_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSoftwareVers">
+            <EntityTypeMapping TypeName="ImageDbModel.tblSoftwareVer">
+              <MappingFragment StoreEntitySet="tblSoftwareVer">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mergeImageDetails">
+            <EntityTypeMapping TypeName="ImageDbModel.mergeImageDetail">
+              <MappingFragment StoreEntitySet="mergeImageDetails">
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="sim_number" ColumnName="sim_number" />
+                <ScalarProperty Name="source_path" ColumnName="source_path" />
+                <ScalarProperty Name="source_file_name" ColumnName="source_file_name" />
+                <ScalarProperty Name="msisdn" ColumnName="msisdn" />
+                <ScalarProperty Name="batch" ColumnName="batch" />
+                <ScalarProperty Name="box" ColumnName="box" />
+                <ScalarProperty Name="USER_NO" ColumnName="USER_NO" />
+                <ScalarProperty Name="mergeDetailsId" ColumnName="mergeDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="details_report" FunctionName="ImageDbModel.Store.details_report">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ImageDbModel.details_report_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="source_path" ColumnName="source_path" />
+                <ScalarProperty Name="source_file_name" ColumnName="source_file_name" />
+                <ScalarProperty Name="sim_number" ColumnName="sim_number" />
+                <ScalarProperty Name="msisdn" ColumnName="msisdn" />
+                <ScalarProperty Name="agent" ColumnName="agent" />
+                <ScalarProperty Name="box" ColumnName="box" />
+                <ScalarProperty Name="batch" ColumnName="batch" />
+                <ScalarProperty Name="challan_receive_date" ColumnName="challan_receive_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="challan" ColumnName="challan" />
+                <ScalarProperty Name="LOGIN_ID" ColumnName="LOGIN_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ImageDbModel">
+        <EntityTypeShape EntityType="ImageDbModel.challan_info" Width="1.5" PointX="0.75" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ImageDbModel.ClientInfo" Width="1.5" PointX="2.75" PointY="0.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="ImageDbModel.GEN_USER_TYPES" Width="1.5" PointX="3" PointY="10.125" Height="1.7879850260416745" />
+        <EntityTypeShape EntityType="ImageDbModel.genQcReason" Width="1.5" PointX="2.75" PointY="3.75" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="ImageDbModel.imageMergesInfo" Width="1.5" PointX="4.75" PointY="0.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="ImageDbModel.Scanning" Width="1.5" PointX="4.75" PointY="4.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="ImageDbModel.SEC_USERS" Width="1.5" PointX="5.25" PointY="8.625" Height="6.7878222656250031" />
+        <EntityTypeShape EntityType="ImageDbModel.SET_CLIENT_DEPARTMENTS" Width="1.5" PointX="3" PointY="12.75" Height="5.634013671874996" />
+        <EntityTypeShape EntityType="ImageDbModel.SET_CLIENTS" Width="1.5" PointX="0.75" PointY="5.75" Height="4.6725065104166674" />
+        <AssociationConnector Association="ImageDbModel.FK_SEC_USERS_GEN_USER_TYPES" >
+          <ConnectorPoint PointX="4.5" PointY="11.018992513020837" />
+          <ConnectorPoint PointX="5.25" PointY="11.018992513020837" />
+        </AssociationConnector>
+        <AssociationConnector Association="ImageDbModel.FK_SEC_USERS_SEC_CLIENT_DEPT" >
+          <ConnectorPoint PointX="4.5" PointY="14.081411132812502" />
+          <ConnectorPoint PointX="5.25" PointY="14.081411132812502" />
+        </AssociationConnector>
+        <AssociationConnector Association="ImageDbModel.FK_SEC_USERS_SET_CLIENTS" >
+          <ConnectorPoint PointX="2.25" PointY="9.34375" />
+          <ConnectorPoint PointX="5.25" PointY="9.34375" />
+        </AssociationConnector>
+        <AssociationConnector Association="ImageDbModel.FK_SET_CLIENT_DEPARTMENTS_SET_CLIENTS" >
+          <ConnectorPoint PointX="1.5" PointY="10.422506510416667" />
+          <ConnectorPoint PointX="1.5" PointY="15.567006835937498" />
+          <ConnectorPoint PointX="3" PointY="15.567006835937498" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ImageDbModel.tblSoftwareVer" Width="1.5" PointX="7.375" PointY="0.75" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="ImageDbModel.mergeImageDetail" Width="1.5" PointX="7.5" PointY="10.625" Height="2.7494921875000031" />
+        <AssociationConnector Association="ImageDbModel.FK_mergeImageDetails_mergeImageDetails" >
+          <ConnectorPoint PointX="6.75" PointY="11.999746093750002" />
+          <ConnectorPoint PointX="7.5" PointY="11.999746093750002" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

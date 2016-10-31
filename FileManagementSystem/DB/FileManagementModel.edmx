@@ -254,6 +254,9 @@
         <Function Name="cbo_load_Box" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="challan_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="cbo_load_Box_Reset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="challan_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="cbo_load_Challan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="cbo_load_Challan_reset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Existing_Box_Batch_check" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -286,6 +289,7 @@
         </Function>
         <Function Name="ResetChallanBoxBatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="challan_id" Type="int" Mode="In" />
+          <Parameter Name="box_id" Type="int" Mode="In" />
         </Function>
         <Function Name="user_wise_report_daily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="working_user_id" Type="int" Mode="In" />
@@ -364,10 +368,14 @@
             <End Role="challan_info" EntitySet="challan_info" />
             <End Role="challan_info1" EntitySet="challan_info" />
           </AssociationSet>
-          <FunctionImport Name="cbo_load_Challan_reset" ReturnType="Collection(FileManagementDbModel.cbo_load_Challan_reset_Result)" />
           <FunctionImport Name="ResetChallanBoxBatch">
             <Parameter Name="challan_id" Mode="In" Type="Int32" />
+            <Parameter Name="box_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="cbo_load_Box_Reset" ReturnType="Collection(FileManagementDbModel.cbo_load_Box_Reset_Result)">
+            <Parameter Name="challan_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="cbo_load_Challan_reset" ReturnType="Collection(FileManagementDbModel.cbo_load_Challan_reset_Result)" />
         </EntityContainer>
         <EntityType Name="batch_info">
           <Key>
@@ -625,6 +633,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="cbo_load_Box_Reset_Result">
+          <Property Type="Int32" Name="box_info_id" Nullable="false" />
+          <Property Type="String" Name="box_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
         <ComplexType Name="cbo_load_Challan_reset_Result">
           <Property Type="Int32" Name="Challan_id" Nullable="false" />
           <Property Type="String" Name="challan_name" Nullable="true" MaxLength="158" />
@@ -843,6 +855,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ResetChallanBoxBatch" FunctionName="FileManagementDbModel.Store.ResetChallanBoxBatch" />
+          <FunctionImportMapping FunctionImportName="cbo_load_Box_Reset" FunctionName="FileManagementDbModel.Store.cbo_load_Box_Reset">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FileManagementDbModel.cbo_load_Box_Reset_Result">
+                <ScalarProperty Name="box_info_id" ColumnName="box_info_id" />
+                <ScalarProperty Name="box_name" ColumnName="box_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="cbo_load_Challan_reset" FunctionName="FileManagementDbModel.Store.cbo_load_Challan_reset">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FileManagementDbModel.cbo_load_Challan_reset_Result">
@@ -851,7 +872,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ResetChallanBoxBatch" FunctionName="FileManagementDbModel.Store.ResetChallanBoxBatch" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
