@@ -141,8 +141,8 @@ namespace FileManagementSystem
             else
             {
                 lblNotice.Text = "Service is running...";
-                using (TransactionScope tran = new TransactionScope())
-                {
+                //using (TransactionScope tran = new TransactionScope())
+                //{
                     try
                     {
                         #region update counter
@@ -219,7 +219,7 @@ namespace FileManagementSystem
                         }
                         #endregion
                         //timer1.Enabled = true;
-                        tran.Complete();
+                        //tran.Complete();
                         
                     }
 
@@ -264,7 +264,7 @@ namespace FileManagementSystem
                             //BoxBatchAssignToUser();
                         }
                     }
-                }
+                //}
                 
             }
         }
